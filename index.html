@@ -4,7 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ravi Dronamraju — Berlin open-data projects</title>
-<meta name="description" content="Ravi Dronamraju builds open-data dashboards about Berlin: rents, property prices, cinema showtimes, worker co-ops. Public data, no tracking.">
+<meta name="description" content="Ravi Dronamraju is a data analyst in Berlin. He builds free open-data maps: cinema showtimes, property prices, rent indexes, and worker co-ops.">
+<link rel="canonical" href="https://ravidvr.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ravi Dronamraju — Berlin open-data projects">
+<meta property="og:description" content="Free maps that show what is happening in Berlin: cinema showtimes, property prices, rent indexes, worker co-ops.">
+<meta property="og:url" content="https://ravidvr.github.io/">
+<meta name="theme-color" content="#f8f9fa">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
 <style>
 :root{
@@ -32,7 +38,8 @@ h2{font-size:13px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text
 .card:hover{box-shadow:0 6px 20px rgba(0,0,0,.07);transform:translateY(-2px)}
 .card .emoji{font-size:26px;margin-bottom:10px}
 .card h3{font-size:17px;font-weight:700;margin-bottom:6px}
-.card p{font-size:14px;color:var(--text-dim);flex:1;margin-bottom:16px}
+.card p{font-size:14px;color:var(--text-dim);flex:1;margin-bottom:10px}
+.card .stats{font-size:12px;color:var(--accent2);font-weight:600;margin-bottom:14px}
 .card .actions{display:flex;gap:10px}
 .card .actions a{font-size:13px;font-weight:600;text-decoration:none;padding:6px 14px;border-radius:6px}
 .card .actions .live{background:var(--accent);color:#fff}
@@ -67,7 +74,8 @@ footer a{color:var(--accent2);text-decoration:none;cursor:pointer}
     <div class="card">
       <div class="emoji">🎬</div>
       <h3>getlos — Berlin Cinema Map</h3>
-      <p>Every movie screening in Berlin on one interactive map. ~85 cinemas, ~1,900 showtimes, DE/EN/OV/OmU language filters, distance &amp; walk time, next-screening countdown. Refreshes itself daily.</p>
+      <p>Every movie screening in Berlin on one interactive map. Search a film and the pins turn green where you can still catch it. Distance, walk time, and language filters included.</p>
+      <div class="stats">85 cinemas · 1,900 showtimes · refreshes daily</div>
       <div class="actions">
         <a class="live" href="https://ravidvr.github.io/getlos/dashboard.html">Open map</a>
         <a class="code" href="https://github.com/ravidvr/getlos">Code</a>
@@ -77,7 +85,8 @@ footer a{color:var(--accent2);text-decoration:none;cursor:pointer}
     <div class="card">
       <div class="emoji">🏠</div>
       <h3>Berlin Property Market</h3>
-      <p>20,789 notarised sale transactions from the official Gutachterausschuss Marktbericht 2024/25 — prices per m², districts, building age, and the patterns the headlines miss.</p>
+      <p>Real sale prices from notarised contracts — no estimates, no asking prices. Shows where new homes get built versus where people want to buy, and which districts are still fairly priced.</p>
+      <div class="stats">20,789 transactions · 6 official sources · 14 metrics</div>
       <div class="actions">
         <a class="live" href="https://ravidvr.github.io/berlin-property-market/">Open dashboard</a>
         <a class="code" href="https://github.com/ravidvr/berlin-property-market">Code</a>
@@ -87,7 +96,8 @@ footer a{color:var(--accent2);text-decoration:none;cursor:pointer}
     <div class="card">
       <div class="emoji">📊</div>
       <h3>Mietspiegel Digitization</h3>
-      <p>Official German city rent indexes (Mietspiegel), liberated from PDFs into a standardized, searchable database with an interactive map — compare regulated rents across cities.</p>
+      <p>Berlin rents block by block: market listings, census data, and the legally binding Mietspiegel layered on one map — compare what landlords ask with what the law says.</p>
+      <div class="stats">400,505 address points · 3 independent sources</div>
       <div class="actions">
         <a class="live" href="https://ravidvr.github.io/mietspiegel-digitization/">Open dashboard</a>
         <a class="code" href="https://github.com/ravidvr/mietspiegel-digitization">Code</a>
@@ -97,7 +107,8 @@ footer a{color:var(--accent2);text-decoration:none;cursor:pointer}
     <div class="card">
       <div class="emoji">🤝</div>
       <h3>German Worker Co-ops</h3>
-      <p>Community-curated directory of worker-owned businesses (Produktivgenossenschaften) across Germany — who they are, what they do, where to find them.</p>
+      <p>A directory of businesses where the workers own the company. Aggregated and deduplicated from grassroots sources, with governance classifications for every entry.</p>
+      <div class="stats">60 verified co-ops · 44 sectors · open data</div>
       <div class="actions">
         <a class="live" href="https://ravidvr.github.io/german-worker-coops/">Open directory</a>
         <a class="code" href="https://github.com/ravidvr/german-worker-coops">Code</a>
