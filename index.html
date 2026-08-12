@@ -3,359 +3,271 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ravi Dronamraju</title>
-<meta name="description" content="Senior Data Analyst in Berlin. 14 years at Delivery Hero, Zalando, OLX. Open to opportunities.">
+<title>Ravi Dronamraju — Senior Data Analyst, Berlin</title>
+<meta name="description" content="Senior Data Analyst in Berlin. 14 years at Delivery Hero, Zalando, and OLX. Building open-data tools for Berlin.">
 <meta property="og:title" content="Ravi Dronamraju — Senior Data Analyst, Berlin">
 <meta property="og:description" content="14 years turning data into decisions. Building open-data tools for Berlin.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#000">
+<meta name="theme-color" content="#faf9f6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+:root{
+  --paper:#faf9f6;
+  --ink:#17171a;
+  --muted:#6c6c70;
+  --faint:#a6a6aa;
+  --line:#e7e4dd;
+  --accent:#2b3fd4;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
 *{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  background:#000;color:#fff;line-height:1.5;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  line-height:1.6;-webkit-font-smoothing:antialiased;
+  font-size:16px;
 }
-a{color:#5b8def;text-decoration:none}a:hover{color:#79b8ff}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);transition:border-color .2s,color .2s}
+a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+::selection{background:var(--ink);color:var(--paper)}
 
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:10;
-  padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between;
-  background:rgba(0,0,0,0.9);backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(255,255,255,0.08);
-  font-size:13px;
+.wrap{max-width:660px;margin:0 auto;padding:0 28px}
+
+/* ─── Top bar ─── */
+.top{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:32px 0 0;font-family:var(--mono);font-size:12px;color:var(--muted);
 }
-nav .n{font-weight:700;color:#fff}
-nav .r{display:flex;gap:16px;align-items:center}
-nav .r span{font-size:10px;padding:3px 10px;background:rgba(72,187,120,0.12);color:#48bb78;border-radius:10px;font-weight:700}
-nav .r a,nav .r button{font-size:11px;color:#666;font-weight:500;border:none;background:none;cursor:pointer}
-nav .r a:hover,nav .r button:hover{color:#fff}
-
-main{padding-top:64px}
-section{padding:0 40px}
-
-/* ─── HERO ─── */
-.hero{padding:120px 40px 100px;max-width:960px;margin:0 auto}
-.hero h1{font-size:clamp(48px,8vw,96px);font-weight:800;letter-spacing:-2px;line-height:0.94}
-.hero h1 i{font-style:normal;color:#5b8def}
-.hero .loc{font-size:14px;color:#666;margin-top:16px;font-family:SF Mono,Menlo,monospace}
-.hero .loc span{color:#888}
-.hero p{font-size:18px;color:#999;margin-top:24px;max-width:600px;line-height:1.7}
-.hero p b{color:#ddd;font-weight:600}
-.hero .cta{display:flex;gap:10px;margin-top:32px;flex-wrap:wrap}
-.hero .cta a{font-size:14px;font-weight:600;padding:12px 24px;border-radius:8px;transition:all .15s}
-.hero .cta a.primary{background:#5b8def;color:#fff}
-.hero .cta a.primary:hover{background:#79b8ff}
-.hero .cta a.ghost{color:#888;border:1px solid rgba(255,255,255,0.12)}
-.hero .cta a.ghost:hover{color:#fff;border-color:rgba(255,255,255,0.3)}
-
-/* ─── KPI ─── */
-.kpi{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06)}
-.kpi .k{border-right:1px solid rgba(255,255,255,0.06);padding:32px 24px;text-align:center}
-.kpi .k:last-child{border-right:none}
-.kpi .k .v{font-size:42px;font-weight:800;color:#5b8def;line-height:1;font-family:SF Mono,Menlo,monospace}
-.kpi .k .l{font-size:10px;color:#666;text-transform:uppercase;letter-spacing:1.5px;margin-top:8px}
-.kpi .k .s{font-size:10px;color:#444;margin-top:3px}
-
-/* ─── PROJECTS ─── */
-.projects{max-width:1100px;margin:0 auto;padding:80px 40px}
-.projects h2{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#555;margin-bottom:32px;font-weight:700}
-.proj{display:grid;grid-template-columns:1.2fr 0.8fr;margin-bottom:1px;border:1px solid rgba(255,255,255,0.05);border-radius:10px;overflow:hidden;transition:border-color .2s}
-.proj:hover{border-color:rgba(255,255,255,0.12)}
-.proj+.proj{margin-top:16px}
-.proj .vis{min-height:280px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:#050508;border-right:1px solid rgba(255,255,255,0.05)}
-.proj .vis .g{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.012) 1px,transparent 1px);background-size:32px 32px}
-.proj .vis .dots{position:absolute;inset:0;opacity:0.28}
-.proj .vis .dots i{position:absolute;width:5px;height:5px;border-radius:50%}
-.proj .vis .vals{display:flex;gap:40px;position:relative;z-index:2;flex-wrap:wrap;justify-content:center;padding:24px}
-.proj .vis .vals .m{text-align:center}
-.proj .vis .vals .m .n{font-size:42px;font-weight:800;line-height:1;font-family:SF Mono,Menlo,monospace}
-.proj .vis .vals .m .t{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:0.8px;margin-top:5px}
-.proj .vis .vals .m .d{font-size:10px;color:#444;margin-top:2px}
-.proj .vis a.lk{position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;text-decoration:none;cursor:pointer}
-.proj .vis a.lk:hover{background:rgba(91,141,239,0.03)}
-.proj .vis a.lk span{display:none;font-size:14px;color:#5b8def;font-weight:700;background:#111;padding:10px 22px;border-radius:8px;border:1px solid rgba(255,255,255,0.08)}
-.proj .vis a.lk:hover span{display:block}
-.proj .info{padding:32px;display:flex;flex-direction:column;justify-content:center}
-.proj .info .num{font-size:10px;color:#444;font-family:SF Mono,Menlo,monospace;margin-bottom:6px}
-.proj .info h3{font-size:22px;font-weight:700;margin-bottom:10px;letter-spacing:-0.3px}
-.proj .info p{font-size:13px;color:#888;line-height:1.7;margin-bottom:16px}
-.proj .info .tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
-.proj .info .tags span{font-size:10px;padding:3px 8px;border-radius:4px;font-family:SF Mono,Menlo,monospace;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);color:#555}
-.proj .info .btns{display:flex;gap:8px}
-.proj .info .btns a{font-size:12px;font-weight:600;padding:8px 18px;border-radius:6px;transition:all .15s}
-.proj .info .btns a.go{background:#5b8def;color:#fff}
-.proj .info .btns a.go:hover{background:#79b8ff}
-.proj .info .btns a.src{color:#888;border:1px solid rgba(255,255,255,0.1)}
-.proj .info .btns a.src:hover{color:#fff;border-color:rgba(255,255,255,0.2)}
-
-/* ─── TIMELINE ─── */
-.timeline{padding:80px 40px 0;max-width:960px;margin:0 auto}
-.timeline h2{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#555;margin-bottom:32px;font-weight:700}
-.tl-scroll{overflow-x:auto;padding-bottom:12px}
-.tl-scroll::-webkit-scrollbar{height:3px}
-.tl-scroll::-webkit-scrollbar-track{background:transparent}
-.tl-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px}
-.tl{display:flex;position:relative;width:max-content;padding:20px 0 16px}
-.tl::before{content:'';position:absolute;top:14px;left:0;right:0;height:2px;background:linear-gradient(to right,#f59e0b 0%,#f59e0b 43%,#5b8def 50%,#48bb78 57%,#48bb78 100%)}
-.tl .item{flex:0 0 200px;text-align:center;position:relative;padding:0 8px}
-.tl .item .dot{width:9px;height:9px;background:#5b8def;border-radius:50%;border:2px solid #000;margin:0 auto 12px;position:relative;z-index:1}
-.tl .item .dot.now{background:#48bb78;border-color:#48bb78}
-.tl .item .card{background:#0a0a0a;border:1px solid rgba(255,255,255,0.05);border-radius:6px;padding:14px;text-align:left;margin-top:12px}
-.tl .item .card .co{font-weight:700;font-size:14px}
-.tl .item .card .ro{font-size:10px;color:#5b8def;margin-top:2px;font-weight:600}
-.tl .item .card .yr{font-size:10px;color:#555;margin-top:3px;font-family:SF Mono,Menlo,monospace}
-.tl .item .card .lo{font-size:10px;color:#555}
-.tl .item .card .tx{font-size:11px;color:#777;margin-top:6px;line-height:1.5}
-
-/* ─── SKILLS ─── */
-.skills{padding:80px 40px;max-width:960px;margin:0 auto}
-.skills h2{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#555;margin-bottom:24px;font-weight:700}
-.skills .row{display:flex;flex-wrap:wrap;gap:8px}
-.skills .row span{font-size:12px;padding:5px 14px;border-radius:5px;font-weight:500;background:rgba(91,141,239,0.06);border:1px solid rgba(91,141,239,0.12);color:#5b8def}
-
-/* ─── FOOTER ─── */
-footer{border-top:1px solid rgba(255,255,255,0.06);padding:40px;text-align:center;font-size:11px;color:#444}
-footer a{color:#444}footer a:hover{color:#888}
-footer .imp{font-size:10px;margin-top:8px;line-height:1.8}
-
-@media(max-width:860px){
-  nav{padding:0 20px}
-  .hero{padding:80px 20px 60px}.hero h1{font-size:clamp(36px,10vw,64px)}
-  .kpi{grid-template-columns:1fr 1fr}.kpi .k{border-bottom:1px solid rgba(255,255,255,0.06)}
-  .proj{grid-template-columns:1fr}.proj .vis{border-right:none;border-bottom:1px solid rgba(255,255,255,0.05);min-height:200px}
-  .proj .info{padding:24px}
-  .projects,.timeline,.skills{padding-left:20px;padding-right:20px}
-  section{padding:0 20px}
+.top .mark{font-size:13px;color:var(--ink);font-weight:500}
+.top .sw{display:flex;gap:18px}
+.top button{
+  background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:12px;
+  color:var(--muted);border-bottom:1px solid transparent;padding:0;
 }
-@media(max-width:600px){
-  nav{padding:0 14px;height:52px}
-  .hero{padding:60px 14px 40px}.hero h1{font-size:36px;letter-spacing:-1px}.hero p{font-size:15px}
-  .kpi .k{padding:20px 12px}.kpi .k .v{font-size:32px}
-  .proj .vis{min-height:160px}.proj .vis .vals{gap:18px;padding:14px}.proj .vis .vals .m .n{font-size:28px}
-  .proj .info{padding:18px 14px}.proj .info h3{font-size:18px}
-  .projects,.timeline,.skills{padding-left:14px;padding-right:14px}
-  section{padding:0 14px}
-  footer{padding:28px 14px}
-  .tl .item{flex:0 0 170px}
+.top button:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+/* ─── Header ─── */
+header{padding:96px 0 24px}
+header h1{
+  font-family:var(--serif);font-weight:500;font-size:clamp(52px,11vw,88px);
+  line-height:1.02;letter-spacing:-0.01em;
 }
-@media print{body{background:#fff;color:#000}nav,.hero .cta,.proj .info .btns{display:none}.proj{break-inside:avoid;border:1px solid #ccc}}
+header h1 em{font-style:italic;font-weight:400;color:var(--muted)}
+header .role{margin-top:24px;font-size:17px;color:var(--muted)}
+header .role b{color:var(--ink);font-weight:500}
+header .lead{
+  margin-top:20px;font-family:var(--serif);font-size:21px;line-height:1.5;
+  color:var(--ink);max-width:34em;
+}
+
+/* ─── Section label ─── */
+.label{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--faint);padding-top:88px;margin-bottom:32px;
+}
+
+/* ─── Projects ─── */
+.work .item{padding:32px 0;border-top:1px solid var(--line)}
+.work .item:last-child{border-bottom:1px solid var(--line)}
+.work .item .row{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.work .item h2{font-family:var(--serif);font-weight:500;font-size:26px;letter-spacing:-0.01em}
+.work .item h2 a{border-bottom:none}
+.work .item h2 a:hover{color:var(--accent)}
+.work .item .yr{font-family:var(--mono);font-size:12px;color:var(--faint);white-space:nowrap}
+.work .item p{font-size:15px;color:var(--muted);margin-top:10px;max-width:38em}
+.work .item .meta{font-family:var(--mono);font-size:12px;color:var(--faint);margin-top:14px}
+.work .item .meta b{color:var(--muted);font-weight:500}
+
+/* ─── Experience ─── */
+.exp .row{
+  display:grid;grid-template-columns:88px 1fr;gap:16px;padding:12px 0;
+  border-top:1px solid var(--line);
+}
+.exp .row:last-child{border-bottom:1px solid var(--line)}
+.exp .row .yr{font-family:var(--mono);font-size:12px;color:var(--faint);padding-top:1px}
+.exp .row .co{font-weight:500;font-size:15px}
+.exp .row .co span{display:block;font-weight:400;color:var(--muted);font-size:14px;margin-top:1px}
+.exp .row .where{grid-column:2;font-size:13px;color:var(--faint);margin-top:-6px}
+
+/* ─── Skills & languages ─── */
+.skills .line{font-size:15px;color:var(--muted);line-height:1.9}
+.skills .line b{color:var(--ink);font-weight:500}
+.skills .line .sep{color:var(--line);margin:0 6px}
+
+/* ─── Contact ─── */
+.contact{padding:40px 0 8px}
+.contact .row{display:flex;gap:24px;flex-wrap:wrap}
+.contact a{font-family:var(--mono);font-size:13px}
+
+/* ─── Footer ─── */
+footer{
+  margin-top:96px;padding:40px 0 56px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--faint);line-height:2;
+}
+footer .imp{margin-top:20px;color:var(--faint)}
+
+@media(max-width:560px){
+  .wrap{padding:0 20px}
+  header{padding:64px 0 20px}
+  header h1{font-size:44px}
+  header .lead{font-size:18px}
+  .work .item h2{font-size:22px}
+  .exp .row{grid-template-columns:72px 1fr}
+  .label{padding-top:64px}
+}
+@media print{
+  body{background:#fff;color:#000}
+  .top{display:none}
+  a{border-bottom:none}
+  .work .item,.exp .row{border-color:#ddd}
+}
 </style>
 </head>
 <body>
 
-<nav>
-  <span class="n">Ravi Dronamraju</span>
-  <div class="r">
-    <span data-i18n="open">Open to work</span>
-    <a href="https://www.linkedin.com/in/ravidvr/">LinkedIn</a>
-    <a href="https://github.com/ravidvr">GitHub</a>
-    <a href="#" id="e1">Email</a>
-    <button onclick="tl()" data-i18n="lang">DE</button>
-  </div>
-</nav>
+<div class="wrap">
 
-<main>
-<section class="hero">
-  <h1>Ravi<br><i>Dronamraju</i></h1>
-  <div class="loc">📍 <span>52.5200° N, 13.4050° E</span> — Berlin</div>
-  <p data-i18n="bio"><b>Senior Data Analyst.</b> 14 years turning data into decisions at Delivery Hero, Zalando, and OLX. I build free, open-data tools that answer real questions. Every number on this page verified against live data.</p>
-  <div class="cta">
-    <a href="https://www.linkedin.com/in/ravidvr/" class="primary">LinkedIn →</a>
-    <a href="https://github.com/ravidvr" class="ghost">GitHub</a>
-    <a href="#" class="ghost" id="e2">Email</a>
+  <div class="top">
+    <span class="mark">Ravi Dronamraju</span>
+    <div class="sw">
+      <button onclick="toggleLang()" data-i18n="lang">DE</button>
+    </div>
   </div>
-</section>
 
-<div class="kpi">
-  <div class="k"><div class="v">14</div><div class="l" data-i18n="k1">Years</div><div class="s">2011 → 2026</div></div>
-  <div class="k"><div class="v">7</div><div class="l" data-i18n="k2">Companies</div><div class="s">Bangalore → Berlin</div></div>
-  <div class="k"><div class="v">EN+DE</div><div class="l" data-i18n="k3">Languages</div><div class="s">+ Hindi · Telugu</div></div>
-  <div class="k"><div class="v">4</div><div class="l" data-i18n="k4">Projects</div><div class="s">Open source</div></div>
+  <header>
+    <h1>Ravi<br><em>Dronamraju</em></h1>
+    <div class="role"><b data-i18n="role">Senior Data Analyst</b> · <span data-i18n="loc">Berlin</span></div>
+    <p class="lead" data-i18n="lead">Fourteen years turning messy data into decisions — supply chain at Delivery Hero, product analytics at Zalando. I build free, open-data tools that answer real questions.</p>
+  </header>
+
+  <div class="label" data-i18n="s_work">Selected Work</div>
+
+  <div class="work">
+    <div class="item">
+      <div class="row">
+        <h2><a href="https://ravidvr.github.io/mietspiegel-digitization/berlin.html" target="_blank">Berlin Rent Map</a></h2>
+        <span class="yr">2025</span>
+      </div>
+      <p data-i18n="p1">Block-by-block rent data from three independent sources — Immoscout24 market rates, Zensus census rents, and the official Mietspiegel. A Rent Check tool tells you whether an asking rent is legal under the Mietpreisbremse.</p>
+      <div class="meta"><b>361 cells</b> · 12 districts · DE/EN</div>
+    </div>
+
+    <div class="item">
+      <div class="row">
+        <h2><a href="https://ravidvr.github.io/mietspiegel-digitization/" target="_blank">Mietspiegel Digitization</a></h2>
+        <span class="yr">2024–25</span>
+      </div>
+      <p data-i18n="p2">Official rent indexes from 23 German cities, extracted from government PDFs and normalized into a single structured dataset. A validated pipeline — 14 tests, 0 schema errors.</p>
+      <div class="meta"><b>23 cities</b> · 96 cells each · Python + SQL</div>
+    </div>
+
+    <div class="item">
+      <div class="row">
+        <h2><a href="https://ravidvr.github.io/getlos/dashboard.html" target="_blank">getlos — Cinema Map</a></h2>
+        <span class="yr">2024</span>
+      </div>
+      <p data-i18n="p3">Every film screening in Berlin on one map. Search a movie and the pins turn green where you can still catch it — distance, walk time, and language filters included.</p>
+      <div class="meta"><b>45 cinemas</b> · updated daily</div>
+    </div>
+
+    <div class="item">
+      <div class="row">
+        <h2><a href="https://github.com/ravidvr/german-worker-coops" target="_blank">Worker Co-ops Map</a></h2>
+        <span class="yr">2023</span>
+      </div>
+      <p data-i18n="p4">An interactive map of worker-owned cooperatives across Germany — bakeries, cafés, workshops, and community spaces.</p>
+      <div class="meta">nationwide · open data</div>
+    </div>
+  </div>
+
+  <div class="label" data-i18n="s_exp">Experience</div>
+
+  <div class="exp">
+    <div class="row"><span class="yr">2022–26</span><span class="co">Delivery Hero<span>Senior Data Analyst — Supply Chain</span></span><span class="where">Berlin</span></div>
+    <div class="row"><span class="yr">2022</span><span class="co">OLX Group<span>Senior Data Analyst — Experimentation</span></span><span class="where">Berlin</span></div>
+    <div class="row"><span class="yr">2019–22</span><span class="co">Zalando<span>Data Analyst — Product Analytics</span></span><span class="where">Berlin</span></div>
+    <div class="row"><span class="yr">2016–19</span><span class="co">Brillio<span>Senior Analytical Consultant</span></span><span class="where">Bangalore</span></div>
+    <div class="row"><span class="yr">2015–16</span><span class="co">Circus Social<span>Senior Insights Analyst</span></span><span class="where">Bangalore</span></div>
+    <div class="row"><span class="yr">2013–15</span><span class="co">Analytics Quotient<span>Data Analyst</span></span><span class="where">Bangalore</span></div>
+    <div class="row"><span class="yr">2011–12</span><span class="co">Mu Sigma<span>Data Analyst</span></span><span class="where">Bangalore</span></div>
+  </div>
+
+  <div class="label" data-i18n="s_sk">Skills</div>
+
+  <div class="skills">
+    <div class="line" data-i18n="skills">SQL<span class="sep">·</span>BigQuery<span class="sep">·</span>Python<span class="sep">·</span>A/B Testing<span class="sep">·</span>Experimentation<span class="sep">·</span>Tableau<span class="sep">·</span>Looker<span class="sep">·</span>ETL<span class="sep">·</span>dbt</div>
+    <div class="line" style="margin-top:8px" data-i18n="langs"><b>English</b> C2 · <b>German</b> B1 · <b>Hindi</b> · <b>Telugu</b></div>
+  </div>
+
+  <div class="label" data-i18n="s_ct">Contact</div>
+
+  <div class="contact">
+    <div class="row">
+      <a href="https://www.linkedin.com/in/ravidvr/" target="_blank">LinkedIn ↗</a>
+      <a href="https://github.com/ravidvr" target="_blank">GitHub ↗</a>
+      <a href="#" id="emailLink">Email ↗</a>
+    </div>
+  </div>
+
+  <footer>
+    <div>© 2026 Ravi Dronamraju · Berlin</div>
+    <div class="imp">Kiefholzstrasse 9, 12435 Berlin</div>
+  </footer>
+
 </div>
-
-<div class="projects">
-  <h2 data-i18n="s1">Projects</h2>
-
-  <div class="proj">
-    <div class="vis">
-      <div class="g"></div><div class="dots" id="da"></div>
-      <a href="https://ravidvr.github.io/mietspiegel-digitization/berlin.html" class="lk" target="_blank"><span>Open →</span></a>
-      <div class="vals">
-        <div class="m"><div class="n" style="color:#5b8def">€12.07</div><div class="t">Market /m²</div><div class="d">Immoscout24</div></div>
-        <div class="m"><div class="n" style="color:#48bb78">€7.97</div><div class="t">Census /m²</div><div class="d">Zensus 2022</div></div>
-        <div class="m"><div class="n" style="color:#f56565">+51%</div><div class="t">Premium</div><div class="d">€287/mo · 70m²</div></div>
-        <div class="m"><div class="n" style="color:#f59e0b">9/12</div><div class="t">Over cap</div><div class="d">Mietpreisbremse</div></div>
-      </div>
-    </div>
-    <div class="info">
-      <div class="num">01</div>
-      <h3>Berlin Rent Map</h3>
-      <p data-i18n="p1">Block-by-block rent data from three independent sources. Rent Check tool: enter apartment details, instantly see if the asking rent is legal under the Mietpreisbremse. 96-cell lookup, 14-test suite, 0 schema errors.</p>
-      <div class="tags"><span>Leaflet.js</span><span>Python</span><span>BigQuery</span><span>Chart.js</span><span>SQL</span><span>CI/CD</span></div>
-      <div class="btns">
-        <a href="https://ravidvr.github.io/mietspiegel-digitization/berlin.html" class="go" target="_blank">Open Dashboard</a>
-        <a href="https://github.com/ravidvr/mietspiegel-digitization" class="src" target="_blank">Source</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="proj">
-    <div class="vis">
-      <div class="g"></div><div class="dots" id="db"></div>
-      <a href="https://ravidvr.github.io/getlos/dashboard.html" class="lk" target="_blank"><span>Open →</span></a>
-      <div class="vals">
-        <div class="m"><div class="n" style="color:#5b8def">45</div><div class="t">Cinemas</div><div class="d">All Berlin</div></div>
-        <div class="m"><div class="n" style="color:#48bb78">2,651</div><div class="t">Screenings</div><div class="d">Updated daily</div></div>
-        <div class="m"><div class="n" style="color:#f59e0b">&lt;24h</div><div class="t">Freshness</div><div class="d">GitHub Actions</div></div>
-      </div>
-    </div>
-    <div class="info">
-      <div class="num">02</div>
-      <h3>getlos — Cinema Map</h3>
-      <p data-i18n="p2">Every movie screening in Berlin on one map. Search a film — pins turn green where you can still catch it. Distance, walk time, language filters. Pipeline scrapes 3 sources daily.</p>
-      <div class="tags"><span>Python</span><span>Leaflet.js</span><span>TypeScript</span><span>GitHub Actions</span></div>
-      <div class="btns">
-        <a href="https://ravidvr.github.io/getlos/dashboard.html" class="go" target="_blank">Open Map</a>
-        <a href="https://github.com/ravidvr/getlos" class="src" target="_blank">Source</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="proj">
-    <div class="vis">
-      <div class="g"></div><div class="dots" id="dc"></div>
-      <a href="https://ravidvr.github.io/mietspiegel-digitization/" class="lk" target="_blank"><span>Open →</span></a>
-      <div class="vals">
-        <div class="m"><div class="n" style="color:#5b8def">23</div><div class="t">Cities</div><div class="d">Official Mietspiegel</div></div>
-        <div class="m"><div class="n" style="color:#48bb78">96</div><div class="t">Cells each</div><div class="d">3×8×4 matrix</div></div>
-        <div class="m"><div class="n" style="color:#5b8def">14</div><div class="t">Tests</div><div class="d">Schema + sanity</div></div>
-        <div class="m"><div class="n" style="color:#48bb78">0</div><div class="t">Errors</div><div class="d">All 23 cities</div></div>
-      </div>
-    </div>
-    <div class="info">
-      <div class="num">03</div>
-      <h3>Mietspiegel Digitization</h3>
-      <p data-i18n="p3">Extracted and normalized rent indexes from 23 German cities — data locked inside government PDFs. Pipeline: PDF extraction → normalization → validation → deploy. BigQuery star schema, 10 SQL queries, LookML model.</p>
-      <div class="tags"><span>Python</span><span>SQL</span><span>BigQuery</span><span>PDF</span><span>pytest</span><span>CI/CD</span></div>
-      <div class="btns">
-        <a href="https://ravidvr.github.io/mietspiegel-digitization/" class="go" target="_blank">Open Dashboard</a>
-        <a href="https://github.com/ravidvr/mietspiegel-digitization" class="src" target="_blank">Source</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="proj">
-    <div class="vis" style="min-height:160px">
-      <div class="g"></div>
-      <a href="https://github.com/ravidvr/german-worker-coops" class="lk" target="_blank"><span>Open →</span></a>
-      <div class="vals">
-        <div class="m"><div class="n" style="color:#48bb78">DE</div><div class="t">Nationwide</div><div class="d">All Germany</div></div>
-        <div class="m"><div class="n" style="color:#5b8def">Open</div><div class="t">Data license</div><div class="d">Free to use</div></div>
-      </div>
-    </div>
-    <div class="info">
-      <div class="num">04</div>
-      <h3>Worker Co-ops Map</h3>
-      <p data-i18n="p4">Interactive map of worker-owned cooperatives across Germany. Find co-ops near you — bakeries, cafes, workshops, and community spaces.</p>
-      <div class="tags"><span>Leaflet.js</span><span>OpenStreetMap</span><span>JSON</span></div>
-      <div class="btns">
-        <a href="https://github.com/ravidvr/german-worker-coops" class="go" target="_blank">Open Map</a>
-        <a href="https://github.com/ravidvr/german-worker-coops" class="src" target="_blank">Source</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="timeline">
-  <h2 data-i18n="s2">Career Arc</h2>
-  <div class="tl-scroll"><div class="tl">
-    <div class="item"><div class="dot"></div><div class="card"><div class="co">Mu Sigma</div><div class="ro">Data Analyst</div><div class="yr">2011–2012</div><div class="lo">Bangalore</div><div class="tx">Marketing analytics, predictive modeling.</div></div></div>
-    <div class="item"><div class="dot"></div><div class="card"><div class="co">Analytics Quotient</div><div class="ro">Data Analyst</div><div class="yr">2013–2015</div><div class="lo">Bangalore</div><div class="tx">Customer analytics, segmentation, dashboards.</div></div></div>
-    <div class="item"><div class="dot"></div><div class="card"><div class="co">Circus Social</div><div class="ro">Sr Insights Analyst</div><div class="yr">2015–2016</div><div class="lo">Bangalore</div><div class="tx">Social media analytics, sentiment.</div></div></div>
-    <div class="item"><div class="dot"></div><div class="card"><div class="co">Brillio</div><div class="ro">Sr Consultant</div><div class="yr">2016–2019</div><div class="lo">Bangalore</div><div class="tx">Led analytics for a major US retailer.</div></div></div>
-    <div class="item"><div class="dot"></div><div class="card"><div class="co">Zalando</div><div class="ro">Data Analyst</div><div class="yr">2019–2022</div><div class="lo">Berlin</div><div class="tx">Product analytics. A/B testing.</div></div></div>
-    <div class="item"><div class="dot"></div><div class="card"><div class="co">OLX Group</div><div class="ro">Sr Data Analyst</div><div class="yr">Feb–May 2022</div><div class="lo">Berlin</div><div class="tx">Experimentation frameworks.</div></div></div>
-    <div class="item"><div class="dot"></div><div class="card"><div class="co">Delivery Hero</div><div class="ro">Sr Data Analyst</div><div class="yr">2022–2026</div><div class="lo">Berlin</div><div class="tx">Supply chain. 10+ countries.</div></div></div>
-    <div class="item"><div class="dot now"></div><div class="card"><div class="co" data-i18n="nc">Next Chapter</div><div class="ro" data-i18n="nct">Open to opportunities</div><div class="yr">2026–</div><div class="lo">Berlin</div><div class="tx" data-i18n="ncd">Seeking senior analytics roles.</div></div></div>
-  </div></div>
-</div>
-
-<div class="skills">
-  <h2 data-i18n="s3">Skills</h2>
-  <div class="row">
-    <span>SQL</span><span>BigQuery</span><span>Python</span><span>A/B Testing</span>
-    <span>Experimentation</span><span>Tableau</span><span>Looker</span><span>ETL</span>
-    <span>dbt</span><span>GitHub Actions</span><span>Web Scraping</span>
-  </div>
-</div>
-</main>
-
-<footer>
-  <p>© 2026 Ravi Dronamraju · Berlin</p>
-  <p style="margin-top:4px"><a href="https://www.linkedin.com/in/ravidvr/">LinkedIn</a> · <a href="https://github.com/ravidvr">GitHub</a> · <a href="#" id="fe">Email</a></p>
-  <p class="imp">Kiefholzstrasse 9, 12435 Berlin</p>
-</footer>
 
 <script>
-(function(){
-  var e=atob('ZHZycmF2aUBnbWFpbC5jb20=');
-  [document.getElementById('e1'),document.getElementById('e2'),document.getElementById('fe')].forEach(function(x){if(x)x.href='mailto:'+e;});
-})();
+(function(){var e=atob('ZHZycmF2aUBnbWFpbC5jb20=');var x=document.getElementById('emailLink');if(x)x.href='mailto:'+e;})();
 
-var I18N={
-  en:{lang:'DE',open:'Open to work',
-    bio:'<b>Senior Data Analyst.</b> 14 years turning data into decisions at Delivery Hero, Zalando, and OLX. I build free, open-data tools that answer real questions. Every number on this page verified against live data.',
-    k1:'Years',k2:'Companies',k3:'Languages',k4:'Projects',
-    s1:'Projects',s2:'Career Arc',s3:'Skills',
-    p1:'Block-by-block rent data from three independent sources. Rent Check tool: enter apartment details, instantly see if the asking rent is legal under the Mietpreisbremse. 96-cell lookup, 14-test suite, 0 schema errors.',
-    p2:'Every movie screening in Berlin on one map. Search a film — pins turn green where you can still catch it. Distance, walk time, language filters. Pipeline scrapes 3 sources daily.',
-    p3:'Extracted and normalized rent indexes from 23 German cities — data locked inside government PDFs. Pipeline: PDF extraction → normalization → validation → deploy. BigQuery star schema, 10 SQL queries, LookML model.',
-    p4:'Interactive map of worker-owned cooperatives across Germany. Find co-ops near you — bakeries, cafes, workshops, and community spaces.',
-    nc:'Next Chapter',nct:'Open to opportunities',ncd:'Seeking senior analytics roles.'
+var I18N = {
+  en: {
+    lang:'DE',
+    role:'Senior Data Analyst',
+    loc:'Berlin',
+    lead:'Fourteen years turning messy data into decisions — supply chain at Delivery Hero, product analytics at Zalando. I build free, open-data tools that answer real questions.',
+    s_work:'Selected Work', s_exp:'Experience', s_sk:'Skills', s_ct:'Contact',
+    p1:'Block-by-block rent data from three independent sources — Immoscout24 market rates, Zensus census rents, and the official Mietspiegel. A Rent Check tool tells you whether an asking rent is legal under the Mietpreisbremse.',
+    p2:'Official rent indexes from 23 German cities, extracted from government PDFs and normalized into a single structured dataset. A validated pipeline — 14 tests, 0 schema errors.',
+    p3:'Every film screening in Berlin on one map. Search a movie and the pins turn green where you can still catch it — distance, walk time, and language filters included.',
+    p4:'An interactive map of worker-owned cooperatives across Germany — bakeries, cafés, workshops, and community spaces.',
+    skills:'SQL·BigQuery·Python·A/B Testing·Experimentation·Tableau·Looker·ETL·dbt',
+    langs:'English C2 · German B1 · Hindi · Telugu'
   },
-  de:{lang:'EN',open:'Auf Jobsuche',
-    bio:'<b>Senior Data Analyst.</b> 14 Jahre Erfahrung darin, Daten in Entscheidungen zu verwandeln — bei Delivery Hero, Zalando und OLX. Ich baue kostenlose Open-Data-Tools, die echte Fragen beantworten. Alle Zahlen mit Live-Daten verifiziert.',
-    k1:'Jahre',k2:'Unternehmen',k3:'Sprachen',k4:'Projekte',
-    s1:'Projekte',s2:'Werdegang',s3:'Kenntnisse',
-    p1:'Blockweise Mietdaten aus drei unabhängigen Quellen. Mietpreis-Prüfung: Details eingeben, sofort sehen ob die Miete legal ist. 96-Zellen-Tabelle, 14 Tests, 0 Schema-Fehler.',
-    p2:'Jede Filmvorführung in Berlin auf einer Karte. Film suchen — grüne Pins zeigen wo er noch läuft. Entfernung, Gehzeit, Sprachfilter. Pipeline scraped täglich 3 Quellen.',
-    p3:'Mietspiegel aus 23 deutschen Städten — Daten aus Behörden-PDFs extrahiert und normalisiert. Pipeline: PDF-Extraktion → Normalisierung → Validierung → Deployment. BigQuery Star Schema, 10 SQL-Queries, LookML-Modell.',
-    p4:'Interaktive Karte von Genossenschaften in ganz Deutschland. Finde Genossenschaften in deiner Nähe — Bäckereien, Cafés, Werkstätten, Gemeinschaftsräume.',
-    nc:'Nächstes Kapitel',nct:'Auf Jobsuche',ncd:'Suche Senior Analytics Rollen.'
+  de: {
+    lang:'EN',
+    role:'Senior Data Analyst',
+    loc:'Berlin',
+    lead:'Vierzehn Jahre Erfahrung darin, aus unübersichtlichen Daten klare Entscheidungen zu machen — Supply Chain bei Delivery Hero, Product Analytics bei Zalando. Ich baue kostenlose Open-Data-Tools, die echte Fragen beantworten.',
+    s_work:'Ausgewählte Arbeit', s_exp:'Werdegang', s_sk:'Kenntnisse', s_ct:'Kontakt',
+    p1:'Blockweise Mietdaten aus drei unabhängigen Quellen — Immoscout24-Marktpreise, Zensus-Bestandsmieten und der offizielle Mietspiegel. Ein Mietpreis-Prüfer zeigt, ob eine Miete nach der Mietpreisbremse legal ist.',
+    p2:'Offizielle Mietspiegel aus 23 deutschen Städten, aus Behörden-PDFs extrahiert und in einen strukturierten Datensatz normalisiert. Eine validierte Pipeline — 14 Tests, 0 Schema-Fehler.',
+    p3:'Jede Filmvorführung in Berlin auf einer Karte. Film suchen — die Pins werden grün, wo er noch läuft. Mit Entfernungs-, Gehzeit- und Sprachfilter.',
+    p4:'Eine interaktive Karte der Genossenschaften in ganz Deutschland — Bäckereien, Cafés, Werkstätten und Gemeinschaftsräume.',
+    skills:'SQL·BigQuery·Python·A/B Testing·Experimentation·Tableau·Looker·ETL·dbt',
+    langs:'Englisch C2 · Deutsch B1 · Hindi · Telugu'
   }
 };
-var cl='en';
-function al(){
+var cur='en';
+function applyLang(){
   document.querySelectorAll('[data-i18n]').forEach(function(el){
-    var k=el.getAttribute('data-i18n'),t=I18N[cl]&&I18N[cl][k];
-    if(!t)return;el.innerHTML=t;
+    var k=el.getAttribute('data-i18n'), t=I18N[cur]&&I18N[cur][k];
+    if(!t) return;
+    if(k==='skills'){ el.innerHTML = t.split('·').map(function(s){return '<b>'+s+'</b>';}).join('<span class="sep">·</span>'); return; }
+    if(k==='langs'){ el.innerHTML = t.replace('English C2','<b>English</b> C2').replace('German B1','<b>German</b> B1').replace('Hindi','<b>Hindi</b>').replace('Telugu','<b>Telugu</b>').replace('Englisch C2','<b>Englisch</b> C2').replace('Deutsch B1','<b>Deutsch</b> B1'); return; }
+    el.innerHTML=t;
   });
-  var tb=document.querySelector('nav button[data-i18n=lang]');
-  if(tb)tb.textContent=I18N[cl].lang;
-  localStorage.setItem('lang',cl);
+  var b=document.querySelector('.top button');
+  if(b) b.textContent = I18N[cur].lang;
+  localStorage.setItem('lang',cur);
 }
-function tl(){cl=cl==='en'?'de':'en';al();}
-var s=localStorage.getItem('lang');
-if(s==='en'||s==='de')cl=s;else cl='en';
-document.addEventListener('DOMContentLoaded',al);
-if(document.readyState!=='loading')al();
-</script>
-
-<script>
-(function(){
-  var p=[
-    ['#08519c','#08519c','#3182bd','#3182bd','#6baed6','#fd8d3c','#e6550d'],
-    ['#08519c','#3182bd','#6baed6','#3182bd','#fd8d3c'],
-    ['#08519c','#3182bd','#6baed6','#6baed6','#3182bd']
-  ];
-  [{id:'da',n:130,z:0},{id:'db',n:75,z:1},{id:'dc',n:95,z:2}].forEach(function(x){
-    var el=document.getElementById(x.id),h='',pal=p[x.z];
-    for(var i=0;i<x.n;i++)h+='<i style="left:'+(Math.random()*100)+'%;top:'+(Math.random()*100)+'%;background:'+pal[Math.floor(Math.random()*pal.length)]+'"></i>';
-    if(el)el.innerHTML=h;
-  });
-})();
+function toggleLang(){ cur = cur==='en' ? 'de' : 'en'; applyLang(); }
+var s=localStorage.getItem('lang'); if(s==='en'||s==='de') cur=s; else cur='en';
+document.addEventListener('DOMContentLoaded',applyLang);
+if(document.readyState!=='loading') applyLang();
 </script>
 </body>
 </html>
