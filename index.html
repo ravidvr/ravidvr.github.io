@@ -69,7 +69,8 @@ body{
 }
 
 /* Timeline */
-.timeline{display:flex;overflow-x:auto;gap:0;padding:44px 0 20px;position:relative;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.timeline-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.timeline{display:flex;gap:0;padding:44px 0 20px;position:relative;width:max-content;scroll-snap-type:x mandatory}
 .timeline::before{
   content:'';position:absolute;top:22px;left:0;right:0;height:3px;
   background:linear-gradient(to right,var(--warm) 0%,var(--warm) 44%,var(--accent) 50%,var(--accent2) 56%,var(--accent2) 100%);
@@ -78,6 +79,13 @@ body{
 .milestone{flex:0 0 220px;text-align:center;position:relative;padding:0 10px;scroll-snap-align:start}
 .milestone .dot{width:14px;height:14px;background:var(--accent);border-radius:50%;border:3px solid var(--bg);margin:0 auto 16px;position:relative;z-index:1}
 .milestone .dot.today{background:var(--accent2);border-color:var(--accent2)}
+/* Brief milestone — short engagement, de-emphasized */
+.milestone.brief{flex:0 0 160px}
+.milestone.brief .dot{width:10px;height:10px;background:var(--text-dim);border-color:var(--text-dim)}
+.milestone.brief .card{opacity:0.65;background:var(--bg);padding:12px}
+.milestone.brief .card:hover{opacity:0.85}
+.milestone.brief .firm{font-size:13px}
+.milestone.brief p{font-size:12px}
 .milestone .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:left;margin-top:16px}
 .milestone .firm{font-weight:700;font-size:15px;color:var(--text)}
 .milestone .role{font-size:12px;color:var(--accent);margin-top:2px;font-weight:600}
@@ -145,6 +153,7 @@ footer{border-top:1px solid var(--border);padding:32px 0;margin-top:48px}
   .hero .location{font-size:13px}
   .section{padding:32px 0}
   .section h2{margin-bottom:20px}
+  .timeline-wrap{overflow:visible}
   .timeline{flex-direction:column;overflow-x:visible;padding:24px 0 24px 24px}
   .timeline::before{top:0;bottom:0;left:8px;width:3px;height:auto;right:auto}
   .milestone{flex:none;text-align:left;padding:0 0 20px 28px}
@@ -172,6 +181,7 @@ footer{border-top:1px solid var(--border);padding:32px 0;margin-top:48px}
   body{font-size:11pt;color:#000;background:#fff}
   .hero::before{display:none}
   .btn,.btn-primary,.btn-live,.btn-code{display:none}
+  .timeline-wrap{overflow:visible}
   .timeline{flex-direction:column;overflow-x:visible}
   .timeline::before{top:0;bottom:0;left:8px;width:2px;height:auto;right:auto}
   .milestone{flex:none;page-break-inside:avoid}
@@ -197,6 +207,7 @@ footer{border-top:1px solid var(--border);padding:32px 0;margin-top:48px}
 
 <section class="section">
   <h2>Career Arc</h2>
+  <div class="timeline-wrap">
   <div class="timeline">
     <div class="milestone">
       <div class="dot"></div>
@@ -248,14 +259,14 @@ footer{border-top:1px solid var(--border);padding:32px 0;margin-top:48px}
         <p>Product analytics at Europe's largest fashion platform. 200+ A/B tests on acquisition and onboarding.</p>
       </div>
     </div>
-    <div class="milestone">
-      <div class="dot"></div>
-      <div class="card">
+    <div class="milestone brief">
+      <div class="dot brief-dot"></div>
+      <div class="card brief-card">
         <div class="firm">OLX Group</div>
         <div class="role">Senior Data Analyst</div>
         <div class="when">Feb–May 2022</div>
         <div class="where">📍 Berlin</div>
-        <p>Strengthened experimentation frameworks and aligned cross-functional analytics during a senior engagement.</p>
+        <p>Strengthened experimentation frameworks and aligned cross-functional analytics.</p>
       </div>
     </div>
     <div class="milestone">
@@ -278,6 +289,7 @@ footer{border-top:1px solid var(--border);padding:32px 0;margin-top:48px}
         <p>Seeking senior analytics, data science, or product analytics roles. Full-time, contract, or consulting.</p>
       </div>
     </div>
+  </div>
   </div>
 </section>
 
