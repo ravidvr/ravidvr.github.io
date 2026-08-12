@@ -45,6 +45,8 @@ body::before{
 .nav .nav-links{display:flex;gap:18px;align-items:center}
 .nav .nav-links a{font-size:12px;color:var(--text3);font-weight:500;transition:color .15s}
 .nav .nav-links a:hover{color:var(--text)}
+.lang-toggle{background:transparent;border:1px solid var(--border2);color:var(--text2);font-size:11px;padding:3px 8px;border-radius:4px;cursor:pointer;font-weight:600;transition:all .15s}
+.lang-toggle:hover{color:var(--text);border-color:var(--text2)}
 
 /* ─── HERO ─── */
 .hero{
@@ -227,17 +229,18 @@ footer a:hover{color:var(--text)}
 <nav class="nav">
   <span class="name">Ravi Dronamraju</span>
   <div class="nav-links">
-    <span class="status">Open to work</span>
-    <a href="https://www.linkedin.com/in/ravidvr/">LinkedIn</a>
+    <span class="badge" data-i18n="status">Open to work</span>
+    <a href="https://www.linkedin.com/in/ravidvr/" class="prim">LinkedIn</a>
     <a href="https://github.com/ravidvr">GitHub</a>
     <a href="#" id="emailLink">Email</a>
+    <button class="lang-toggle" onclick="toggleLang()" data-i18n="lang" title="Switch language">DE</button>
   </div>
 </nav>
 
 <header class="hero">
   <div>
     <h1>Data analyst.<br><span class="accent">Berlin.</span></h1>
-    <p class="sub"><strong>14 years</strong> turning messy data into decisions — supply chain at Delivery Hero, product analytics at Zalando, experimentation at OLX. I build free, open-data tools that answer real questions. All stats on this page verified against live data.</p>
+    <p class="sub" data-i18n="hero_bio"><strong data-i18n="hero_bio_strong">14 years</strong> turning messy data into decisions — supply chain at Delivery Hero, product analytics at Zalando. I build free, open-data tools that answer real questions. All stats on this page verified against live data.</p>
     <div class="cta-row">
       <a href="https://www.linkedin.com/in/ravidvr/" class="primary">LinkedIn →</a>
       <a href="https://github.com/ravidvr" class="ghost">GitHub</a>
@@ -253,7 +256,7 @@ footer a:hover{color:var(--text)}
   </div>
 </header>
 
-<div class="section-title">Projects</div>
+<div class="section-title" data-i18n="sec_projects">Projects</div>
 
 <div class="projects">
 
@@ -273,7 +276,7 @@ footer a:hover{color:var(--text)}
     </div>
     <div class="info">
       <h2>Berlin Rent Map</h2>
-      <p>Block-by-block rent data from three independent sources. Rent Check tool: enter apartment details, instantly see if the asking rent is legal under the Mietpreisbremse. 96-cell lookup table, 14-test validation suite, 0 schema errors.</p>
+      <p data-i18n="proj1_desc">Block-by-block rent data from three independent sources. Rent Check tool: enter apartment details, instantly see if the asking rent is legal under the Mietpreisbremse. 96-cell lookup table, 14-test validation suite, 0 schema errors.</p>
       <div class="tags"><span>Leaflet.js</span><span>Python</span><span>BigQuery</span><span>Chart.js</span><span>SQL</span><span>CI/CD</span></div>
       <div class="btns">
         <a href="https://ravidvr.github.io/mietspiegel-digitization/berlin.html" class="live" target="_blank">Open Dashboard</a>
@@ -297,7 +300,7 @@ footer a:hover{color:var(--text)}
     </div>
     <div class="info">
       <h2>getlos — Cinema Map</h2>
-      <p>Every movie screening in Berlin on one map. Search a film — pins turn green where you can still catch it. Distance, walk time, and language filters. Pipeline scrapes 3 sources daily.</p>
+      <p data-i18n="proj2_desc">Every movie screening in Berlin on one map. Search a film — pins turn green where you can still catch it. Distance, walk time, and language filters. Pipeline scrapes 3 sources daily.</p>
       <div class="tags"><span>Python</span><span>Leaflet.js</span><span>TypeScript</span><span>GitHub Actions</span></div>
       <div class="btns">
         <a href="https://ravidvr.github.io/getlos/dashboard.html" class="live" target="_blank">Open Map</a>
@@ -308,7 +311,7 @@ footer a:hover{color:var(--text)}
 
 </div>
 
-<div class="section-title">Career Arc</div>
+<div class="section-title" data-i18n="sec_career">Career Arc</div>
 
 <div class="timeline-section">
   <div class="timeline-wrap">
@@ -320,12 +323,12 @@ footer a:hover{color:var(--text)}
       <div class="milestone"><div class="dot"></div><div class="card"><div class="firm">Zalando</div><div class="role">Data Analyst</div><div class="when">2019–2022</div><div class="where">Berlin</div><p>Product analytics. A/B testing on acquisition and onboarding.</p></div></div>
       <div class="milestone"><div class="dot"></div><div class="card"><div class="firm">OLX Group</div><div class="role">Sr Data Analyst</div><div class="when">Feb–May 2022</div><div class="where">Berlin</div><p>Experimentation frameworks.</p></div></div>
       <div class="milestone"><div class="dot"></div><div class="card"><div class="firm">Delivery Hero</div><div class="role">Sr Data Analyst</div><div class="when">2022–2026</div><div class="where">Berlin</div><p>Supply chain analytics. Delivery networks across 10+ countries.</p></div></div>
-      <div class="milestone"><div class="dot today"></div><div class="card"><div class="firm">Next Chapter</div><div class="role">Open to opportunities</div><div class="when">2026–</div><div class="where">Berlin</div><p>Seeking senior analytics roles. Full-time, contract, or consulting.</p></div></div>
+      <div class="milestone"><div class="dot today"></div><div class="card"><div class="firm" data-i18n="next_chapter">Next Chapter</div><div class="role" data-i18n="next_title">Open to opportunities</div><div class="when">2026–</div><div class="where">Berlin</div><p data-i18n="next_desc">Seeking senior analytics roles. Full-time, contract, or consulting.</p></div></div>
     </div>
   </div>
 </div>
 
-<div class="section-title">Skills</div>
+<div class="section-title" data-i18n="sec_skills">Skills</div>
 
 <div class="skills-bar">
   <span class="primary">SQL</span><span class="primary">BigQuery</span><span class="primary">Python</span>
@@ -339,11 +342,66 @@ footer a:hover{color:var(--text)}
 </footer>
 
 <script>
+// Email decode
 (function(){
   var e=atob('ZHZycmF2aUBnbWFpbC5jb20=');
   document.querySelectorAll('[id$=mailLink],[id$=mailLink2],[id$=mail]').forEach(function(el){el.href='mailto:'+e;});
   var fe=document.getElementById('footerEmail');if(fe)fe.href='mailto:'+e;
 })();
+
+// I18N
+var I18N = {
+  en: {
+    lang:'DE', status:'Open to work',
+    hero_bio:'<strong>14 years</strong> turning messy data into decisions — supply chain at Delivery Hero, product analytics at Zalando. I build free, open-data tools that answer real questions. All stats on this page verified against live data.',
+    sec_projects:'Projects', sec_career:'Career Arc', sec_skills:'Skills',
+    proj1_desc:'Block-by-block rent data from three independent sources. Rent Check tool: enter apartment details, instantly see if the asking rent is legal under the Mietpreisbremse. 96-cell lookup table, 14-test validation suite, 0 schema errors.',
+    proj2_desc:'Every movie screening in Berlin on one map. Search a film — pins turn green where you can still catch it. Distance, walk time, and language filters. Pipeline scrapes 3 sources daily.',
+    kpi_years:'Years', kpi_companies:'Companies', kpi_langs:'Languages', kpi_projects:'Projects',
+    kpi_years_sub:'Dec 2011 → present', kpi_companies_sub:'Bangalore → Berlin', kpi_langs_sub:'+ Hindi · Telugu', kpi_projects_sub:'All open source',
+    next_title:'Open to opportunities', next_desc:'Seeking senior analytics roles. Full-time, contract, or consulting.',
+    next_chapter:'Next Chapter'
+  },
+  de: {
+    lang:'EN', status:'Auf Jobsuche',
+    hero_bio:'<strong>14 Jahre</strong> Erfahrung darin, aus unübersichtlichen Daten klare Entscheidungen abzuleiten — Supply Chain Analytics bei Delivery Hero, Product Analytics bei Zalando. Ich baue kostenlose Open-Data-Tools, die echte Fragen beantworten. Alle Zahlen auf dieser Seite sind mit Live-Daten verifiziert.',
+    sec_projects:'Projekte', sec_career:'Werdegang', sec_skills:'Kenntnisse',
+    proj1_desc:'Blockweise Mietdaten aus drei unabhängigen Quellen. Mietpreis-Prüfung: Details eingeben, sofort sehen ob die Miete legal ist. 96-Zellen-Tabelle, 14 Tests, 0 Schema-Fehler.',
+    proj2_desc:'Jede Filmvorführung in Berlin auf einer Karte. Film suchen — grüne Pins zeigen wo er noch läuft. Entfernung, Gehzeit und Sprachfilter. Pipeline scraped täglich 3 Quellen.',
+    kpi_years:'Jahre', kpi_companies:'Unternehmen', kpi_langs:'Sprachen', kpi_projects:'Projekte',
+    kpi_years_sub:'Dez 2011 → heute', kpi_companies_sub:'Bangalore → Berlin', kpi_langs_sub:'+ Hindi · Telugu', kpi_projects_sub:'Alle Open Source',
+    next_title:'Auf Jobsuche', next_desc:'Suche Senior Analytics Rollen. Vollzeit, Vertrag oder Beratung.',
+    next_chapter:'Nächstes Kapitel'
+  }
+};
+var currentLang = 'en';
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key = el.getAttribute('data-i18n');
+    var text = I18N[currentLang] && I18N[currentLang][key];
+    if(!text) return;
+    if(el.tagName === 'SPAN' && el.closest('.hero-stats') && el.classList.contains('hs')){
+      // Skip stat tiles — numbers don't change
+      return;
+    }
+    el.innerHTML = text;
+  });
+  // Update lang toggle
+  var toggle = document.querySelector('.lang-toggle');
+  if(toggle) toggle.textContent = I18N[currentLang].lang;
+  localStorage.setItem('lang', currentLang);
+}
+function toggleLang(){
+  currentLang = currentLang === 'en' ? 'de' : 'en';
+  applyLang();
+}
+// Restore saved language
+var saved = localStorage.getItem('lang');
+if(saved && (saved === 'en' || saved === 'de')){ currentLang = saved; } else { currentLang = 'en'; }
+// Apply on load
+document.addEventListener('DOMContentLoaded', function(){ applyLang(); });
+// Apply immediately if DOM already loaded
+if(document.readyState !== 'loading') applyLang();
 
 // Scatter dots
 (function(){
