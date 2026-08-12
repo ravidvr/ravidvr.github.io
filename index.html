@@ -3,388 +3,360 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ravi Dronamraju — Senior Data Analyst, Berlin</title>
-<meta name="description" content="Ravi Dronamraju is a Senior Data Analyst in Berlin with 14 years in supply chain, product, and marketing analytics. Open to opportunities.">
-<meta name="referrer" content="no-referrer">
-<link rel="canonical" href="https://ravidvr.github.io/">
-<meta property="og:type" content="website">
+<title>Ravi Dronamraju — Senior Data Analyst</title>
+<meta name="description" content="Senior Data Analyst in Berlin. 14 years turning data into decisions at Delivery Hero, Zalando, OLX. Open to opportunities.">
 <meta property="og:title" content="Ravi Dronamraju — Senior Data Analyst, Berlin">
 <meta property="og:description" content="14 years in supply chain, product, and marketing analytics. Building open-data maps for Berlin.">
-<meta property="og:url" content="https://ravidvr.github.io/">
-<meta name="theme-color" content="#f8fafc">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0d1117">
 <style>
-:root {
-  --bg: #f8fafc;
-  --surface: #ffffff;
-  --text: #1a1a2e;
-  --text-dim: #5f6b7a;
-  --accent: #2563eb;
-  --accent2: #059669;
-  --warm: #d97706;
-  --border: #e2e8f0;
-  --radius: 12px;
+:root{
+  --bg:#0a0c10;--surface:#11151d;--surface2:#181d28;
+  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);
+  --text:#e6edf3;--text2:#8b949e;--text3:#484f58;
+  --blue:#5b8def;--green:#48bb78;--orange:#f59e0b;--red:#f56565;
+  --grid:rgba(255,255,255,0.015);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-  background:var(--bg);color:var(--text);
-  line-height:1.6;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.5;
+  -webkit-font-smoothing:antialiased;
 }
-.wrap{max-width:1100px;margin:0 auto;padding:0 32px}
+a{color:var(--blue);text-decoration:none}
 
-/* Hero */
-.hero{text-align:center;padding:80px 0 64px;position:relative;overflow:hidden}
-.hero::before{
-  content:'';position:absolute;top:-100px;right:-100px;
-  width:400px;height:400px;
-  background:radial-gradient(circle,rgba(37,99,235,.06) 0%,transparent 70%);
-  pointer-events:none;
-}
-.hero h1{font-size:48px;font-weight:800;letter-spacing:-.5px}
-.hero .role{font-size:19px;color:var(--text-dim);max-width:660px;margin:12px auto 0}
-.hero .location{font-size:14px;color:var(--text-dim);margin-top:8px}
-.ctas{display:flex;gap:12px;justify-content:center;margin-top:24px;flex-wrap:wrap}
-.btn-primary,.btn{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:10px 20px;border-radius:8px;
-  font-size:14px;font-weight:600;text-decoration:none;
-  transition:all .15s;
-}
-.btn-primary{background:var(--accent);color:#fff;border:2px solid var(--accent)}
-.btn-primary:hover{background:#1d4ed8;border-color:#1d4ed8}
-.btn{background:var(--surface);color:var(--text);border:2px solid var(--border)}
-.btn:hover{border-color:var(--accent);color:var(--accent)}
-
-/* Sections */
-.section{padding:56px 0}
-.section h2{font-size:13px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:28px;font-weight:700}
-
-/* ── Two-column layout for skills + projects on desktop ── */
-.main-grid{display:grid;grid-template-columns:1fr 2fr;gap:40px;align-items:start}
-.main-grid .skills-col{position:sticky;top:32px}
-@media(max-width:860px){
-  .main-grid{grid-template-columns:1fr;gap:0}
-  .main-grid .skills-col{position:static}
+/* Grid overlay on body */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:40px 40px;
 }
 
-/* Timeline */
-.timeline-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.timeline{display:flex;gap:0;padding:44px 0 20px;position:relative;width:max-content;scroll-snap-type:x mandatory}
+/* ─── TOP BAR ─── */
+.nav{
+  position:sticky;top:0;z-index:100;background:rgba(10,12,16,0.88);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);padding:0 24px;height:48px;
+  display:flex;align-items:center;justify-content:space-between;font-size:13px;
+}
+.nav .name{font-weight:700;color:var(--text);letter-spacing:-0.2px}
+.nav .status{font-size:10px;padding:2px 10px;background:rgba(72,187,120,0.12);color:var(--green);border-radius:10px;font-weight:700}
+.nav .nav-links{display:flex;gap:18px;align-items:center}
+.nav .nav-links a{font-size:12px;color:var(--text3);font-weight:500;transition:color .15s}
+.nav .nav-links a:hover{color:var(--text)}
+
+/* ─── HERO ─── */
+.hero{
+  padding:100px 24px 80px;max-width:1000px;margin:0 auto;
+  display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center;
+  position:relative;z-index:1;
+}
+.hero h1{font-size:64px;font-weight:800;letter-spacing:-1.5px;line-height:1.05}
+.hero h1 .accent{color:var(--blue)}
+.hero .sub{font-size:18px;color:var(--text2);margin-top:16px;max-width:440px;line-height:1.7}
+.hero .sub strong{color:var(--text)}
+.hero .cta-row{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
+.hero .cta-row a{
+  font-size:13px;font-weight:600;padding:8px 18px;border-radius:6px;
+  transition:all .15s;display:inline-flex;align-items:center;gap:6px;
+}
+.hero .cta-row a.primary{background:var(--blue);color:#fff}
+.hero .cta-row a.primary:hover{background:#79b8ff}
+.hero .cta-row a.ghost{background:transparent;color:var(--text2);border:1px solid var(--border2)}
+.hero .cta-row a.ghost:hover{border-color:var(--text2);color:var(--text)}
+
+/* Stat cards in hero */
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hero-stats .hs{
+  background:var(--surface);border:1px solid var(--border);border-radius:6px;
+  padding:16px;text-align:center;
+}
+.hero-stats .hs .n{font-size:30px;font-weight:800;color:var(--blue);line-height:1}
+.hero-stats .hs .l{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+.hero-stats .lang-row{grid-column:1/-1;display:flex;gap:8px;justify-content:center;font-size:11px;color:var(--text3);padding-top:4px}
+.hero-stats .lang-row span{color:var(--text2);font-weight:500}
+
+/* ─── SECTION TITLES ─── */
+.section-title{
+  max-width:1000px;margin:0 auto;padding:0 24px 16px;
+  font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--text3);font-weight:700;
+}
+
+/* ─── PROJECTS ─── */
+.projects{max-width:1000px;margin:0 auto;padding:0 24px 60px;position:relative;z-index:1}
+.project{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:1px;
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;
+  transition:border-color .2s;
+}
+.project:hover{border-color:var(--border2)}
+.project .preview{
+  min-height:280px;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;background:var(--bg);
+  border-right:1px solid var(--border);
+}
+.project .preview .p-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+.project .preview .p-dots{position:absolute;inset:0;opacity:0.35}
+.project .preview .p-dots i{position:absolute;width:4px;height:4px;border-radius:50%}
+.project .preview .p-stats{display:flex;gap:40px;position:relative;z-index:2;flex-wrap:wrap;justify-content:center;padding:30px}
+.project .preview .p-stats .ps{text-align:center}
+.project .preview .p-stats .ps .v{font-size:42px;font-weight:800;line-height:1;font-family:SF Mono,Menlo,monospace}
+.project .preview .p-stats .ps .t{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-top:4px}
+.project .preview .p-stats .ps .d{font-size:10px;color:var(--text2);margin-top:2px}
+.project .preview a.go{
+  position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;
+  text-decoration:none;cursor:pointer;
+}
+.project .preview a.go:hover{background:rgba(91,141,239,0.04)}
+.project .preview a.go .go-text{
+  display:none;font-size:14px;color:var(--blue);font-weight:700;
+  background:var(--surface);padding:10px 20px;border-radius:8px;border:1px solid var(--border);
+}
+.project .preview a.go:hover .go-text{display:block}
+
+.project .info{padding:28px 32px;display:flex;flex-direction:column;justify-content:center}
+.project .info h2{font-size:20px;font-weight:700;margin-bottom:8px;letter-spacing:-0.2px}
+.project .info p{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:14px}
+.project .info .tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.project .info .tags span{
+  font-size:10px;padding:2px 8px;border-radius:4px;font-family:SF Mono,Menlo,monospace;
+  background:var(--surface2);border:1px solid var(--border);color:var(--text3);
+}
+.project .info .btns{display:flex;gap:8px}
+.project .info .btns a{
+  font-size:12px;font-weight:600;padding:7px 16px;border-radius:6px;transition:all .15s;
+}
+.project .info .btns a.live{background:var(--blue);color:#fff}
+.project .info .btns a.live:hover{background:#79b8ff}
+.project .info .btns a.src{background:transparent;color:var(--text2);border:1px solid var(--border2)}
+.project .info .btns a.src:hover{border-color:var(--text2);color:var(--text)}
+
+/* ─── TIMELINE ─── */
+.timeline-section{max-width:1000px;margin:0 auto;padding:0 24px 60px;position:relative;z-index:1}
+.timeline-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px}
+.timeline-wrap::-webkit-scrollbar{height:4px}
+.timeline-wrap::-webkit-scrollbar-track{background:transparent}
+.timeline-wrap::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.timeline{display:flex;gap:0;position:relative;width:max-content;padding:24px 0 20px}
 .timeline::before{
-  content:'';position:absolute;top:22px;left:0;right:0;height:3px;
-  background:linear-gradient(to right,var(--warm) 0%,var(--warm) 44%,var(--accent) 50%,var(--accent2) 56%,var(--accent2) 100%);
-  border-radius:2px;
+  content:'';position:absolute;top:13px;left:0;right:0;height:2px;
+  background:linear-gradient(to right,var(--orange) 0%,var(--orange) 43%,var(--blue) 50%,var(--green) 57%,var(--green) 100%);
+  border-radius:1px;
 }
-.milestone{flex:0 0 220px;text-align:center;position:relative;padding:0 10px;scroll-snap-align:start}
-.milestone .dot{width:14px;height:14px;background:var(--accent);border-radius:50%;border:3px solid var(--bg);margin:0 auto 16px;position:relative;z-index:1}
-.milestone .dot.today{background:var(--accent2);border-color:var(--accent2)}
-/* Brief milestone — short engagement, de-emphasized */
-.milestone.brief{flex:0 0 160px}
-.milestone.brief .dot{width:10px;height:10px;background:var(--text-dim);border-color:var(--text-dim)}
-.milestone.brief .card{opacity:0.65;background:var(--bg);padding:12px}
-.milestone.brief .card:hover{opacity:0.85}
-.milestone.brief .firm{font-size:13px}
-.milestone.brief p{font-size:12px}
-.milestone .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:left;margin-top:16px}
-.milestone .firm{font-weight:700;font-size:15px;color:var(--text)}
-.milestone .role{font-size:12px;color:var(--accent);margin-top:2px;font-weight:600}
-.milestone .when{font-size:12px;color:var(--text-dim);margin-top:2px}
-.milestone .where{font-size:12px;color:var(--text-dim)}
-.milestone p{font-size:13px;color:var(--text-dim);margin-top:8px;line-height:1.5}
+.milestone{flex:0 0 190px;text-align:center;position:relative;padding:0 8px}
+.milestone .dot{width:10px;height:10px;background:var(--blue);border-radius:50%;border:2px solid var(--bg);margin:0 auto 14px;position:relative;z-index:1}
+.milestone .dot.today{background:var(--green);border-color:var(--green)}
+.milestone .dot.brief{width:7px;height:7px;background:var(--text3)}
+.milestone .card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:14px;text-align:left;margin-top:14px}
+.milestone .card.brief-card{opacity:0.55;padding:10px}
+.milestone .card.brief-card:hover{opacity:0.75}
+.milestone .firm{font-weight:700;font-size:14px}
+.milestone .role{font-size:11px;color:var(--blue);margin-top:1px;font-weight:600}
+.milestone .when{font-size:11px;color:var(--text3);margin-top:2px;font-family:SF Mono,Menlo,monospace}
+.milestone .where{font-size:11px;color:var(--text3)}
+.milestone p{font-size:12px;color:var(--text2);margin-top:6px;line-height:1.5}
 
-/* Stat tiles */
-.stats-grid{display:flex;gap:16px;flex-wrap:wrap}
-.stat-tile{flex:1 1 140px;min-width:140px;padding:24px 20px;border-radius:var(--radius);text-align:center;background:var(--surface);border:1px solid var(--border)}
-.stat-number{font-size:42px;font-weight:800;color:var(--accent);line-height:1.1}
-.stat-label{font-size:13px;color:var(--text-dim);margin-top:6px}
+/* ─── SKILLS ROW ─── */
+.skills-bar{
+  max-width:1000px;margin:0 auto 60px;padding:0 24px;
+  display:flex;flex-wrap:wrap;gap:8px;position:relative;z-index:1;
+}
+.skills-bar span{
+  font-size:11px;padding:4px 12px;border-radius:5px;font-weight:500;
+  background:var(--surface);border:1px solid var(--border);color:var(--text2);
+}
+.skills-bar span.primary{background:rgba(91,141,239,0.08);border-color:rgba(91,141,239,0.2);color:var(--blue)}
 
-/* Skills — tags, no fake percentages */
-.skills-tags{display:flex;flex-wrap:wrap;gap:8px}
-.skill-tag{display:inline-block;padding:6px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:13px;font-weight:600;color:var(--text)}
-.lang-row{font-size:14px;color:var(--text-dim);margin-top:16px}
+/* ─── FOOTER ─── */
+footer{
+  border-top:1px solid var(--border);padding:28px 24px;
+  text-align:center;font-size:11px;color:var(--text3);
+  position:relative;z-index:1;
+}
+footer a{color:var(--text3)}
+footer a:hover{color:var(--text)}
 
-/* Project cards */
-.project-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.project-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;transition:all .15s;display:flex;flex-direction:column}
-.project-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.06);transform:translateY(-2px)}
-.project-emoji{font-size:28px;margin-bottom:12px}
-.project-card h3{font-size:19px;font-weight:700;margin-bottom:8px}
-.project-card p{font-size:14px;color:var(--text-dim);flex:1;margin-bottom:12px;line-height:1.6}
-.project-stats{font-size:12px;color:var(--accent);font-weight:600;margin-bottom:12px}
-.tech-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
-.tech-tags span{display:inline-block;padding:2px 8px;background:#f1f5f9;border-radius:4px;font-size:11px;color:var(--text-dim);font-weight:500}
-.project-links{display:flex;gap:10px}
-.btn-live,.btn-code{font-size:13px;font-weight:600;text-decoration:none;padding:6px 14px;border-radius:6px;transition:all .15s}
-.btn-live{background:var(--accent);color:#fff}
-.btn-live:hover{background:#1d4ed8}
-.btn-code{border:1px solid var(--border);color:var(--text)}
-.btn-code:hover{border-color:var(--text-dim)}
-
-/* City section */
-.city-section{text-align:center}
-.city-path{max-width:400px;margin:0 auto 16px;display:block}
-.city-section p{font-size:16px;color:var(--text);margin-bottom:8px}
-
-/* Footer */
-footer{border-top:1px solid var(--border);padding:32px 0;margin-top:48px}
-.footer-content{max-width:1100px;margin:0 auto;padding:0 32px;text-align:center;font-size:13px;color:var(--text-dim)}
-.impressum{margin-top:16px;line-height:1.7}
-
-/* Tablet (601–860px) — wider than mobile, narrower than desktop */
+/* ─── RESPONSIVE ─── */
 @media(max-width:860px){
-  .wrap{padding:0 24px}
-  .hero{padding:56px 0 48px}
-  .hero h1{font-size:36px}
-  .hero .role{font-size:17px}
-  .section{padding:40px 0}
-  .milestone{flex:0 0 200px}
-  .project-grid{grid-template-columns:1fr;gap:20px}
-  .project-card{padding:22px}
-  .footer-content{padding:0 24px}
+  .hero{grid-template-columns:1fr;gap:36px;padding:60px 20px 48px}
+  .hero h1{font-size:42px}
+  .hero .sub{font-size:16px}
+  .hero-stats{grid-template-columns:repeat(4,1fr)}
+  .project{grid-template-columns:1fr}
+  .project .preview{min-height:200px;border-right:none;border-bottom:1px solid var(--border)}
+  .project .info{padding:20px 24px}
+  .nav{padding:0 16px}
 }
 
-/* Mobile (≤600px) */
 @media(max-width:600px){
-  .wrap{padding:0 16px}
-  .hero{padding:40px 0 36px}
-  .hero h1{font-size:30px}
-  .hero .role{font-size:15px;max-width:100%}
-  .hero .location{font-size:13px}
-  .section{padding:32px 0}
-  .section h2{margin-bottom:20px}
-  .timeline-wrap{overflow:visible}
-  .timeline{flex-direction:column;overflow-x:visible;padding:24px 0 24px 24px}
-  .timeline::before{top:0;bottom:0;left:8px;width:3px;height:auto;right:auto}
-  .milestone{flex:none;text-align:left;padding:0 0 20px 28px}
-  .milestone .dot{position:absolute;left:-6px;top:0;margin:0}
-  .milestone .card{padding:14px}
-  .skill-tag{font-size:12px;padding:5px 10px}
-  .project-grid{grid-template-columns:1fr;gap:16px}
-  .project-card{padding:20px}
-  .project-card h3{font-size:17px}
-  .stat-tile{flex:1 1 calc(50% - 8px);min-width:0;padding:16px 12px}
-  .stat-number{font-size:34px}
-  .footer-content{padding:0 16px}
+  .hero{padding:40px 16px 36px}
+  .hero h1{font-size:32px}
+  .hero .sub{font-size:14px}
+  .hero-stats{grid-template-columns:1fr 1fr;gap:6px}
+  .hero-stats .hs{padding:12px}
+  .hero-stats .hs .n{font-size:24px}
+  .project .preview{min-height:160px}
+  .project .preview .p-stats{gap:20px;padding:16px}
+  .project .preview .p-stats .ps .v{font-size:30px}
+  .project .info{padding:16px 20px}
+  .project .info h2{font-size:18px}
+  .timeline-wrap{margin:0 -16px;padding:0 16px 8px}
+  .milestone{flex:0 0 170px}
+  .nav .nav-links{gap:10px}
+  .section-title,.projects,.timeline-section,.skills-bar{padding-left:16px;padding-right:16px}
 }
 
-/* Small phones (≤400px) */
-@media(max-width:400px){
-  .hero h1{font-size:26px}
-  .hero .role{font-size:14px}
-  .skill-tag{font-size:11px;padding:4px 8px}
-  .lang-row{font-size:13px}
-}
-
-/* Print */
 @media print{
-  body{font-size:11pt;color:#000;background:#fff}
-  .hero::before{display:none}
-  .btn,.btn-primary,.btn-live,.btn-code{display:none}
-  .timeline-wrap{overflow:visible}
-  .timeline{flex-direction:column;overflow-x:visible}
-  .timeline::before{top:0;bottom:0;left:8px;width:2px;height:auto;right:auto}
-  .milestone{flex:none;page-break-inside:avoid}
-  .project-card{page-break-inside:avoid;box-shadow:none;border:1px solid #ccc}
-  footer{border-top:1px solid #ccc}
+  body::before{display:none}
+  body{background:#fff;color:#000}
+  .nav,.hero .cta-row,.project .info .btns{display:none}
+  .project{break-inside:avoid;border:1px solid #ccc}
+  .project .preview{background:#f5f5f5}
 }
 </style>
 </head>
 <body>
 
+<nav class="nav">
+  <span class="name">Ravi Dronamraju</span>
+  <div class="nav-links">
+    <span class="status">Open to work</span>
+    <a href="https://www.linkedin.com/in/ravidvr/">LinkedIn</a>
+    <a href="https://github.com/ravidvr">GitHub</a>
+    <a href="#" id="emailLink">Email</a>
+  </div>
+</nav>
+
 <header class="hero">
-  <h1>Ravi Dronamraju</h1>
-  <p class="role">Senior Data Analyst — supply chain, product, and marketing analytics</p>
-  <p class="location">📍 Berlin, Germany</p>
-  <div class="ctas">
-    <a href="https://www.linkedin.com/in/ravidvr/" class="btn-primary" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="https://github.com/ravidvr" class="btn" target="_blank" rel="noopener">GitHub</a>
-    <a href="#" class="btn" id="emailBtn">Email</a>
+  <div>
+    <h1>Data analyst.<br><span class="accent">Berlin.</span></h1>
+    <p class="sub"><strong>14 years</strong> turning messy data into decisions — supply chain at Delivery Hero, product analytics at Zalando, experimentation at OLX. I build free, open-data tools that answer real questions. All stats on this page verified against live data.</p>
+    <div class="cta-row">
+      <a href="https://www.linkedin.com/in/ravidvr/" class="primary">LinkedIn →</a>
+      <a href="https://github.com/ravidvr" class="ghost">GitHub</a>
+      <a href="#" class="ghost" id="emailLink2">Email</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hs"><div class="n">14</div><div class="l">Years</div></div>
+    <div class="hs"><div class="n">7</div><div class="l">Companies</div></div>
+    <div class="hs"><div class="n">4</div><div class="l">Languages</div></div>
+    <div class="hs"><div class="n">4</div><div class="l">Projects</div></div>
+    <div class="lang-row"><span>EN (C2)</span> · <span>DE (B1)</span> · <span>Hindi</span> · <span>Telugu</span></div>
   </div>
 </header>
 
-<main class="wrap">
+<div class="section-title">Projects</div>
 
-<section class="section">
-  <h2>Career Arc</h2>
+<div class="projects">
+
+  <div class="project">
+    <div class="preview">
+      <div class="p-grid"></div>
+      <div class="p-dots" id="dots1"></div>
+      <a href="https://ravidvr.github.io/mietspiegel-digitization/berlin.html" class="go" target="_blank">
+        <span class="go-text">Open dashboard →</span>
+      </a>
+      <div class="p-stats">
+        <div class="ps"><div class="v" style="color:var(--blue)">€12.07</div><div class="t">Market avg /m²</div><div class="d">Immoscout24</div></div>
+        <div class="ps"><div class="v" style="color:var(--green)">€7.97</div><div class="t">Census avg /m²</div><div class="d">Zensus 2022</div></div>
+        <div class="ps"><div class="v" style="color:var(--red)">+51%</div><div class="t">New tenant premium</div><div class="d">€287/mo on 70m²</div></div>
+        <div class="ps"><div class="v" style="color:var(--orange)">9/12</div><div class="t">Districts over cap</div><div class="d">Mietpreisbremse</div></div>
+      </div>
+    </div>
+    <div class="info">
+      <h2>Berlin Rent Map</h2>
+      <p>Block-by-block rent data from three independent sources. Rent Check tool: enter apartment details, instantly see if the asking rent is legal under the Mietpreisbremse. 96-cell lookup table, 14-test validation suite, 0 schema errors.</p>
+      <div class="tags"><span>Leaflet.js</span><span>Python</span><span>BigQuery</span><span>Chart.js</span><span>SQL</span><span>CI/CD</span></div>
+      <div class="btns">
+        <a href="https://ravidvr.github.io/mietspiegel-digitization/berlin.html" class="live" target="_blank">Open Dashboard</a>
+        <a href="https://github.com/ravidvr/mietspiegel-digitization" class="src" target="_blank">Source</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="project" style="margin-top:16px">
+    <div class="preview">
+      <div class="p-grid"></div>
+      <div class="p-dots" id="dots2"></div>
+      <a href="https://ravidvr.github.io/getlos/dashboard.html" class="go" target="_blank">
+        <span class="go-text">Open live map →</span>
+      </a>
+      <div class="p-stats">
+        <div class="ps"><div class="v" style="color:var(--blue)">45</div><div class="t">Cinemas</div><div class="d">All Berlin</div></div>
+        <div class="ps"><div class="v" style="color:var(--green)">2,651</div><div class="t">Screenings</div><div class="d">Updated daily</div></div>
+        <div class="ps"><div class="v" style="color:var(--orange)">&lt;24h</div><div class="t">Freshness</div><div class="d">GitHub Actions</div></div>
+      </div>
+    </div>
+    <div class="info">
+      <h2>getlos — Cinema Map</h2>
+      <p>Every movie screening in Berlin on one map. Search a film — pins turn green where you can still catch it. Distance, walk time, and language filters. Pipeline scrapes 3 sources daily.</p>
+      <div class="tags"><span>Python</span><span>Leaflet.js</span><span>TypeScript</span><span>GitHub Actions</span></div>
+      <div class="btns">
+        <a href="https://ravidvr.github.io/getlos/dashboard.html" class="live" target="_blank">Open Map</a>
+        <a href="https://github.com/ravidvr/getlos" class="src" target="_blank">Source</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="section-title">Career Arc</div>
+
+<div class="timeline-section">
   <div class="timeline-wrap">
-  <div class="timeline">
-    <div class="milestone">
-      <div class="dot"></div>
-      <div class="card">
-        <div class="firm">Mu Sigma</div>
-        <div class="role">Data Analyst</div>
-        <div class="when">Dec 2011 – Nov 2012</div>
-        <div class="where">📍 Bangalore</div>
-        <p>Supported marketing analytics and predictive modeling for enterprise retail clients.</p>
-      </div>
+    <div class="timeline">
+      <div class="milestone"><div class="dot"></div><div class="card"><div class="firm">Mu Sigma</div><div class="role">Data Analyst</div><div class="when">2011–2012</div><div class="where">Bangalore</div><p>Marketing analytics and predictive modeling for enterprise retail.</p></div></div>
+      <div class="milestone"><div class="dot"></div><div class="card"><div class="firm">Analytics Quotient</div><div class="role">Data Analyst</div><div class="when">2013–2015</div><div class="where">Bangalore</div><p>Customer analytics, segmentation, KPI dashboards, marketing experimentation.</p></div></div>
+      <div class="milestone"><div class="dot"></div><div class="card"><div class="firm">Circus Social</div><div class="role">Sr Insights Analyst</div><div class="when">2015–2016</div><div class="where">Bangalore</div><p>Social media and brand analytics. Engagement and sentiment analysis.</p></div></div>
+      <div class="milestone"><div class="dot"></div><div class="card"><div class="firm">Brillio</div><div class="role">Sr Analytical Consultant</div><div class="when">2016–2019</div><div class="where">Bangalore</div><p>Led analytics for a major US retailer.</p></div></div>
+      <div class="milestone"><div class="dot"></div><div class="card"><div class="firm">Zalando</div><div class="role">Data Analyst</div><div class="when">2019–2022</div><div class="where">Berlin</div><p>Product analytics. A/B testing on acquisition and onboarding.</p></div></div>
+      <div class="milestone"><div class="dot"></div><div class="card"><div class="firm">OLX Group</div><div class="role">Sr Data Analyst</div><div class="when">Feb–May 2022</div><div class="where">Berlin</div><p>Experimentation frameworks.</p></div></div>
+      <div class="milestone"><div class="dot"></div><div class="card"><div class="firm">Delivery Hero</div><div class="role">Sr Data Analyst</div><div class="when">2022–2026</div><div class="where">Berlin</div><p>Supply chain analytics. Delivery networks across 10+ countries.</p></div></div>
+      <div class="milestone"><div class="dot today"></div><div class="card"><div class="firm">Next Chapter</div><div class="role">Open to opportunities</div><div class="when">2026–</div><div class="where">Berlin</div><p>Seeking senior analytics roles. Full-time, contract, or consulting.</p></div></div>
     </div>
-    <div class="milestone">
-      <div class="dot"></div>
-      <div class="card">
-        <div class="firm">Analytics Quotient</div>
-        <div class="role">Data Analyst</div>
-        <div class="when">Jan 2013 – Aug 2015</div>
-        <div class="where">📍 Bangalore</div>
-        <p>Customer analytics and segmentation. Generated KPI dashboards and supported marketing experimentation.</p>
-      </div>
-    </div>
-    <div class="milestone">
-      <div class="dot"></div>
-      <div class="card">
-        <div class="firm">Circus Social</div>
-        <div class="role">Senior Insights Analyst</div>
-        <div class="when">Oct 2015 – Feb 2016</div>
-        <div class="where">📍 Bangalore</div>
-        <p>Social media and brand analytics. Analyzed engagement and sentiment across digital platforms.</p>
-      </div>
-    </div>
-    <div class="milestone">
-      <div class="dot"></div>
-      <div class="card">
-        <div class="firm">Brillio</div>
-        <div class="role">Senior Analytical Consultant</div>
-        <div class="when">2016–2019</div>
-        <div class="where">📍 Bangalore</div>
-        <p>Led analytics for a major US retailer.</p>
-      </div>
-    </div>
-    <div class="milestone">
-      <div class="dot"></div>
-      <div class="card">
-        <div class="firm">Zalando</div>
-        <div class="role">Data Analyst</div>
-        <div class="when">2019–2022</div>
-        <div class="where">📍 Berlin</div>
-        <p>Product analytics at Europe's largest fashion platform. A/B testing on acquisition and onboarding.</p>
-      </div>
-    </div>
-    <div class="milestone brief">
-      <div class="dot brief-dot"></div>
-      <div class="card brief-card">
-        <div class="firm">OLX Group</div>
-        <div class="role">Senior Data Analyst</div>
-        <div class="when">Feb–May 2022</div>
-        <div class="where">📍 Berlin</div>
-        <p>Strengthened experimentation frameworks and aligned cross-functional analytics.</p>
-      </div>
-    </div>
-    <div class="milestone">
-      <div class="dot"></div>
-      <div class="card">
-        <div class="firm">Delivery Hero</div>
-        <div class="role">Senior Data Analyst</div>
-        <div class="when">2022–2026</div>
-        <div class="where">📍 Berlin</div>
-        <p>Supply chain analytics for Quick Commerce. Optimized delivery networks across 10+ countries.</p>
-      </div>
-    </div>
-    <div class="milestone">
-      <div class="dot today"></div>
-      <div class="card">
-        <div class="firm">Next Chapter</div>
-        <div class="role">Open to opportunities</div>
-        <div class="when">2026–</div>
-        <div class="where">📍 Berlin</div>
-        <p>Seeking senior analytics, data science, or product analytics roles. Full-time, contract, or consulting.</p>
-      </div>
-    </div>
-  </div>
-  </div>
-</section>
-
-<div class="main-grid">
-  <div class="skills-col">
-    <div class="section-sep"></div>
-    <h2>Skills</h2>
-    <div class="skills-tags">
-      <span class="skill-tag">SQL</span>
-      <span class="skill-tag">BigQuery</span>
-      <span class="skill-tag">Python</span>
-      <span class="skill-tag">A/B Testing</span>
-      <span class="skill-tag">Experimentation</span>
-      <span class="skill-tag">Tableau</span>
-      <span class="skill-tag">Looker</span>
-      <span class="skill-tag">ETL</span>
-      <span class="skill-tag">dbt</span>
-      <span class="skill-tag">GitHub Actions</span>
-    </div>
-    <div class="lang-row">
-      <span>English (C2)</span> · <span>German (B1)</span> · <span>Hindi</span> · <span>Telugu</span>
-    </div>
-  </div>
-
-  <div>
-    <section class="section">
-      <h2>Projects</h2>
-  <div class="project-grid">
-    <div class="project-card">
-      <div class="project-emoji">🏠</div>
-      <h3>Berlin Rent Map</h3>
-      <p>Block-by-block rent data from three independent sources — Immoscout24 market rates, Zensus census data, and the official Mietspiegel. Includes a Rent Check tool: enter apartment details to see if the asking rent is legal under the Mietpreisbremse.</p>
-      <div class="project-stats">361 cells · 12 Bezirke · DE/EN · 14-test validation suite</div>
-      <div class="tech-tags">
-        <span>Leaflet.js</span><span>Python</span><span>BigQuery</span><span>Chart.js</span>
-      </div>
-      <div class="project-links">
-        <a href="https://ravidvr.github.io/mietspiegel-digitization/berlin.html" class="btn-live">Open dashboard →</a>
-        <a href="https://github.com/ravidvr/mietspiegel-digitization" class="btn-code">Source</a>
-      </div>
-    </div>
-    <div class="project-card">
-      <div class="project-emoji">🎬</div>
-      <h3>getlos — Berlin Cinema Map</h3>
-      <p>Every movie screening in Berlin on one interactive map. Search a film and the pins turn green where you can still catch it. Distance, walk time, and language filters included.</p>
-      <div class="project-stats">45 cinemas · 2,651 screenings · Updated daily</div>
-      <div class="tech-tags">
-        <span>Python</span><span>Leaflet.js</span><span>TypeScript</span><span>GitHub Actions</span>
-      </div>
-      <div class="project-links">
-        <a href="https://ravidvr.github.io/getlos/dashboard.html" class="btn-live">Open map →</a>
-        <a href="https://github.com/ravidvr/getlos" class="btn-code">Source</a>
-      </div>
-    </div>
-  </div>
-</section>
   </div>
 </div>
 
-<section class="section">
-  <h2>Berlin</h2>
-  <div class="city-section">
-    <svg viewBox="0 0 400 80" class="city-path" aria-hidden="true">
-      <path d="M30,60 Q200,10 370,40" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5,4"/>
-      <circle cx="30" cy="60" r="5" fill="#d97706"/>
-      <circle cx="370" cy="40" r="5" fill="#059669"/>
-      <text x="30" y="75" text-anchor="middle" font-size="11" fill="#5f6b7a" font-family="system-ui,sans-serif">Bangalore</text>
-      <text x="370" y="55" text-anchor="middle" font-size="11" fill="#5f6b7a" font-family="system-ui,sans-serif">Berlin</text>
-    </svg>
-    <p>From Bangalore to Berlin — a journey across companies and continents.</p>
-  </div>
-</section>
+<div class="section-title">Skills</div>
 
-</main>
+<div class="skills-bar">
+  <span class="primary">SQL</span><span class="primary">BigQuery</span><span class="primary">Python</span>
+  <span class="primary">A/B Testing</span><span class="primary">Experimentation</span>
+  <span>Tableau</span><span>Looker</span><span>ETL</span><span>dbt</span><span>GitHub Actions</span><span>Web Scraping</span>
+</div>
 
 <footer>
-  <div class="footer-content">
-    <p>© 2026 Ravi Dronamraju · Berlin</p>
-    <p class="impressum">
-      <strong>Impressum (§5 DDG)</strong><br>
-      Ravi Dronamraju · Kiefholzstrasse 9 · 12435 Berlin<br>
-      <span id="footerEmail"></span>
-    </p>
-  </div>
+  <p>© 2026 Ravi Dronamraju · Berlin · Kiefholzstrasse 9, 12435 Berlin</p>
+  <p style="margin-top:4px"><a href="https://www.linkedin.com/in/ravidvr/">LinkedIn</a> · <a href="https://github.com/ravidvr">GitHub</a> · <a href="#" id="footerEmail">Email</a></p>
 </footer>
 
 <script>
 (function(){
-  var email = atob('ZHZycmF2aUBnbWFpbC5jb20=');
-  var emailBtn = document.getElementById('emailBtn');
-  var footerEmail = document.getElementById('footerEmail');
-  if(emailBtn) emailBtn.href = 'mailto:' + email;
-  if(footerEmail) footerEmail.textContent = 'Contact: ' + email;
+  var e=atob('ZHZycmF2aUBnbWFpbC5jb20=');
+  document.querySelectorAll('[id$=mailLink],[id$=mailLink2],[id$=mail]').forEach(function(el){el.href='mailto:'+e;});
+  var fe=document.getElementById('footerEmail');if(fe)fe.href='mailto:'+e;
+})();
+
+// Scatter dots
+(function(){
+  var palettes=[
+    ['#08519c','#08519c','#3182bd','#3182bd','#6baed6','#fd8d3c','#e6550d'],
+    ['#08519c','#3182bd','#6baed6','#3182bd','#6baed6','#fd8d3c']
+  ];
+  [{id:'dots1',n:120,p:0},{id:'dots2',n:70,p:1}].forEach(function(s){
+    var el=document.getElementById(s.id),h='',pal=palettes[s.p];
+    for(var i=0;i<s.n;i++)h+='<i style="left:'+(Math.random()*100)+'%;top:'+(Math.random()*100)+'%;background:'+pal[Math.floor(Math.random()*pal.length)]+'"></i>';
+    if(el)el.innerHTML=h;
+  });
 })();
 </script>
-
 </body>
 </html>
