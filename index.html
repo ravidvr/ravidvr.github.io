@@ -40,34 +40,37 @@ a:hover{color:var(--accent);border-bottom-color:var(--accent)}
 /* ─── Top bar ─── */
 .top{
   display:flex;justify-content:space-between;align-items:baseline;
-  padding:32px 0 0;font-family:var(--mono);font-size:12px;color:var(--muted);
+  padding:28px 0 0;font-family:var(--mono);font-size:12px;color:var(--muted);
 }
 .top .mark{font-size:13px;color:var(--ink);font-weight:500}
-.top .sw{display:flex;gap:18px}
-.top button{
+.top .sw{display:flex;gap:2px;align-items:center}
+.top .sw button{
   background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:12px;
-  color:var(--muted);border-bottom:1px solid transparent;padding:0;
+  color:var(--faint);padding:2px 8px;border-radius:3px;transition:all .15s;
 }
-.top button:hover{color:var(--ink);border-bottom-color:var(--ink)}
+.top .sw button.active{color:var(--ink);font-weight:500}
+.top .sw button:not(.active):hover{color:var(--ink)}
+.top .sw .slash{color:var(--faint)}
 
 /* ─── Header ─── */
-header{padding:96px 0 24px}
+header{padding:64px 0 40px}
 header h1{
   font-family:var(--serif);font-weight:500;font-size:clamp(52px,11vw,88px);
-  line-height:1.02;letter-spacing:-0.01em;
+  line-height:1.0;letter-spacing:-0.01em;
 }
 header h1 em{font-style:italic;font-weight:400;color:var(--muted)}
-header .role{margin-top:24px;font-size:17px;color:var(--muted)}
+header .role{margin-top:28px;font-size:16px;color:var(--muted)}
 header .role b{color:var(--ink);font-weight:500}
 header .lead{
-  margin-top:20px;font-family:var(--serif);font-size:21px;line-height:1.5;
+  margin-top:16px;font-family:var(--serif);font-size:20px;line-height:1.55;
   color:var(--ink);max-width:34em;
 }
 
 /* ─── Section label ─── */
 .label{
-  font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--faint);padding-top:88px;margin-bottom:32px;
+  font-family:var(--mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--muted);margin-top:72px;margin-bottom:28px;
+  border-top:1px solid var(--line);padding-top:28px;
 }
 
 /* ─── Projects ─── */
@@ -134,7 +137,9 @@ footer .imp{margin-top:20px;color:var(--faint)}
   <div class="top">
     <span class="mark">Ravi Dronamraju</span>
     <div class="sw">
-      <button onclick="toggleLang()" data-i18n="lang">DE</button>
+      <button onclick="setLang('en')" id="lang-en">EN</button>
+      <span class="slash">/</span>
+      <button onclick="setLang('de')" id="lang-de">DE</button>
     </div>
   </div>
 
@@ -225,7 +230,6 @@ footer .imp{margin-top:20px;color:var(--faint)}
 
 var I18N = {
   en: {
-    lang:'DE',
     role:'Senior Data Analyst',
     loc:'Berlin',
     lead:'Fourteen years turning messy data into decisions — supply chain at Delivery Hero, product analytics at Zalando. I build free, open-data tools that answer real questions.',
@@ -238,7 +242,6 @@ var I18N = {
     langs:'English C2 · German B1 · Hindi · Telugu'
   },
   de: {
-    lang:'EN',
     role:'Senior Data Analyst',
     loc:'Berlin',
     lead:'Vierzehn Jahre Erfahrung darin, aus unübersichtlichen Daten klare Entscheidungen zu machen — Supply Chain bei Delivery Hero, Product Analytics bei Zalando. Ich baue kostenlose Open-Data-Tools, die echte Fragen beantworten.',
@@ -260,11 +263,12 @@ function applyLang(){
     if(k==='langs'){ el.innerHTML = t.replace('English C2','<b>English</b> C2').replace('German B1','<b>German</b> B1').replace('Hindi','<b>Hindi</b>').replace('Telugu','<b>Telugu</b>').replace('Englisch C2','<b>Englisch</b> C2').replace('Deutsch B1','<b>Deutsch</b> B1'); return; }
     el.innerHTML=t;
   });
-  var b=document.querySelector('.top button');
-  if(b) b.textContent = I18N[cur].lang;
+  var en=document.getElementById('lang-en'), de=document.getElementById('lang-de');
+  if(en) en.classList.toggle('active', cur==='en');
+  if(de) de.classList.toggle('active', cur==='de');
   localStorage.setItem('lang',cur);
 }
-function toggleLang(){ cur = cur==='en' ? 'de' : 'en'; applyLang(); }
+function setLang(l){ cur=l; applyLang(); }
 var s=localStorage.getItem('lang'); if(s==='en'||s==='de') cur=s; else cur='en';
 document.addEventListener('DOMContentLoaded',applyLang);
 if(document.readyState!=='loading') applyLang();
