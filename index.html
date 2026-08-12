@@ -8,119 +8,108 @@
 <meta property="og:title" content="Ravi Dronamraju — Senior Data Analyst, Berlin">
 <meta property="og:description" content="14 years turning data into decisions. Building open-data tools for Berlin.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#faf9f6">
+<meta name="theme-color" content="#faf8f4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#faf9f6;
-  --ink:#17171a;
-  --muted:#6c6c70;
-  --faint:#a6a6aa;
-  --line:#e7e4dd;
+  --paper:#faf8f4;
+  --ink:#1a1a1c;
+  --muted:#6e6e72;
+  --faint:#a8a8ab;
+  --line:#e6e1d8;
   --accent:#2b3fd4;
-  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
-  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --serif:'EB Garamond','Garamond',Georgia,'Times New Roman',serif;
   --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
   font-family:var(--sans);background:var(--paper);color:var(--ink);
   line-height:1.6;-webkit-font-smoothing:antialiased;
-  font-size:16px;
+  font-size:16px;font-optical-sizing:auto;
 }
-a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);transition:border-color .2s,color .2s}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);transition:border-color .18s,color .18s}
 a:hover{color:var(--accent);border-bottom-color:var(--accent)}
 ::selection{background:var(--ink);color:var(--paper)}
 
-.wrap{max-width:660px;margin:0 auto;padding:0 28px}
+.wrap{max-width:680px;margin:0 auto;padding:0 32px}
 
-/* ─── Top bar ─── */
-.top{
-  display:flex;justify-content:space-between;align-items:baseline;
-  padding:28px 0 0;font-family:var(--mono);font-size:12px;color:var(--muted);
-}
-.top .mark{font-size:13px;color:var(--ink);font-weight:500}
-.top .sw{display:flex;gap:2px;align-items:center}
+/* ─── Top ─── */
+.top{display:flex;justify-content:space-between;align-items:baseline;padding:28px 0 0}
+.top .mark{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.top .sw{display:flex;gap:1px;align-items:baseline}
 .top .sw button{
   background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:12px;
-  color:var(--faint);padding:2px 8px;border-radius:3px;transition:all .15s;
+  color:var(--faint);padding:0 4px;transition:color .18s;
 }
 .top .sw button.active{color:var(--ink);font-weight:500}
 .top .sw button:not(.active):hover{color:var(--ink)}
-.top .sw .slash{color:var(--faint)}
+.top .sw .sep{color:var(--faint)}
 
 /* ─── Header ─── */
-header{padding:64px 0 40px}
+header{padding:88px 0 56px}
 header h1{
-  font-family:var(--serif);font-weight:500;font-size:clamp(52px,11vw,88px);
-  line-height:1.0;letter-spacing:-0.01em;
+  font-family:var(--serif);font-weight:500;font-size:clamp(56px,10vw,92px);
+  line-height:1.0;letter-spacing:-0.015em;
 }
 header h1 em{font-style:italic;font-weight:400;color:var(--muted)}
-header .role{margin-top:28px;font-size:16px;color:var(--muted)}
-header .role b{color:var(--ink);font-weight:500}
+header .meta{margin-top:30px;font-family:var(--sans);font-size:15px;color:var(--muted)}
+header .meta b{color:var(--ink);font-weight:500}
 header .lead{
-  margin-top:16px;font-family:var(--serif);font-size:20px;line-height:1.55;
+  margin-top:18px;font-family:var(--serif);font-size:22px;line-height:1.5;
   color:var(--ink);max-width:34em;
 }
 
 /* ─── Section label ─── */
 .label{
-  font-family:var(--mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;
-  color:var(--muted);margin-top:72px;margin-bottom:28px;
-  border-top:1px solid var(--line);padding-top:28px;
+  font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--muted);margin:80px 0 32px;border-top:1px solid var(--line);padding-top:26px;
 }
 
-/* ─── Projects ─── */
-.work .item{padding:32px 0;border-top:1px solid var(--line)}
-.work .item:last-child{border-bottom:1px solid var(--line)}
-.work .item .row{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
-.work .item h2{font-family:var(--serif);font-weight:500;font-size:26px;letter-spacing:-0.01em}
-.work .item h2 a{border-bottom:none}
-.work .item h2 a:hover{color:var(--accent)}
-.work .item .yr{font-family:var(--mono);font-size:12px;color:var(--faint);white-space:nowrap}
-.work .item p{font-size:15px;color:var(--muted);margin-top:10px;max-width:38em}
-.work .item .meta{font-family:var(--mono);font-size:12px;color:var(--faint);margin-top:14px}
-.work .item .meta b{color:var(--muted);font-weight:500}
+/* ─── Work ─── */
+.work .item{padding:30px 0;border-bottom:1px solid var(--line)}
+.work .item:first-child{border-top:1px solid var(--line)}
+.work .row{display:flex;justify-content:space-between;align-items:baseline;gap:20px}
+.work h2{font-family:var(--serif);font-weight:500;font-size:27px;letter-spacing:-0.01em}
+.work h2 a{border-bottom:none}
+.work h2 a:hover{color:var(--accent)}
+.work .yr{font-family:var(--mono);font-size:12px;color:var(--faint);white-space:nowrap}
+.work p{font-size:15px;color:var(--muted);margin-top:10px;max-width:38em}
+.work .stat{font-family:var(--mono);font-size:12px;color:var(--faint);margin-top:14px}
+.work .stat b{color:var(--muted);font-weight:500}
 
 /* ─── Experience ─── */
-.exp .row{
-  display:grid;grid-template-columns:88px 1fr;gap:16px;padding:12px 0;
-  border-top:1px solid var(--line);
-}
-.exp .row:last-child{border-bottom:1px solid var(--line)}
-.exp .row .yr{font-family:var(--mono);font-size:12px;color:var(--faint);padding-top:1px}
-.exp .row .co{font-weight:500;font-size:15px}
-.exp .row .co span{display:block;font-weight:400;color:var(--muted);font-size:14px;margin-top:1px}
-.exp .row .where{grid-column:2;font-size:13px;color:var(--faint);margin-top:-6px}
+.exp .row{display:grid;grid-template-columns:84px 1fr;gap:16px;padding:13px 0;border-bottom:1px solid var(--line)}
+.exp .row:first-child{border-top:1px solid var(--line)}
+.exp .yr{font-family:var(--mono);font-size:12px;color:var(--faint);padding-top:2px}
+.exp .co{font-weight:500;font-size:15px}
+.exp .co span{display:block;font-weight:400;color:var(--muted);font-size:14px;margin-top:1px}
+.exp .where{grid-column:2;font-size:12px;color:var(--faint);margin-top:-7px}
 
-/* ─── Skills & languages ─── */
-.skills .line{font-size:15px;color:var(--muted);line-height:1.9}
+/* ─── Skills ─── */
+.skills .line{font-size:15px;color:var(--muted);line-height:2.1}
 .skills .line b{color:var(--ink);font-weight:500}
-.skills .line .sep{color:var(--line);margin:0 6px}
+.skills .sep{color:var(--line);margin:0 6px}
 
 /* ─── Contact ─── */
-.contact{padding:40px 0 8px}
-.contact .row{display:flex;gap:24px;flex-wrap:wrap}
+.contact{padding:12px 0 4px}
+.contact .row{display:flex;gap:28px;flex-wrap:wrap}
 .contact a{font-family:var(--mono);font-size:13px}
 
 /* ─── Footer ─── */
-footer{
-  margin-top:96px;padding:40px 0 56px;border-top:1px solid var(--line);
-  font-family:var(--mono);font-size:11px;color:var(--faint);line-height:2;
-}
-footer .imp{margin-top:20px;color:var(--faint)}
+footer{margin-top:96px;padding:36px 0 56px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--faint);line-height:2}
+footer .imp{margin-top:18px}
 
 @media(max-width:560px){
   .wrap{padding:0 20px}
-  header{padding:64px 0 20px}
-  header h1{font-size:44px}
-  header .lead{font-size:18px}
-  .work .item h2{font-size:22px}
+  header{padding:64px 0 40px}
+  header h1{font-size:46px}
+  header .lead{font-size:19px}
+  .work h2{font-size:23px}
   .exp .row{grid-template-columns:72px 1fr}
-  .label{padding-top:64px}
 }
 @media print{
   body{background:#fff;color:#000}
@@ -138,14 +127,14 @@ footer .imp{margin-top:20px;color:var(--faint)}
     <span class="mark">Ravi Dronamraju</span>
     <div class="sw">
       <button onclick="setLang('en')" id="lang-en">EN</button>
-      <span class="slash">/</span>
+      <span class="sep">/</span>
       <button onclick="setLang('de')" id="lang-de">DE</button>
     </div>
   </div>
 
   <header>
     <h1>Ravi<br><em>Dronamraju</em></h1>
-    <div class="role"><b data-i18n="role">Senior Data Analyst</b> · <span data-i18n="loc">Berlin</span></div>
+    <div class="meta"><b data-i18n="role">Senior Data Analyst</b> · <span data-i18n="loc">Berlin</span></div>
     <p class="lead" data-i18n="lead">Fourteen years turning messy data into decisions — supply chain at Delivery Hero, product analytics at Zalando. I build free, open-data tools that answer real questions.</p>
   </header>
 
@@ -158,7 +147,7 @@ footer .imp{margin-top:20px;color:var(--faint)}
         <span class="yr">2025</span>
       </div>
       <p data-i18n="p1">Block-by-block rent data from three independent sources — Immoscout24 market rates, Zensus census rents, and the official Mietspiegel. A Rent Check tool tells you whether an asking rent is legal under the Mietpreisbremse.</p>
-      <div class="meta"><b>361 cells</b> · 12 districts · DE/EN</div>
+      <div class="stat"><b>361 cells</b> · 12 districts · DE/EN</div>
     </div>
 
     <div class="item">
@@ -167,7 +156,7 @@ footer .imp{margin-top:20px;color:var(--faint)}
         <span class="yr">2024–25</span>
       </div>
       <p data-i18n="p2">Official rent indexes from 23 German cities, extracted from government PDFs and normalized into a single structured dataset. A validated pipeline — 14 tests, 0 schema errors.</p>
-      <div class="meta"><b>23 cities</b> · 96 cells each · Python + SQL</div>
+      <div class="stat"><b>23 cities</b> · 96 cells each · Python + SQL</div>
     </div>
 
     <div class="item">
@@ -176,7 +165,7 @@ footer .imp{margin-top:20px;color:var(--faint)}
         <span class="yr">2024</span>
       </div>
       <p data-i18n="p3">Every film screening in Berlin on one map. Search a movie and the pins turn green where you can still catch it — distance, walk time, and language filters included.</p>
-      <div class="meta"><b>45 cinemas</b> · updated daily</div>
+      <div class="stat"><b>45 cinemas</b> · updated daily</div>
     </div>
 
     <div class="item">
@@ -185,7 +174,7 @@ footer .imp{margin-top:20px;color:var(--faint)}
         <span class="yr">2023</span>
       </div>
       <p data-i18n="p4">An interactive map of worker-owned cooperatives across Germany — bakeries, cafés, workshops, and community spaces.</p>
-      <div class="meta">nationwide · open data</div>
+      <div class="stat">nationwide · open data</div>
     </div>
   </div>
 
@@ -204,8 +193,8 @@ footer .imp{margin-top:20px;color:var(--faint)}
   <div class="label" data-i18n="s_sk">Skills</div>
 
   <div class="skills">
-    <div class="line" data-i18n="skills">SQL<span class="sep">·</span>BigQuery<span class="sep">·</span>Python<span class="sep">·</span>A/B Testing<span class="sep">·</span>Experimentation<span class="sep">·</span>Tableau<span class="sep">·</span>Looker<span class="sep">·</span>ETL<span class="sep">·</span>dbt</div>
-    <div class="line" style="margin-top:8px" data-i18n="langs"><b>English</b> C2 · <b>German</b> B1 · <b>Hindi</b> · <b>Telugu</b></div>
+    <div class="line" data-i18n="skills">SQL·BigQuery·Python·A/B Testing·Experimentation·Tableau·Looker·ETL·dbt</div>
+    <div class="line" style="margin-top:4px" data-i18n="langs">English C2 · German B1 · Hindi · Telugu</div>
   </div>
 
   <div class="label" data-i18n="s_ct">Contact</div>
@@ -230,8 +219,7 @@ footer .imp{margin-top:20px;color:var(--faint)}
 
 var I18N = {
   en: {
-    role:'Senior Data Analyst',
-    loc:'Berlin',
+    role:'Senior Data Analyst', loc:'Berlin',
     lead:'Fourteen years turning messy data into decisions — supply chain at Delivery Hero, product analytics at Zalando. I build free, open-data tools that answer real questions.',
     s_work:'Selected Work', s_exp:'Experience', s_sk:'Skills', s_ct:'Contact',
     p1:'Block-by-block rent data from three independent sources — Immoscout24 market rates, Zensus census rents, and the official Mietspiegel. A Rent Check tool tells you whether an asking rent is legal under the Mietpreisbremse.',
@@ -242,8 +230,7 @@ var I18N = {
     langs:'English C2 · German B1 · Hindi · Telugu'
   },
   de: {
-    role:'Senior Data Analyst',
-    loc:'Berlin',
+    role:'Senior Data Analyst', loc:'Berlin',
     lead:'Vierzehn Jahre Erfahrung darin, aus unübersichtlichen Daten klare Entscheidungen zu machen — Supply Chain bei Delivery Hero, Product Analytics bei Zalando. Ich baue kostenlose Open-Data-Tools, die echte Fragen beantworten.',
     s_work:'Ausgewählte Arbeit', s_exp:'Werdegang', s_sk:'Kenntnisse', s_ct:'Kontakt',
     p1:'Blockweise Mietdaten aus drei unabhängigen Quellen — Immoscout24-Marktpreise, Zensus-Bestandsmieten und der offizielle Mietspiegel. Ein Mietpreis-Prüfer zeigt, ob eine Miete nach der Mietpreisbremse legal ist.',
