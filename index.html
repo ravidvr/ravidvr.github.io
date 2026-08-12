@@ -83,13 +83,10 @@ body{
 .stat-number{font-size:42px;font-weight:800;color:var(--accent);line-height:1.1}
 .stat-label{font-size:13px;color:var(--text-dim);margin-top:6px}
 
-/* Skills */
-.skills{max-width:600px}
-.skill-row{display:flex;align-items:center;gap:16px;margin-bottom:14px}
-.skill-label{width:160px;text-align:right;font-size:14px;font-weight:600;color:#334155;flex-shrink:0}
-.skill-bar{flex:1;height:10px;background:var(--border);border-radius:5px;overflow:hidden}
-.skill-fill{height:100%;background:linear-gradient(to right,var(--accent),#3b82f6);border-radius:5px;transition:width 1s ease}
-.skill-pct{width:45px;font-size:13px;font-weight:700;color:var(--accent);flex-shrink:0}
+/* Skills — tags, no fake percentages */
+.skills-tags{display:flex;flex-wrap:wrap;gap:8px;max-width:600px}
+.skill-tag{display:inline-block;padding:6px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:13px;font-weight:600;color:var(--text)}
+.lang-row{font-size:14px;color:var(--text-dim);margin-top:16px}
 
 /* Project cards */
 .project-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
@@ -128,13 +125,11 @@ footer{border-top:1px solid var(--border);padding:32px 0;margin-top:48px}
   .timeline::before{top:0;bottom:0;left:8px;width:3px;height:auto;right:auto}
   .milestone{flex:none;text-align:left;padding:0 0 24px 28px}
   .milestone .dot{position:absolute;left:-6px;top:0;margin:0}
-  .skill-label{width:120px;font-size:13px}
-  .skill-row{gap:10px}
+  .skill-tag{font-size:12px;padding:5px 10px}
 }
 @media(max-width:480px){
-  .skill-label{width:auto;text-align:left}
-  .skill-row{flex-direction:column;align-items:stretch;gap:4px}
-  .skill-pct{text-align:right}
+  .skill-tag{font-size:11px;padding:4px 8px}
+  .lang-row{font-size:13px}
   .stat-tile{flex:1 1 calc(50% - 8px);min-width:0}
 }
 
@@ -254,17 +249,20 @@ footer{border-top:1px solid var(--border);padding:32px 0;margin-top:48px}
 
       <div class="section-sep"></div>
   <h2>Skills</h2>
-  <div class="skills">
-    <div class="skill-row"><span class="skill-label">SQL / BigQuery</span><div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div><span class="skill-pct">95%</span></div>
-    <div class="skill-row"><span class="skill-label">A/B Testing</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div><span class="skill-pct">90%</span></div>
-    <div class="skill-row"><span class="skill-label">Python (pandas)</span><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div><span class="skill-pct">85%</span></div>
-    <div class="skill-row"><span class="skill-label">Tableau / Looker</span><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div><span class="skill-pct">85%</span></div>
-    <div class="skill-row"><span class="skill-label">Experimentation</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div><span class="skill-pct">90%</span></div>
-    <div class="skill-row"><span class="skill-label">ETL / Pipelines</span><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div><span class="skill-pct">80%</span></div>
-    <div class="skill-row"><span class="skill-label">dbt / GitHub Actions</span><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div><span class="skill-pct">75%</span></div>
-    <div class="skill-row"><span class="skill-label">English (C2)</span><div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div><span class="skill-pct">100%</span></div>
-    <div class="skill-row"><span class="skill-label">German (B1)</span><div class="skill-bar"><div class="skill-fill" style="width:40%"></div></div><span class="skill-pct">40%</span></div>
-    <div class="skill-row"><span class="skill-label">Hindi · Telugu</span><div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div><span class="skill-pct">Native</span></div>
+  <div class="skills-tags">
+    <span class="skill-tag">SQL</span>
+    <span class="skill-tag">BigQuery</span>
+    <span class="skill-tag">Python</span>
+    <span class="skill-tag">A/B Testing</span>
+    <span class="skill-tag">Experimentation</span>
+    <span class="skill-tag">Tableau</span>
+    <span class="skill-tag">Looker</span>
+    <span class="skill-tag">ETL</span>
+    <span class="skill-tag">dbt</span>
+    <span class="skill-tag">GitHub Actions</span>
+  </div>
+  <div class="lang-row">
+    <span>English (C2)</span> · <span>German (B1)</span> · <span>Hindi</span> · <span>Telugu</span>
   </div>
 </section>
 
