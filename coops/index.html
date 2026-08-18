@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">German Worker-Owned Business Map</title>
+<meta property="og:title" content="German Worker-Owned Business Map">
+<meta property="og:description" content="Interactive map of 62 worker-owned businesses (Produktivgenossenschaften) in Germany — IT co-ops, carpentry workshops, food co-ops, and more. Find, filter, and contribute.">
+<meta property="og:image" content="https://ravidvr.github.io/german-worker-coops/og-image.png">
+<meta property="og:url" content="https://ravidvr.github.io/german-worker-coops/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="German Worker-Owned Business Map">
+<meta name="twitter:description" content="62 worker-owned businesses in Germany on an interactive map.">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; display: flex; flex-direction: column; height: 100vh; }
+#header { background: #1a1a2e; color: #fff; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+#header h1 { font-size: 18px; font-weight: 600; }
+#header h1 span { color: #e74c3c; }
+#header .count { font-size: 14px; color: #aaa; }
+#langToggle { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 5px; font-size: 12px; cursor: pointer; font-weight:600; }
+#langToggle:hover { background: rgba(255,255,255,0.2); }
+#filters { background: #16213e; padding: 10px 20px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+#filters label { color: #ccc; font-size: 13px; font-weight: 500; }
+#filters select, #filters input { padding: 6px 10px; border-radius: 6px; border: 1px solid #444; background: #0f3460; color: #fff; font-size: 13px; }
+#filters select { min-width: 160px; }
+#filters input { min-width: 180px; }
+#map { flex: 1; z-index: 1; }
+#legend { background: #fff; padding: 8px 14px; font-size: 12px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; border-top: 1px solid #ddd; }
+#legend .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; }
+#legend a { color: #e74c3c; text-decoration: none; }
+#legend a:hover { text-decoration: underline; }
+#legend .attribution { color: #888; margin-left: auto; font-size: 11px; }
+.leaflet-popup-content { margin: 10px 14px; line-height: 1.4; }
+.leaflet-popup-content h3 { font-size: 15px; margin-bottom: 4px; }
+.leaflet-popup-content .sector { color: #666; font-size: 12px; margin-bottom: 6px; }
+.leaflet-popup-content .desc { font-size: 13px; margin-bottom: 6px; color: #333; }
+.leaflet-popup-content .meta { font-size: 11px; color: #888; }
+.leaflet-popup-content a { color: #e74c3c; }
+#modalOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+#modalOverlay.open { display: flex; }
+#fbOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+#fbOverlay.open { display: flex; }
+#modal { background: #fff; border-radius: 12px; max-width: 560px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 28px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+#modal h2 { font-size: 20px; margin-bottom: 4px; }
+#modal .sub { color: #666; font-size: 13px; margin-bottom: 20px; }
+#modal .field { margin-bottom: 14px; }
+#modal label { display: block; font-size: 13px; font-weight: 600; color: #333; margin-bottom: 4px; }
+#modal label .req { color: #e74c3c; }
+#modal input, #modal select, #modal textarea { width: 100%; padding: 9px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
+#modal textarea { min-height: 70px; resize: vertical; }
+#modal .btn-row { display: flex; gap: 10px; margin-top: 18px; }
+#modal .btn-primary { flex: 1; padding: 11px; background: #e74c3c; color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
+#modal .btn-primary:hover { background: #c0392b; }
+#modal .btn-secondary { padding: 11px 20px; background: #f5f5f5; color: #333; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; cursor: pointer; }
+#modal .btn-secondary:hover { background: #e8e8e8; }
+#modal .required-msg { color: #999; font-size: 12px; margin-top: 12px; }
+#modal .error { color: #e74c3c; font-size: 12px; margin-top: 3px; display: none; }
+#modal .success-msg { text-align: center; padding: 30px 20px; }
+#modal .success-msg .icon { font-size: 48px; margin-bottom: 12px; }
+#modal .success-msg h3 { font-size: 18px; margin-bottom: 6px; }
+#modal .success-msg p { color: #666; font-size: 14px; margin-bottom: 20px; }
+/* Welcome overlay */
+#welcomeOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+#welcomeOverlay.open { display: flex; }
+#welcomeBox { background: #fff; border-radius: 14px; max-width: 520px; width: 100%; padding: 32px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: relative; max-height: 90vh; overflow-y: auto; }
+#welcomeBox h2 { font-size: 22px; margin-bottom: 4px; }
+#welcomeBox .sub { color: #666; font-size: 14px; margin-bottom: 20px; }
+#welcomeBox .section { margin-bottom: 16px; }
+#welcomeBox .section h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: #333; }
+#welcomeBox .section p, #welcomeBox .section li { font-size: 14px; line-height: 1.5; color: #555; }
+#welcomeBox .section ul { padding-left: 18px; }
+#welcomeBox .section ul li { margin-bottom: 3px; }
+#welcomeBox .close-btn { position: absolute; top: 14px; right: 18px; background: none; border: none; font-size: 22px; color: #999; cursor: pointer; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+#welcomeBox .close-btn:hover { background: #f0f0f0; color: #333; }
+#welcomeBox .got-it { display: block; width: 100%; padding: 12px; background: #e74c3c; color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 6px; }
+#welcomeBox .got-it:hover { background: #c0392b; }
+#welcomeBox .dot-sm { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+/* Dark mode */
+:root { --bg: #fff; --bg2: #f5f5f5; --text: #333; --text2: #666; --border: #ddd; --card: #fff; --legend-bg: #fff; }
+body.dark { --bg: #0d1117; --bg2: #161b22; --text: #c9d1d9; --text2: #8b949e; --border: #30363d; --card: #161b22; --legend-bg: #161b22; }
+body.dark #filters select, body.dark #filters input { background: #0d1117; border-color: #30363d; }
+body.dark #modal { background: #161b22; }
+body.dark #modal label,
+body.dark #modal h2 { color: #c9d1d9; }
+body.dark #modal input, body.dark #modal select, body.dark #modal textarea { background: #0d1117; color: #c9d1d9; border-color: #30363d; }
+body.dark #welcomeBox { background: #161b22; }
+body.dark #welcomeBox .section h3 { color: #c9d1d9; }
+body.dark #welcomeBox .section p,
+body.dark #welcomeBox .section li { color: #8b949e; }
+body.dark #legend { background: var(--legend-bg); border-top-color: var(--border); }
+body.dark .leaflet-popup-content .sector,
+body.dark .leaflet-popup-content .desc,
+body.dark .leaflet-popup-content .meta { color: var(--text2); }
+body.dark .leaflet-popup-content h3 { color: var(--text); }
+body.dark .leaflet-popup-content-wrapper { background: #161b22; color: var(--text); }
+body.dark .leaflet-popup-tip { background: #161b22; }
+body.dark .leaflet-popup-content a { color: #e74c3c; }
+body.dark #modal .sub { color: #8b949e; }
+body.dark #modal .required-msg { color: #8b949e; }
+body.dark #modal .error { color: #e74c3c; }
+body.dark #modal .btn-secondary { background: #21262d; color: #c9d1d9; border-color: #30363d; }
+body.dark #modal .btn-secondary:hover { background: #30363d; }
+body.dark ::placeholder { color: #6e7681; }
+body.dark #welcomeBox .sub { color: #8b949e; }
+body.dark .count { color: #8b949e; }
+body.dark #legend { color: var(--text); }
+body.dark #legend a { color: #e74c3c; }
+body.dark #legend .attribution { color: #8b949e; }
+body.dark #helpBtn { color: #8b949e; border-color: #30363d; }
+#darkToggle { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 5px; font-size: 12px; cursor: pointer; min-width: 30px; }
+
+/* Utility buttons */
+.action-btn { background: rgba(255,255,255,0.08); color: #ccc; border: 1px solid rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 5px; font-size: 12px; cursor: pointer; white-space: nowrap; }
+.action-btn:hover { background: rgba(255,255,255,0.15); }
+body.dark .action-btn { color: #8b949e; border-color: #30363d; }
+#nearMeBtn.locating { opacity: 0.6; pointer-events: none; }
+
+/* Near me distance in popup */
+.meta.dist { color: #e74c3c; font-weight: 600; }
+@media (max-width: 600px) {
+  #header{padding:8px 12px;gap:6px}
+  #header h1{font-size:14px}
+  #header .count{font-size:12px}
+  #header button,#header .action-btn{font-size:11px;padding:6px 10px;min-height:36px;white-space:nowrap}
+  #header div{gap:6px}
+  #filters{flex-direction:column;align-items:stretch;padding:8px 12px;gap:6px}
+  #filters select,#filters input{width:100%;min-height:40px;font-size:16px}
+  #map{height:55vh;min-height:300px}
+  #legend{flex-direction:column;align-items:flex-start;gap:4px;font-size:11px;padding:6px 10px}
+  #legend .attribution{font-size:10px;margin-left:0}
+  #modal{padding:16px;max-width:100%}
+  #modal h2{font-size:17px}
+  #modal input,#modal select,#modal textarea{font-size:16px;padding:10px 12px}
+  #modal .btn-primary,#modal .btn-secondary{font-size:14px;padding:12px;min-height:44px}
+  #welcomeBox{padding:20px;max-width:100%}
+  #welcomeBox h2{font-size:18px}
+  #welcomeBox .section p,#welcomeBox .section li{font-size:13px}
+  .leaflet-popup-content{font-size:13px;margin:8px 10px}
+  .leaflet-popup-content h3{font-size:14px}
+}
+</style>
+</head>
+<body>
+
+<!-- Welcome overlay -->
+<div id="welcomeOverlay" onclick="if(event.target===this)dismissWelcome()">
+  <div id="welcomeBox">
+    <button class="close-btn" onclick="dismissWelcome()">✕</button>
+    <h2 id="welTitle">🇩🇪 Welcome!</h2>
+    <p class="sub" id="welSub">This map shows worker-owned businesses in Germany — places where the employees collectively own and run the company.</p>
+    <div class="section">
+      <h3 id="welColors">🎯 What the colors mean</h3>
+      <ul id="welColorList">
+        <li><span class="dot-sm" style="background:#e74c3c"></span> <strong id="c1a">Worker Majority</strong> <span id="c1b">— 51%+ of employees are member-owners (true worker co-op)</span></li>
+        <li><span class="dot-sm" style="background:#f39c12"></span> <strong id="c2a">Governance-based</strong> <span id="c2b">— Workers have strong decision-making power through the governance structure</span></li>
+        <li><span class="dot-sm" style="background:#2ecc71"></span> <strong id="c3a">Statute-based</strong> <span id="c3b">— Worker decision-making is guaranteed by the company's statutes</span></li>
+        <li><span class="dot-sm" style="background:#9b59b6"></span> <strong id="c4a">In Founding</strong> <span id="c4b">— In the process of being established</span></li>
+        <li><span class="dot-sm" style="background:#95a5a6"></span> <strong id="c5a">Unknown</strong> <span id="c5b">— Not yet classified</span></li>
+        <li><span class="dot-sm" style="background:#7f8c8d;opacity:0.5"></span> <strong id="c6a">Remote-only</strong> <span id="c6b">— No public office, shown at city center</span></li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3 id="welHow">🔍 How to use it</h3>
+      <ul id="welHowList">
+        <li id="h1"><strong id="h1a">Click any pin</strong> <span id="h1b">to see the business name, sector, and website</span></li>
+        <li id="h2"><strong id="h2a">Filter</strong> <span id="h2b">by sector or governance type using the dropdowns above the map</span></li>
+        <li id="h3"><strong id="h3a">Search</strong> <span id="h3b">by name or location using the search box</span></li>
+        <li id="h4"><strong id="h4a">Zoom in</strong> <span id="h4b">— pins cluster when zoomed out and spread apart as you zoom in</span></li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3 id="welAdd">➕ Know a business we're missing?</h3>
+      <p id="welAddP">Click the <strong>"Add a business"</strong> button in the top right. Your submission will be reviewed and added to the map.</p>
+    </div>
+    <button class="got-it" onclick="dismissWelcome()" id="welGotIt">Got it! →</button>
+  </div>
+</div>
+
+<div id="header">
+  <h1>🇩🇪 <span id="titleWord">German Worker-Owned</span> <span id="titleMap">Business Map</span></h1>
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <span class="count"><span id="entryCount">0</span> <span id="entryLabel">entries</span></span>
+    <button id="helpBtn" onclick="showWelcome()" title="What is this?" class="action-btn"><span id="helpLabel">What is this?</span></button>
+    <button id="darkToggle" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
+    <button id="langToggle" onclick="toggleLang()">DE</button>
+    <button onclick="openForm()" style="background:#e74c3c;color:#fff;padding:6px 14px;border-radius:6px;border:none;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;" id="addBtnText">➕ Add a business</button>
+  </div>
+</div>
+
+<div id="filters">
+  <label><span id="filterSector">Sector</span> <select id="sectorFilter"><option value=""><span id="optAll1">All</span></option></select></label>
+  <label><span id="filterGov">Governance</span> <select id="govFilter"><option value=""><span id="optAll2">All</span></option>
+    <option value="worker_majority"><span>●</span> <span id="govOpt1">Worker Majority (51%+)</span></option>
+    <option value="governance_based"><span>●</span> <span id="govOpt2">Governance-based</span></option>
+    <option value="statute_based"><span>●</span> <span id="govOpt3">Statute-based</span></option>
+    <option value="in_founding"><span>●</span> <span id="govOpt4">In Founding</span></option>
+  </select></label>
+  <label><span id="filterSearch">Search</span> <input id="searchInput" type="text" placeholder="Name, sector, location..."></label>
+  <button id="nearMeBtn" class="action-btn" onclick="nearMe()" title="Find co-ops near your location">📍 <span id="nearMeLabel">Near me</span></button>
+  <button class="action-btn" onclick="exportCSV()" title="Download visible entries as CSV">⬇ <span id="exportLabel">CSV</span></button>
+</div>
+
+<div id="map"></div>
+
+<div id="legend">
+  <span title="51%+ of employees are member-owners with voting rights — the core definition of a worker co-op"><span class="dot" style="background:#e74c3c"></span> <span id="legMaj">Worker Majority (51%+)</span></span>
+  <span title="Workers have elevated decision-making power through governance structures, typically consumer co-ops with strong democratic processes"><span class="dot" style="background:#f39c12"></span> <span id="legGov">Governance-based</span></span>
+  <span title="Workers have elevated decision-making power guaranteed by the cooperative's statutes/articles of association"><span class="dot" style="background:#2ecc71"></span> <span id="legStat">Statute-based</span></span>
+  <span title="In the process of being established as a worker-owned cooperative"><span class="dot" style="background:#9b59b6"></span> <span id="legFound">In Founding</span></span>
+  <span title="Governance model not yet classified — help us by submitting a correction"><span class="dot" style="background:#95a5a6"></span> <span id="legUnk">Unknown</span></span>
+  <span title="Business is remote-first with no public office address — shown at city center"><span class="dot" style="background:#7f8c8d;opacity:0.5"></span> <span id="legRemote">Remote-only</span></span>
+  <span class="attribution">
+    <a href="https://github.com/ravidvr/german-worker-coops"><span id="attribSource">Source Data</span></a> ·
+    <a href="about.html"><span id="attribAbout">About</span></a> ·
+    <a href="#" onclick="openFeedbackForm();return false;"><span id="attribFeedback">Feedback</span></a> ·
+    © <a href="https://openstreetmap.org/copyright">OSM Contributors</a> ·
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </span>
+</div>
+
+<!-- Submission modal -->
+<div id="modalOverlay" onclick="if(event.target===this)closeForm()">
+  <div id="modal">
+    <div id="formView">
+      <h2 id="formTitle">➕ Add a worker-owned business</h2>
+      <p class="sub" id="formSub">Help grow the directory. Submissions are reviewed and added to the map.</p>
+      <div class="field">
+        <label><span id="formNameLabel">Business name</span> <span class="req">*</span></label>
+        <input id="fName" placeholder="" required>
+        <div class="error" id="errName">Required</div>
+      </div>
+      <div class="field">
+        <label><span id="formUrlLabel">Website URL</span> <span class="req">*</span></label>
+        <input id="fUrl" placeholder="" required>
+        <div class="error" id="errUrl">Required</div>
+      </div>
+      <div class="field">
+        <label><span id="formCityLabel">City / Location</span> <span class="req">*</span></label>
+        <input id="fCity" placeholder="" required>
+        <div class="error" id="errCity">Required</div>
+      </div>
+      <div class="field">
+        <label><span id="formGovLabel">Governance type</span> <span class="req">*</span></label>
+        <select id="fGov">
+          <option value="" id="govSelect">Select one...</option>
+          <option value="worker_majority" id="govOptMaj">Worker majority (51%+ of employees are members)</option>
+          <option value="governance_based" id="govOptGov">Governance-based (elevated decision power)</option>
+          <option value="statute_based" id="govOptStat">Statute-based (elevated decision power by statutes)</option>
+          <option value="in_founding" id="govOptFound">In founding / Not sure yet</option>
+        </select>
+        <div class="error" id="errGov">Required</div>
+      </div>
+      <div class="field">
+        <label><span id="formSectorLabel">Sector / Industry</span></label>
+        <input id="fSector" placeholder="">
+      </div>
+      <div class="field">
+        <label><span id="formDescLabel">Description</span></label>
+        <textarea id="fDesc" placeholder=""></textarea>
+      </div>
+      <div class="field">
+        <label><span id="formSourceLabel">How did you verify?</span> <span class="req">*</span></label>
+        <textarea id="fSource" placeholder="" required></textarea>
+        <div class="error" id="errSource">Required</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="closeForm()" id="formCancel">Cancel</button>
+        <button class="btn-primary" onclick="submitForm()" id="formSubmit">Submit for review →</button>
+      </div>
+      <p class="required-msg" id="formRequired">* Required fields. Submission opens a GitHub Issue for review.</p>
+    </div>
+    <div id="successView" style="display:none">
+      <div class="success-msg">
+        <div class="icon">✅</div>
+        <h3 id="succTitle">Submitted!</h3>
+        <p id="succText">Your entry has been opened as a GitHub Issue. It will be reviewed and added to the map.</p>
+        <a id="issueLink" href="#" target="_blank" class="btn-primary" style="display:inline-block;padding:11px 24px;text-decoration:none;border-radius:8px;"><span id="succBtn">View issue →</span></a>
+        <button class="btn-secondary" onclick="closeForm()" style="display:block;margin:10px auto 0;padding:8px 20px;border-radius:8px;border:1px solid #ddd;background:#f5f5f5;cursor:pointer;" id="succBack">Back to map</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Feedback modal -->
+<div id="fbOverlay" onclick="if(event.target===this)closeFeedback()">
+  <div id="modal">
+    <div id="fbFormView">
+      <h2 id="fbTitle">💬 Feedback</h2>
+      <p class="sub" id="fbSub">Help me make this map better. What works, what doesn't, what's missing?</p>
+      <div class="field">
+        <label><span id="fbNameLabel">Your name</span></label>
+        <input id="fbName" placeholder="">
+      </div>
+      <div class="field">
+        <label><span id="fbMsgLabel">Your message</span> <span class="req">*</span></label>
+        <textarea id="fbMsg" placeholder="" style="min-height:120px" required></textarea>
+        <div class="error" id="errFbMsg">Required</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="closeFeedback()" id="fbCancel">Cancel</button>
+        <button class="btn-primary" onclick="submitFeedback()" id="fbSubmit">Send feedback →</button>
+      </div>
+      <p class="required-msg" id="fbRequired">* Required. Opens a GitHub Issue with your feedback.</p>
+    </div>
+    <div id="fbSuccessView" style="display:none">
+      <div class="success-msg">
+        <div class="icon">💬</div>
+        <h3 id="fbSuccTitle">Thanks!</h3>
+        <p id="fbSuccText">Your feedback has been opened as a GitHub Issue. I'll read it.</p>
+        <a id="fbIssueLink" href="#" target="_blank" class="btn-primary" style="display:inline-block;padding:11px 24px;text-decoration:none;border-radius:8px;"><span id="fbSuccBtn">View issue →</span></a>
+        <button class="btn-secondary" onclick="closeFeedback()" style="display:block;margin:10px auto 0;padding:8px 20px;border-radius:8px;border:1px solid #ddd;background:#f5f5f5;cursor:pointer;" id="fbSuccBack">Back to map</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<script>
+// ===== I18N =====
+var lang = 'en';
+var i18n = {
+  en: {
+    titleWord: 'German Worker-Owned', titleMap: 'Business Map',
+    entryLabel: 'entries', addBtnText: '➕ Add a business',
+    filterSector: 'Sector', filterGov: 'Governance', filterSearch: 'Search',
+    searchPlh: 'Name, sector, location...',
+    optAll: 'All',
+    govOpt1: 'Worker Majority (51%+)', govOpt2: 'Governance-based', govOpt3: 'Statute-based', govOpt4: 'In Founding',
+    legMaj: 'Worker Majority (51%+)', legGov: 'Governance-based', legStat: 'Statute-based', legFound: 'In Founding', legUnk: 'Unknown', legRemote: 'Remote-only',
+    attribSource: 'Source Data', attribAbout: 'About',
+    formTitle: '➕ Add a worker-owned business',
+    formSub: 'Help grow the directory. Submissions are reviewed and added to the map.',
+    formNameLabel: 'Business name', formNamePlh: 'e.g. Example Co-op eG',
+    formUrlLabel: 'Website URL', formUrlPlh: 'https://example.coop',
+    formCityLabel: 'City / Location', formCityPlh: 'e.g. Berlin, Hamburg, Leipzig',
+    formGovLabel: 'Governance type',
+    govSelect: 'Select one...',
+    govOptMaj: 'Worker majority (51%+ of employees are members)',
+    govOptGov: 'Governance-based (elevated decision power)',
+    govOptStat: 'Statute-based (elevated decision power by statutes)',
+    govOptFound: 'In founding / Not sure yet',
+    formSectorLabel: 'Sector / Industry', formSectorPlh: 'e.g. IT/Software, Woodworking, Food/Retail',
+    formDescLabel: 'Description', formDescPlh: 'Brief description of what they do...',
+    formSourceLabel: 'How did you verify?', formSourcePlh: "e.g. Their about page says 'worker-owned cooperative'",
+    errRequired: 'Required',
+    formCancel: 'Cancel', formSubmit: 'Submit for review →',
+    formRequired: '* Required fields. Submission opens a GitHub Issue for review.',
+    succTitle: 'Submitted!',
+    succText: 'Your entry has been opened as a GitHub Issue. It will be reviewed and added to the map.',
+    succBtn: 'View issue →', succBack: 'Back to map',
+    popGov: 'Governance', popWeb: 'Website', popSrc: 'Source',
+    welTitle: '🇩🇪 Welcome!',
+    welSub: 'This map shows worker-owned businesses in Germany — places where the employees collectively own and run the company.',
+    welColors: '🎯 What the colors mean',
+    c1a: 'Worker Majority', c1b: '— 51%+ of employees are member-owners (true worker co-op)',
+    c2a: 'Governance-based', c2b: '— Workers have strong decision-making power through the governance structure',
+    c3a: 'Statute-based', c3b: "— Worker decision-making is guaranteed by the company's statutes",
+    c4a: 'In Founding', c4b: '— In the process of being established',
+    c5a: 'Unknown', c5b: '— Not yet classified',
+    c6a: 'Remote-only', c6b: '— No public office, shown at city center',
+    welHow: '🔍 How to use it',
+    h1a: 'Click any pin', h1b: 'to see the business name, sector, and website',
+    h2a: 'Filter', h2b: 'by sector or governance type using the dropdowns above the map',
+    h3a: 'Search', h3b: 'by name or location using the search box',
+    h4a: 'Zoom in', h4b: '— pins cluster when zoomed out and spread apart as you zoom in',
+    welAdd: '➕ Know a business we\'re missing?',
+    welAddP: 'Click the "Add a business" button in the top right. Your submission will be reviewed and added to the map.',
+    welGotIt: 'Got it! →',
+    helpTitle: 'What is this?',
+    helpLabel: 'What is this?',
+    attribFeedback: 'Feedback',
+    fbTitle: '💬 Feedback',
+    fbSub: "Help me make this map better. What works, what doesn't, what's missing?",
+    fbNameLabel: 'Your name', fbMsgLabel: 'Your message',
+    fbCancel: 'Cancel', fbSubmit: 'Send feedback →',
+    fbRequired: '* Required. Opens a GitHub Issue with your feedback.',
+    fbSuccTitle: 'Thanks!',
+    fbSuccText: "Your feedback has been opened as a GitHub Issue. I'll read it.",
+    fbSuccBtn: 'View issue →', fbSuccBack: 'Back to map',
+    nearMeLabel: 'Near me', exportLabel: 'CSV',
+  },
+  de: {
+    titleWord: 'Produktivgenossenschaften', titleMap: 'in Deutschland',
+    entryLabel: 'Einträge', addBtnText: '➕ Unternehmen hinzufügen',
+    filterSector: 'Branche', filterGov: 'Struktur', filterSearch: 'Suche',
+    searchPlh: 'Name, Branche, Ort...',
+    optAll: 'Alle',
+    govOpt1: 'Arbeitermehrheit (51%+)', govOpt2: 'Entscheidungsmacht', govOpt3: 'Satzungsbasiert', govOpt4: 'In Gründung',
+    legMaj: 'Arbeitermehrheit (51%+)', legGov: 'Entscheidungsmacht', legStat: 'Satzungsbasiert', legFound: 'In Gründung', legUnk: 'Unbekannt', legRemote: 'Nur Remote',
+    attribSource: 'Datenquelle', attribAbout: 'Über mich',
+    formTitle: '➕ Unternehmen eintragen',
+    formSub: 'Hilf mit, das Verzeichnis wachsen zu lassen. Einsendungen werden geprüft und in die Karte aufgenommen.',
+    formNameLabel: 'Name des Unternehmens', formNamePlh: 'z.B. Beispiel eG',
+    formUrlLabel: 'Webseite', formUrlPlh: 'https://beispiel.coop',
+    formCityLabel: 'Stadt / Ort', formCityPlh: 'z.B. Berlin, Hamburg, Leipzig',
+    formGovLabel: 'Strukturtyp',
+    govSelect: 'Bitte wählen...',
+    govOptMaj: 'Arbeitermehrheit (mind. 51% der Angestellten sind Mitglieder)',
+    govOptGov: 'Erhöhte Entscheidungsmacht (durch Governance)',
+    govOptStat: 'Satzungsbasierte Entscheidungsmacht',
+    govOptFound: 'In Gründung / Noch unklar',
+    formSectorLabel: 'Branche', formSectorPlh: 'z.B. IT/Software, Handwerk, Lebensmittel',
+    formDescLabel: 'Beschreibung', formDescPlh: 'Kurze Beschreibung der Tätigkeit...',
+    formSourceLabel: 'Wie hast du es überprüft?', formSourcePlh: 'z.B. Die Webseite bezeichnet sich als Produktivgenossenschaft',
+    errRequired: 'Erforderlich',
+    formCancel: 'Abbrechen', formSubmit: 'Zur Prüfung einreichen →',
+    formRequired: '* Pflichtfelder. Die Einsendung öffnet ein GitHub Issue zur Prüfung.',
+    succTitle: 'Eingereicht!',
+    succText: 'Dein Eintrag wurde als GitHub Issue eröffnet. Er wird geprüft und in die Karte aufgenommen.',
+    succBtn: 'Issue ansehen →', succBack: 'Zurück zur Karte',
+    popGov: 'Struktur', popWeb: 'Webseite', popSrc: 'Quelle',
+    welTitle: '🇩🇪 Willkommen!',
+    welSub: 'Diese Karte zeigt Produktivgenossenschaften in Deutschland — Unternehmen, die den Mitarbeitenden gehören und von ihnen demokratisch geführt werden.',
+    welColors: '🎯 Was die Farben bedeuten',
+    c1a: 'Arbeitermehrheit', c1b: '— Mind. 51% der Angestellten sind Mitglieder (echte Produktivgenossenschaft)',
+    c2a: 'Entscheidungsmacht', c2b: '— Erhöhte Entscheidungsmacht durch die Governance-Struktur',
+    c3a: 'Satzungsbasiert', c3b: '— Entscheidungsmacht ist in der Satzung verankert',
+    c4a: 'In Gründung', c4b: '— Befindet sich im Gründungsprozess',
+    c5a: 'Unbekannt', c5b: '— Noch nicht klassifiziert',
+    c6a: 'Nur Remote', c6b: '— Kein öffentliches Büro, am Stadtzentrum angezeigt',
+    welHow: '🔍 Wie benutzt man die Karte',
+    h1a: 'Klicke auf einen Pin', h1b: 'um Name, Branche und Webseite zu sehen',
+    h2a: 'Filtern', h2b: 'nach Branche oder Strukturtyp mit den Auswahlmenüs über der Karte',
+    h3a: 'Suchen', h3b: 'nach Name oder Ort mit dem Suchfeld',
+    h4a: 'Hereinzoomen', h4b: '— Pins gruppieren sich beim Herauszoomen und verteilen sich beim Hineinzoomen',
+    welAdd: '➕ Fehlt ein Unternehmen?',
+    welAddP: 'Klicke auf den "Unternehmen hinzufügen"-Button oben rechts. Deine Einsendung wird geprüft und in die Karte aufgenommen.',
+    welGotIt: 'Verstanden! →',
+    helpTitle: 'Was ist das?',
+    helpLabel: 'Was ist das?',
+    attribFeedback: 'Feedback',
+    fbTitle: '💬 Feedback',
+    fbSub: 'Hilf mir, die Karte zu verbessern. Was funktioniert, was nicht, was fehlt?',
+    fbNameLabel: 'Dein Name', fbMsgLabel: 'Deine Nachricht',
+    fbCancel: 'Abbrechen', fbSubmit: 'Feedback senden →',
+    fbRequired: '* Erforderlich. Öffnet ein GitHub Issue mit deinem Feedback.',
+    fbSuccTitle: 'Danke!',
+    fbSuccText: 'Dein Feedback wurde als GitHub Issue eröffnet. Ich lese es.',
+    fbSuccBtn: 'Issue ansehen →', fbSuccBack: 'Zurück zur Karte',
+    nearMeLabel: 'In der Nähe', exportLabel: 'CSV',
+  }
+};
+
+function setLang(l) {
+  lang = l;
+  var t = i18n[l];
+  document.documentElement.lang = l === 'de' ? 'de' : 'en';
+  document.getElementById('langToggle').textContent = l === 'en' ? 'DE' : 'EN';
+  document.getElementById('pageTitle').textContent = l === 'en' ? 'German Worker-Owned Business Map' : 'Karte der Produktivgenossenschaften in Deutschland';
+
+  var helpBtn = document.getElementById('helpBtn');
+  if (helpBtn) helpBtn.title = t.helpTitle;
+
+  for (var k in t) {
+    var el = document.getElementById(k);
+    if (el) {
+      if (k.endsWith('Plh') || k === 'searchPlh') {
+        el.placeholder = t[k];
+      } else {
+        el.textContent = t[k];
+      }
+    }
+  }
+}
+
+function toggleLang() { setLang(lang === 'en' ? 'de' : 'en'); rebuildPopups(); }
+
+// ===== DARK MODE =====
+function toggleDark() {
+  var on = document.body.classList.toggle('dark');
+  document.getElementById('darkToggle').textContent = on ? '☀️' : '🌙';
+  try { localStorage.setItem('darkMode', on ? '1' : ''); } catch(e) {}
+  // Switch tile layer for dark theme
+  if (darkTiles) map.removeLayer(darkTiles);
+  if (lightTiles) map.removeLayer(lightTiles);
+  var tileUrl = on ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  var tileAttr = on ? '&copy; <a href="https://carto.com/">CARTO</a>' : '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>';
+  if (on) { darkTiles = L.tileLayer(tileUrl, {attribution: tileAttr, maxZoom: 18}).addTo(map); }
+  else { lightTiles = L.tileLayer(tileUrl, {attribution: tileAttr, maxZoom: 18}).addTo(map); }
+}
+try { if (localStorage.getItem('darkMode')) toggleDark(); } catch(e) {}
+
+// ===== NEAR ME =====
+function nearMe() {
+  if (!navigator.geolocation) { alert('Geolocation not available on this device.'); return; }
+  document.getElementById('nearMeBtn').classList.add('locating');
+  navigator.geolocation.getCurrentPosition(function(pos) {
+    document.getElementById('nearMeBtn').classList.remove('locating');
+    var lat = pos.coords.latitude, lng = pos.coords.longitude;
+    // Sort allMarkers by distance
+    allMarkers.forEach(function(m) { m._dist = Math.sqrt(Math.pow(m.d.lat-lat,2)+Math.pow(m.d.lng-lng,2)); });
+    allMarkers.sort(function(a,b) { return a._dist - b._dist; });
+    // Re-add to map in sorted order
+    mcg.clearLayers();
+    allMarkers.forEach(function(m) { mcg.addLayer(m); });
+    // Pan to user
+    map.setView([lat, lng], 8);
+    // Rebuild popups with distance
+    rebuildPopups();
+  }, function() {
+    document.getElementById('nearMeBtn').classList.remove('locating');
+    alert('Could not get your location. Please allow location access.');
+  }, {enableHighAccuracy: true});
+}
+
+// ===== EXPORT CSV =====
+function exportCSV() {
+  var rows = [['Name','URL','City','Sector','Governance','Source']];
+  allMarkers.forEach(function(m) {
+    var d = m.d;
+    rows.push([d.name, d.url || '', d.location || '', d.sector || '', d.governance.replace(/_/g,' '), d.source]);
+  });
+  var csv = rows.map(function(r) { return r.map(function(v) { return '"'+v.replace(/"/g,'""')+'"'; }).join(','); }).join('\n');
+  var blob = new Blob(['\uFEFF'+csv], {type: 'text/csv;charset=utf-8;'});
+  var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'worker-coops-germany.csv'; a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// ===== FEEDBACK FORM =====
+function openFeedbackForm() {
+  document.getElementById('fbFormView').style.display = 'block';
+  document.getElementById('fbSuccessView').style.display = 'none';
+  document.getElementById('fbOverlay').classList.add('open');
+}
+function closeFeedback() {
+  document.getElementById('fbOverlay').classList.remove('open');
+}
+function submitFeedback() {
+  var name = document.getElementById('fbName').value.trim() || 'Anonymous';
+  var msg = document.getElementById('fbMsg').value.trim();
+  document.getElementById('errFbMsg').style.display = 'none';
+  if (!msg) {
+    document.getElementById('errFbMsg').style.display = 'block';
+    return;
+  }
+  var body = '## Feedback from ' + name + '\\n\\n' + msg + '\\n\\n---\\n*Submitted via german-worker-coops map*';
+  var issueUrl = 'https://github.com/ravidvr/german-worker-coops/issues/new' +
+    '?title=' + encodeURIComponent('Feedback: ' + name) +
+    '&body=' + encodeURIComponent(body) +
+    '&labels=feedback';
+  document.getElementById('fbFormView').style.display = 'none';
+  document.getElementById('fbSuccessView').style.display = 'block';
+  document.getElementById('fbIssueLink').href = issueUrl;
+  window.open(issueUrl, '_blank');
+}
+
+// ===== WELCOME OVERLAY =====
+function dismissWelcome() {
+  document.getElementById('welcomeOverlay').classList.remove('open');
+  try { localStorage.setItem('welcomeDismissed', '1'); } catch(e) {}
+}
+function showWelcome() {
+  document.getElementById('welcomeOverlay').classList.add('open');
+}
+try {
+  if (!localStorage.getItem('welcomeDismissed')) showWelcome();
+} catch(e) { showWelcome(); }
+
+function rebuildPopups() {
+  var t = i18n[lang];
+  var showDist = allMarkers.length > 0 && allMarkers[0]._dist !== undefined;
+  allMarkers.forEach(function(m) {
+    var d = m.d;
+    var p = '<h3>'+d.name+'</h3>'+(d.sector?'<div class="sector">'+d.sector+'</div>':'')+(d.description?'<div class="desc">'+d.description+'</div>':'')+
+      (showDist ? '<div class="meta dist">📍 '+(m._dist*111).toFixed(1)+' km</div>' : '')+
+      '<div class="meta">'+t.popGov+': '+d.governance.replace(/_/g,' ')+(d.url&&!d.url.startsWith('://')?' · <a href="'+d.url+'" target="_blank">'+t.popWeb+'</a>':'')+' · '+t.popSrc+': '+d.source+'</div>';
+    m.setPopupContent(p);
+  });
+  var sel = document.getElementById('sectorFilter');
+  var current = sel.value;
+  sel.options[0].text = t.optAll;
+  sel.value = current;
+}
+ 
+ // ===== FORM =====
+function openForm() {
+  document.getElementById('formView').style.display = 'block';
+  document.getElementById('successView').style.display = 'none';
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeForm() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+function submitForm() {
+  var name = document.getElementById('fName').value.trim();
+  var url = document.getElementById('fUrl').value.trim();
+  var city = document.getElementById('fCity').value.trim();
+  var gov = document.getElementById('fGov').value;
+  var sector = document.getElementById('fSector').value.trim();
+  var desc = document.getElementById('fDesc').value.trim();
+  var source = document.getElementById('fSource').value.trim();
+  var err = i18n[lang].errRequired;
+  var ok = true;
+  ['errName','errUrl','errCity','errGov','errSource'].forEach(function(e){
+    document.getElementById(e).style.display = 'none';
+  });
+  if (!name) { document.getElementById('errName').style.display = 'block'; ok = false; }
+  if (!url) { document.getElementById('errUrl').style.display = 'block'; ok = false; }
+  if (!city) { document.getElementById('errCity').style.display = 'block'; ok = false; }
+  if (!gov) { document.getElementById('errGov').style.display = 'block'; ok = false; }
+  if (!source) { document.getElementById('errSource').style.display = 'block'; ok = false; }
+  if (!ok) return;
+
+  var issueUrl = 'https://github.com/ravidvr/german-worker-coops/issues/new' +
+    '?template=add-entry.yml&labels=new-entry' +
+    '&title=' + encodeURIComponent((lang === 'de' ? 'Neuer Eintrag: ' : 'New entry: ') + name) +
+    '&name=' + encodeURIComponent(name) +
+    '&url=' + encodeURIComponent(url) +
+    '&city=' + encodeURIComponent(city) +
+    '&governance=' + encodeURIComponent(gov) +
+    '&sector=' + encodeURIComponent(sector) +
+    '&description=' + encodeURIComponent(desc) +
+    '&source=' + encodeURIComponent(source);
+
+  document.getElementById('formView').style.display = 'none';
+  document.getElementById('successView').style.display = 'block';
+  document.getElementById('issueLink').href = issueUrl;
+  window.open(issueUrl, '_blank');
+}
+
+// ===== MAP =====
+var map = L.map('map', { center: [51.165, 10.451], zoom: 6, zoomControl: true });
+var lightTiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>', maxZoom: 18
+}).addTo(map);
+var darkTiles;
+
+var mcg = L.markerClusterGroup({
+  chunkedLoading: true, spiderfyOnMaxZoom: true, showCoverageOnHover: false,
+  iconCreateFunction: function(c) {
+    var n = c.getChildCount();
+    var sz = n < 10 ? 'small' : n < 30 ? 'medium' : 'large';
+    var cl = { small: '#e74c3c', medium: '#c0392b', large: '#a93226' };
+    return L.divIcon({ html: '<div style="background:'+cl[sz]+';color:#fff;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:14px;border:3px solid rgba(255,255,255,0.6)">'+n+'</div>', className: '', iconSize: L.point(40,40) });
+  }
+});
+
+var allMarkers = [];
+function getIcon(c) {
+  return L.divIcon({ html: '<div style="background:'+c+';width:14px;height:14px;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.3)"></div>', className: '', iconSize: L.point(14,14) });
+}
+
+function loadData(data) {
+  allMarkers = []; mcg.clearLayers();
+  data.forEach(function(d) {
+    var govLabel = d.governance.replace(/_/g, ' ');
+    var websiteLabel = i18n[lang] ? i18n[lang].popWeb : 'Website';
+    var sourceLabel = i18n[lang] ? i18n[lang].popSrc : 'Source';
+    var govField = i18n[lang] ? i18n[lang].popGov : 'Governance';
+    var p = '<h3>'+d.name+'</h3>'+(d.sector?'<div class="sector">'+d.sector+'</div>':'')+(d.description?'<div class="desc">'+d.description+'</div>':'')+
+      '<div class="meta">'+govField+': '+govLabel+(d.url&&!d.url.startsWith('://')?' · <a href="'+d.url+'" target="_blank">'+websiteLabel+'</a>':'')+' · '+sourceLabel+': '+d.source+'</div>';
+    var m = L.marker([d.lat,d.lng],{icon:getIcon(d.color)}).bindPopup(p);
+    m.d = d; allMarkers.push(m); mcg.addLayer(m);
+  });
+  map.addLayer(mcg);
+  document.getElementById('entryCount').textContent = data.length;
+  var sectors = {};
+  data.forEach(function(d){if(d.sector)sectors[d.sector]=true;});
+  var sel = document.getElementById('sectorFilter');
+  var allText = i18n[lang] ? i18n[lang].optAll : 'All';
+  sel.innerHTML = '<option value="">'+allText+'</option>';
+  Object.keys(sectors).sort().forEach(function(s){sel.innerHTML+='<option value="'+s.replace(/"/g,'&quot;')+'">'+s+'</option>';});
+}
+
+function applyFilters() {
+  var sector = document.getElementById('sectorFilter').value.toLowerCase();
+  var gov = document.getElementById('govFilter').value;
+  var search = document.getElementById('searchInput').value.toLowerCase();
+  mcg.clearLayers();
+  var visible = 0;
+  allMarkers.forEach(function(m){
+    var d = m.d, match = true;
+    if (sector && d.sector.toLowerCase() !== sector) match = false;
+    if (gov && d.governance !== gov) match = false;
+    if (search) {
+      if ((d.name+' '+d.sector+' '+d.description+' '+(d.location||'')).toLowerCase().indexOf(search) === -1) match = false;
+    }
+    if (match) { mcg.addLayer(m); visible++; }
+  });
+  document.getElementById('entryCount').textContent = visible;
+}
+
+document.getElementById('sectorFilter').addEventListener('change', applyFilters);
+document.getElementById('govFilter').addEventListener('change', applyFilters);
+document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+fetch('data/worker_coops_germany.json').then(function(r){return r.json();}).then(function(db){
+  var gc = { 'worker_majority':'#e74c3c','governance_based':'#f39c12','statute_based':'#2ecc71','in_founding':'#9b59b6','unknown':'#95a5a6' };
+  var e = [];
+  db.entries.forEach(function(d){if(d.lat&&d.lng)e.push({name:d.name,url:d.url,lat:d.lat,lng:d.lng,sector:d.sector||'Uncategorized',governance:d.governance,color:gc[d.governance]||'#95a5a6',description:d.description||'',source:d.source,location:d.location});});
+  loadData(e);
+  if (allMarkers.length) map.fitBounds(L.featureGroup(allMarkers).getBounds().pad(0.1));
+}).catch(function(err){document.getElementById('map').innerHTML='<div style="padding:40px;text-align:center;color:#888"><h2>Could not load data</h2><p>'+err.message+'</p></div>';});
+
+setLang('en');
+</script>
+</body>
+</html>
