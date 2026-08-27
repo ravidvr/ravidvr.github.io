@@ -158,8 +158,8 @@ footer .imp{margin-top:18px}
         <h2><a href="https://ravidvr.github.io/mietspiegel-digitization/" target="_blank">Mietspiegel Digitization</a></h2>
         <span class="yr">2024–25</span>
       </div>
-      <p data-i18n="p2">Official rent indexes from 23 German cities, extracted from government PDFs and normalized into a single structured dataset. A validated pipeline — 14 tests, 0 schema errors.</p>
-      <div class="stat"><b>23 cities</b> · 96 cells each · Python + SQL</div>
+      <p data-i18n="p2">Official rent indexes extracted from government PDFs — the Berlin 2024 table digitized row-for-row (163 rows, verified against the source document) plus four historical editions. A validated pipeline — 14 tests, 23 sanity gates.</p>
+      <div class="stat"><b>163-row official table</b> · 4 editions verified · Python + SQL</div>
     </div>
 
     <div class="item">
@@ -178,6 +178,15 @@ footer .imp{margin-top:18px}
       </div>
       <p data-i18n="p4">An interactive map of worker-owned cooperatives across Germany — bakeries, cafés, workshops, and community spaces.</p>
       <div class="stat">nationwide · open data</div>
+    </div>
+
+    <div class="item">
+      <div class="row">
+        <h2><a href="https://ravidvr.github.io/deals/" target="_blank" rel="noopener">Berlin Deals Map</a></h2>
+        <span class="yr">2026</span>
+      </div>
+      <p data-i18n="p5">This week's Aldi Nord offers on a map of all 509 Berlin stores. Filter by discount size, search products, and see exactly which store has the deal near you. Refreshed automatically twice a week.</p>
+      <div class="stat"><b>509 stores</b> · ~190 offers · auto-refresh</div>
     </div>
   </div>
 
@@ -229,6 +238,7 @@ var I18N = {
     p2:'Rent indexes from 23 German cities, pulled out of government PDFs into one structured, validated dataset.',
     p3:'Where is that film still playing? Every Berlin screening on one map — distance, walk time, and language filters.',
     p4:'Which businesses near you are worker-owned? A map of co-ops across Germany.',
+    p5:'Where is this week\'s deal near you? Aldi Nord offers on a map of every Berlin store.',
     skills:'SQL·BigQuery·Python·A/B Testing·Experimentation·Tableau·Looker·ETL·dbt',
     langs:'English C2 · German B1 · Hindi · Telugu'
   },
@@ -240,6 +250,7 @@ var I18N = {
     p2:'Mietspiegel aus 23 deutschen Städten, aus Behörden-PDFs in einen strukturierten, validierten Datensatz überführt.',
     p3:'Wo läuft dieser Film noch? Jede Berliner Vorstellung auf einer Karte — Entfernung, Gehzeit und Sprachfilter.',
     p4:'Welche Betriebe in deiner Nähe sind in Genossenschaftshand? Eine Karte der Kooperativen in ganz Deutschland.',
+    p5:'Wo ist das Angebot dieser Woche in deiner Nähe? Aldi-Nord-Angebote auf einer Karte aller Berliner Filialen.',
     skills:'SQL·BigQuery·Python·A/B Testing·Experimentation·Tableau·Looker·ETL·dbt',
     langs:'Englisch C2 · Deutsch B1 · Hindi · Telugu'
   }
