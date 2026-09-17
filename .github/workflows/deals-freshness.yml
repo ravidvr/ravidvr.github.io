@@ -1,0 +1,39 @@
+# Deals-site freshness watchdog.
+# The Berlin Deals pipeline runs on a home Mac (cron Tue+Fri 09:00). If the
+# machine is off or the push fails, the public deals page silently goes stale.
+# This job parses the embedded "generated" timestamp from the live page and
+# fails if it's older than 5 days (covers the Tue→Tue and Fri→Tue gaps).
+# Daily at 07:25 UTC = 09:25 Berlin.
+
+name: Deals freshness
+
+on:
+  schedule:
+    - cron: "25 7 * * *"
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch live deals page
+        run: curl -fsS "https://ravidvr.github.io/deals/?cb=$(date +%s)" -o deals.html
+      - name: Assert freshness
+        run: |
+          python3 - <<'EOF'
+          import re, sys
+          from datetime import datetime, timedelta, timezone
+
+          html = open("deals.html", encoding="utf-8").read()
+          m = re.search(r'"generated":\s*"([^"]+)"', html)
+          if not m:
+              print("FRESHNESS FAILED: no 'generated' marker in deals page")
+              sys.exit(1)
+          ts = datetime.fromisoformat(m.group(1))
+          age = datetime.now(timezone.utc) - ts
+          print(f"generated={m.group(1)} age={age.days}d{age.seconds // 3600}h")
+          if age > timedelta(days=5):
+              print("FRESHNESS FAILED: deals data older than 5 days")
+              sys.exit(1)
+          print("FRESHNESS OK")
+          EOF
