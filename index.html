@@ -271,7 +271,7 @@ function applyLang(){
   document.querySelectorAll('[data-i18n]').forEach(function(el){
     var k=el.getAttribute('data-i18n'), t=I18N[cur]&&I18N[cur][k];
     if(!t) return;
-    if(k==='skills'){ el.innerHTML = t.split('·').map(function(s){return '<b>'+s+'</b>';}).join('<span class="sep">·</span>'); return; }
+    if(k==='skills'){ el.innerHTML = t.split('·').map(function(s){return '<b>'+s+'</b>';}).join('<span class="sep"> · </span>'); return; }
     if(k==='langs'){ el.innerHTML = t.replace('English C2','<b>English</b> C2').replace('German B1','<b>German</b> B1').replace('Hindi','<b>Hindi</b>').replace('Telugu','<b>Telugu</b>').replace('Englisch C2','<b>Englisch</b> C2').replace('Deutsch B1','<b>Deutsch</b> B1'); return; }
     el.innerHTML=t;
   });
