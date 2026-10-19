@@ -64,6 +64,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; d
 #modal .success-msg .icon { font-size: 48px; margin-bottom: 12px; }
 #modal .success-msg h3 { font-size: 18px; margin-bottom: 6px; }
 #modal .success-msg p { color: #666; font-size: 14px; margin-bottom: 20px; }
+#modal .success-msg p.mail-alt { font-size: 12px; margin: 14px 0 0; }
+#modal .success-msg p.mail-alt a { color: #e74c3c; }
 /* Welcome overlay */
 #welcomeOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
 #welcomeOverlay.open { display: flex; }
@@ -112,6 +114,11 @@ body.dark #legend { color: var(--text); }
 body.dark #legend a { color: #e74c3c; }
 body.dark #legend .attribution { color: #8b949e; }
 body.dark #helpBtn { color: #8b949e; border-color: #30363d; }
+/* Dark map: the same OpenStreetMap tiles, darkened (CARTO's dark tiles now need an API key) */
+body.dark .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) saturate(.35) brightness(.9) contrast(.95); }
+body.dark .leaflet-container { background: #141311; }
+body.dark #modal .success-msg h3 { color: #c9d1d9; }
+body.dark #modal .success-msg p { color: #8b949e; }
 #darkToggle { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 5px; font-size: 12px; cursor: pointer; min-width: 30px; }
 
 /* Utility buttons */
@@ -215,7 +222,7 @@ body.dark .action-btn { color: #8b949e; border-color: #30363d; }
   <span title="Governance model not yet classified — help us by submitting a correction"><span class="dot" style="background:#95a5a6"></span> <span id="legUnk">Unknown</span></span>
   <span title="Business is remote-first with no public office address — shown at city center"><span class="dot" style="background:#7f8c8d;opacity:0.5"></span> <span id="legRemote">Remote-only</span></span>
   <span class="attribution">
-    <a href="https://github.com/ravidvr/german-worker-coops"><span id="attribSource">Source Data</span></a> ·
+    <a href="data/worker_coops_germany.json"><span id="attribSource">Source Data</span></a> ·
     <a href="about.html"><span id="attribAbout">About</span></a> ·
     <a href="#" onclick="openFeedbackForm();return false;"><span id="attribFeedback">Feedback</span></a> ·
     © <a href="https://openstreetmap.org/copyright">OSM Contributors</a> ·
@@ -272,15 +279,16 @@ body.dark .action-btn { color: #8b949e; border-color: #30363d; }
         <button class="btn-secondary" onclick="closeForm()" id="formCancel">Cancel</button>
         <button class="btn-primary" onclick="submitForm()" id="formSubmit">Submit for review →</button>
       </div>
-      <p class="required-msg" id="formRequired">* Required fields. Submission opens a GitHub Issue for review.</p>
+      <p class="required-msg" id="formRequired">* Required fields. Your email app opens with the entry filled in; just press Send.</p>
     </div>
     <div id="successView" style="display:none">
       <div class="success-msg">
-        <div class="icon">✅</div>
-        <h3 id="succTitle">Submitted!</h3>
-        <p id="succText">Your entry has been opened as a GitHub Issue. It will be reviewed and added to the map.</p>
-        <a id="issueLink" href="#" target="_blank" class="btn-primary" style="display:inline-block;padding:11px 24px;text-decoration:none;border-radius:8px;"><span id="succBtn">View issue →</span></a>
-        <button class="btn-secondary" onclick="closeForm()" style="display:block;margin:10px auto 0;padding:8px 20px;border-radius:8px;border:1px solid #ddd;background:#f5f5f5;cursor:pointer;" id="succBack">Back to map</button>
+        <div class="icon">✉️</div>
+        <h3 id="succTitle">Almost done!</h3>
+        <p id="succText">Your email app should open with your entry filled in. Press Send there, and it will be reviewed and added to the map.</p>
+        <a id="mailLink" href="#" class="btn-primary" style="display:inline-block;padding:11px 24px;text-decoration:none;border-radius:8px;"><span id="succBtn">Open email app →</span></a>
+        <p class="mail-alt"><span id="succAlt">No email app? Send it to</span> <a class="mail-addr" href="#"></a> · <a href="#" id="succCopy" onclick="copyMail(this);return false;">Copy text</a></p>
+        <button class="btn-secondary" onclick="closeForm()" style="display:block;margin:10px auto 0;padding:8px 20px;border-radius:8px;cursor:pointer;" id="succBack">Back to map</button>
       </div>
     </div>
   </div>
@@ -305,15 +313,16 @@ body.dark .action-btn { color: #8b949e; border-color: #30363d; }
         <button class="btn-secondary" onclick="closeFeedback()" id="fbCancel">Cancel</button>
         <button class="btn-primary" onclick="submitFeedback()" id="fbSubmit">Send feedback →</button>
       </div>
-      <p class="required-msg" id="fbRequired">* Required. Opens a GitHub Issue with your feedback.</p>
+      <p class="required-msg" id="fbRequired">* Required. Your email app opens with your feedback filled in; just press Send.</p>
     </div>
     <div id="fbSuccessView" style="display:none">
       <div class="success-msg">
         <div class="icon">💬</div>
-        <h3 id="fbSuccTitle">Thanks!</h3>
-        <p id="fbSuccText">Your feedback has been opened as a GitHub Issue. I'll read it.</p>
-        <a id="fbIssueLink" href="#" target="_blank" class="btn-primary" style="display:inline-block;padding:11px 24px;text-decoration:none;border-radius:8px;"><span id="fbSuccBtn">View issue →</span></a>
-        <button class="btn-secondary" onclick="closeFeedback()" style="display:block;margin:10px auto 0;padding:8px 20px;border-radius:8px;border:1px solid #ddd;background:#f5f5f5;cursor:pointer;" id="fbSuccBack">Back to map</button>
+        <h3 id="fbSuccTitle">Almost done!</h3>
+        <p id="fbSuccText">Your email app should open with your feedback filled in. Press Send there and I'll read it.</p>
+        <a id="fbMailLink" href="#" class="btn-primary" style="display:inline-block;padding:11px 24px;text-decoration:none;border-radius:8px;"><span id="fbSuccBtn">Open email app →</span></a>
+        <p class="mail-alt"><span id="fbSuccAlt">No email app? Send it to</span> <a class="mail-addr" href="#"></a> · <a href="#" id="fbSuccCopy" onclick="copyMail(this);return false;">Copy text</a></p>
+        <button class="btn-secondary" onclick="closeFeedback()" style="display:block;margin:10px auto 0;padding:8px 20px;border-radius:8px;cursor:pointer;" id="fbSuccBack">Back to map</button>
       </div>
     </div>
   </div>
@@ -350,10 +359,11 @@ var i18n = {
     formSourceLabel: 'How did you verify?', formSourcePlh: "e.g. Their about page says 'worker-owned cooperative'",
     errRequired: 'Required',
     formCancel: 'Cancel', formSubmit: 'Submit for review →',
-    formRequired: '* Required fields. Submission opens a GitHub Issue for review.',
-    succTitle: 'Submitted!',
-    succText: 'Your entry has been opened as a GitHub Issue. It will be reviewed and added to the map.',
-    succBtn: 'View issue →', succBack: 'Back to map',
+    formRequired: '* Required fields. Your email app opens with the entry filled in; just press Send.',
+    succTitle: 'Almost done!',
+    succText: 'Your email app should open with your entry filled in. Press Send there, and it will be reviewed and added to the map.',
+    succBtn: 'Open email app →', succBack: 'Back to map',
+    succAlt: 'No email app? Send it to', succCopy: 'Copy text',
     popGov: 'Governance', popWeb: 'Website', popSrc: 'Source',
     welTitle: '🇩🇪 Welcome!',
     welSub: 'This map shows worker-owned businesses in Germany — places where the employees collectively own and run the company.',
@@ -379,10 +389,12 @@ var i18n = {
     fbSub: "Help me make this map better. What works, what doesn't, what's missing?",
     fbNameLabel: 'Your name', fbMsgLabel: 'Your message',
     fbCancel: 'Cancel', fbSubmit: 'Send feedback →',
-    fbRequired: '* Required. Opens a GitHub Issue with your feedback.',
-    fbSuccTitle: 'Thanks!',
-    fbSuccText: "Your feedback has been opened as a GitHub Issue. I'll read it.",
-    fbSuccBtn: 'View issue →', fbSuccBack: 'Back to map',
+    fbRequired: '* Required. Your email app opens with your feedback filled in; just press Send.',
+    fbSuccTitle: 'Almost done!',
+    fbSuccText: "Your email app should open with your feedback filled in. Press Send there and I'll read it.",
+    fbSuccBtn: 'Open email app →', fbSuccBack: 'Back to map',
+    fbSuccAlt: 'No email app? Send it to', fbSuccCopy: 'Copy text', copied: 'Copied ✓',
+    mailSig: 'Sent from the German Worker-Owned Business Map, ravidvr.github.io/coops',
     nearMeLabel: 'Near me', exportLabel: 'CSV',
   },
   de: {
@@ -410,10 +422,11 @@ var i18n = {
     formSourceLabel: 'Wie hast du es überprüft?', formSourcePlh: 'z.B. Die Webseite bezeichnet sich als Produktivgenossenschaft',
     errRequired: 'Erforderlich',
     formCancel: 'Abbrechen', formSubmit: 'Zur Prüfung einreichen →',
-    formRequired: '* Pflichtfelder. Die Einsendung öffnet ein GitHub Issue zur Prüfung.',
-    succTitle: 'Eingereicht!',
-    succText: 'Dein Eintrag wurde als GitHub Issue eröffnet. Er wird geprüft und in die Karte aufgenommen.',
-    succBtn: 'Issue ansehen →', succBack: 'Zurück zur Karte',
+    formRequired: '* Pflichtfelder. Dein E-Mail-Programm öffnet sich mit dem ausgefüllten Eintrag; dort nur noch auf "Senden" klicken.',
+    succTitle: 'Fast geschafft!',
+    succText: 'Dein E-Mail-Programm sollte sich jetzt mit deinem Eintrag öffnen. Klicke dort auf "Senden"; der Eintrag wird geprüft und in die Karte aufgenommen.',
+    succBtn: 'E-Mail-Programm öffnen →', succBack: 'Zurück zur Karte',
+    succAlt: 'Kein E-Mail-Programm? Schick ihn an', succCopy: 'Text kopieren',
     popGov: 'Struktur', popWeb: 'Webseite', popSrc: 'Quelle',
     welTitle: '🇩🇪 Willkommen!',
     welSub: 'Diese Karte zeigt Produktivgenossenschaften in Deutschland — Unternehmen, die den Mitarbeitenden gehören und von ihnen demokratisch geführt werden.',
@@ -439,10 +452,12 @@ var i18n = {
     fbSub: 'Hilf mir, die Karte zu verbessern. Was funktioniert, was nicht, was fehlt?',
     fbNameLabel: 'Dein Name', fbMsgLabel: 'Deine Nachricht',
     fbCancel: 'Abbrechen', fbSubmit: 'Feedback senden →',
-    fbRequired: '* Erforderlich. Öffnet ein GitHub Issue mit deinem Feedback.',
-    fbSuccTitle: 'Danke!',
-    fbSuccText: 'Dein Feedback wurde als GitHub Issue eröffnet. Ich lese es.',
-    fbSuccBtn: 'Issue ansehen →', fbSuccBack: 'Zurück zur Karte',
+    fbRequired: '* Erforderlich. Dein E-Mail-Programm öffnet sich mit deinem Feedback; dort nur noch auf "Senden" klicken.',
+    fbSuccTitle: 'Fast geschafft!',
+    fbSuccText: 'Dein E-Mail-Programm sollte sich jetzt mit deinem Feedback öffnen. Klicke dort auf "Senden", dann lese ich es.',
+    fbSuccBtn: 'E-Mail-Programm öffnen →', fbSuccBack: 'Zurück zur Karte',
+    fbSuccAlt: 'Kein E-Mail-Programm? Schick es an', fbSuccCopy: 'Text kopieren', copied: 'Kopiert ✓',
+    mailSig: 'Gesendet über die Karte der Produktivgenossenschaften, ravidvr.github.io/coops',
     nearMeLabel: 'In der Nähe', exportLabel: 'CSV',
   }
 };
@@ -472,17 +487,11 @@ function setLang(l) {
 function toggleLang() { setLang(lang === 'en' ? 'de' : 'en'); rebuildPopups(); }
 
 // ===== DARK MODE =====
+// The map keeps its OpenStreetMap tiles; the body.dark CSS darkens them
 function toggleDark() {
   var on = document.body.classList.toggle('dark');
   document.getElementById('darkToggle').textContent = on ? '☀️' : '🌙';
   try { localStorage.setItem('darkMode', on ? '1' : ''); } catch(e) {}
-  // Switch tile layer for dark theme
-  if (darkTiles) map.removeLayer(darkTiles);
-  if (lightTiles) map.removeLayer(lightTiles);
-  var tileUrl = on ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-  var tileAttr = on ? '&copy; <a href="https://carto.com/">CARTO</a>' : '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>';
-  if (on) { darkTiles = L.tileLayer(tileUrl, {attribution: tileAttr, maxZoom: 18}).addTo(map); }
-  else { lightTiles = L.tileLayer(tileUrl, {attribution: tileAttr, maxZoom: 18}).addTo(map); }
 }
 try { if (localStorage.getItem('darkMode')) toggleDark(); } catch(e) {}
 
@@ -539,16 +548,33 @@ function submitFeedback() {
     document.getElementById('errFbMsg').style.display = 'block';
     return;
   }
-  var body = '## Feedback from ' + name + '\\n\\n' + msg + '\\n\\n---\\n*Submitted via german-worker-coops map*';
-  var issueUrl = 'https://github.com/ravidvr/german-worker-coops/issues/new' +
-    '?title=' + encodeURIComponent('Feedback: ' + name) +
-    '&body=' + encodeURIComponent(body) +
-    '&labels=feedback';
+  var t = i18n[lang];
   document.getElementById('fbFormView').style.display = 'none';
   document.getElementById('fbSuccessView').style.display = 'block';
-  document.getElementById('fbIssueLink').href = issueUrl;
-  window.open(issueUrl, '_blank');
+  sendMail('[Co-ops map] Feedback: ' + name, msg + '\n\n--\n' + t.fbNameLabel + ': ' + name + '\n' + t.mailSig, 'fbMailLink');
 }
+
+// ===== EMAIL =====
+// Both forms hand off to the visitor's email app (the source repo is private, so GitHub issue links 404).
+// The address is base64-encoded, like on the homepage, to keep it from scrapers.
+var mailTo = atob('ZHZycmF2aUBnbWFpbC5jb20=');
+var lastMail = '';
+function sendMail(subject, body, linkId) {
+  lastMail = subject + '\n\n' + body;
+  var url = 'mailto:' + mailTo + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body.replace(/\r?\n/g, '\r\n'));
+  document.getElementById(linkId).href = url;
+  openMail(url);
+}
+function openMail(url) { window.location.href = url; }
+function copyMail(el) {
+  try {
+    navigator.clipboard.writeText(lastMail).then(function() {
+      el.textContent = i18n[lang].copied;
+      setTimeout(function() { el.textContent = i18n[lang][el.id]; }, 2000);
+    });
+  } catch(e) {}
+}
+document.querySelectorAll('.mail-addr').forEach(function(a) { a.textContent = mailTo; a.href = 'mailto:' + mailTo; });
 
 // ===== WELCOME OVERLAY =====
 function dismissWelcome() {
@@ -607,21 +633,19 @@ function submitForm() {
   if (!source) { document.getElementById('errSource').style.display = 'block'; ok = false; }
   if (!ok) return;
 
-  var issueUrl = 'https://github.com/ravidvr/german-worker-coops/issues/new' +
-    '?template=add-entry.yml&labels=new-entry' +
-    '&title=' + encodeURIComponent((lang === 'de' ? 'Neuer Eintrag: ' : 'New entry: ') + name) +
-    '&name=' + encodeURIComponent(name) +
-    '&url=' + encodeURIComponent(url) +
-    '&city=' + encodeURIComponent(city) +
-    '&governance=' + encodeURIComponent(gov) +
-    '&sector=' + encodeURIComponent(sector) +
-    '&description=' + encodeURIComponent(desc) +
-    '&source=' + encodeURIComponent(source);
+  var t = i18n[lang];
+  var govSel = document.getElementById('fGov');
+  var body = t.formNameLabel + ': ' + name + '\n' +
+    t.formUrlLabel + ': ' + url + '\n' +
+    t.formCityLabel + ': ' + city + '\n' +
+    t.formGovLabel + ': ' + govSel.options[govSel.selectedIndex].text + ' [' + gov + ']\n' +
+    t.formSectorLabel + ': ' + sector + '\n\n' +
+    t.formDescLabel + ':\n' + desc + '\n\n' +
+    t.formSourceLabel + '\n' + source + '\n\n--\n' + t.mailSig;
 
   document.getElementById('formView').style.display = 'none';
   document.getElementById('successView').style.display = 'block';
-  document.getElementById('issueLink').href = issueUrl;
-  window.open(issueUrl, '_blank');
+  sendMail('[Co-ops map] ' + (lang === 'de' ? 'Neuer Eintrag: ' : 'New entry: ') + name, body, 'mailLink');
 }
 
 // ===== MAP =====
@@ -629,7 +653,6 @@ var map = L.map('map', { center: [51.165, 10.451], zoom: 6, zoomControl: true })
 var lightTiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>', maxZoom: 18
 }).addTo(map);
-var darkTiles;
 
 var mcg = L.markerClusterGroup({
   chunkedLoading: true, spiderfyOnMaxZoom: true, showCoverageOnHover: false,
