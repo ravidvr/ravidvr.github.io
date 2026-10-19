@@ -74,27 +74,6 @@ section{padding:64px 0 8px;border-top:1px solid var(--line)}
 h2{font-family:var(--display);font-weight:600;font-size:26px;letter-spacing:-.02em;color:var(--ink)}
 .sub{margin-top:6px;font-size:15px;color:var(--muted)}
 
-/* ─── Work ─── */
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:28px}
-.card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;transition:border-color .2s,box-shadow .2s,transform .2s}
-.card:hover{border-color:#d6d6de;box-shadow:0 10px 30px rgba(11,11,12,.07);transform:translateY(-2px)}
-.card .shot{display:block;border-bottom:1px solid var(--line);background:var(--soft)}
-.card .shot img{width:100%;aspect-ratio:16/10;object-fit:cover}
-.card .body{display:flex;flex-direction:column;flex:1;padding:18px 20px 20px}
-.card .top{display:flex;justify-content:space-between;align-items:baseline;gap:14px}
-h3{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.01em;color:var(--ink);line-height:1.3}
-.yr{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
-.card p{margin-top:6px;font-size:14.5px;line-height:1.55;color:var(--text)}
-.card .stat{margin-top:10px;font-family:var(--mono);font-size:12px;color:var(--muted)}
-.card .stat b{font-weight:500;color:var(--ink)}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;list-style:none}
-.tags li{font-family:var(--mono);font-size:11.5px;padding:3px 8px;border-radius:6px;background:var(--soft);color:#3a3f5c}
-.acts{display:flex;gap:18px;margin-top:auto;padding-top:16px;font-size:14px;font-weight:500}
-.acts .go{color:var(--accent)}
-.acts .go:hover{text-decoration:underline;text-underline-offset:3px}
-.acts .code{color:var(--muted)}
-.acts .code:hover{color:var(--ink)}
-
 /* ─── Experience ─── */
 .jobs{margin-top:24px;list-style:none}
 .jobs li{display:grid;grid-template-columns:1fr auto 110px;gap:8px 24px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line)}
@@ -115,12 +94,9 @@ h3{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.01
 
 footer{margin-top:72px;padding:28px 0 48px;border-top:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--muted);line-height:2}
 
-@media(max-width:760px){
-  .grid{grid-template-columns:1fr}
-}
 @media(max-width:560px){
   .wrap{padding:0 20px}
-  .nav .links{display:none}
+  .nav .links a:not(.nav-ai){display:none}
   .intro{padding:44px 0 48px}
   section{padding-top:48px}
   .jobs li{grid-template-columns:1fr auto;gap:2px 16px}
@@ -128,9 +104,7 @@ footer{margin-top:72px;padding:28px 0 48px;border-top:1px solid var(--line);font
   .when{grid-column:2;grid-row:1}
 }
 @media print{
-  .nav,.skip,.shot,.btns{display:none}
-  .card{break-inside:avoid;border-color:#ddd}
-  .grid{grid-template-columns:1fr 1fr}
+  .nav,.skip,.btns{display:none}
 }
 </style>
 </head>
@@ -143,8 +117,8 @@ footer{margin-top:72px;padding:28px 0 48px;border-top:1px solid var(--line);font
   <header class="nav">
     <a class="brand" href="#top" aria-label="Ravi Dronamraju, top of page">Ravi Dronamraju</a>
     <div class="right">
-      <nav class="links" aria-label="Sections">
-        <a href="#work" data-i18n="nav_work">Work</a>
+      <nav class="links" aria-label="Site">
+        <a class="nav-ai" href="ai-projects/" data-i18n="nav_ai">AI projects</a>
         <a href="#experience" data-i18n="nav_exp">Experience</a>
         <a href="#contact" data-i18n="nav_ct">Contact</a>
       </nav>
@@ -167,68 +141,6 @@ footer{margin-top:72px;padding:28px 0 48px;border-top:1px solid var(--line);font
         <a class="btn" href="https://github.com/ravidvr" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
     </div>
-
-    <section id="work" aria-labelledby="h-work">
-      <h2 id="h-work" data-i18n="s_work">Selected work</h2>
-      <p class="sub" data-i18n="work_sub">Open-data tools I build and run in my own time.</p>
-
-      <div class="grid">
-        <article class="card">
-          <a class="shot" href="https://ravidvr.github.io/mietspiegel-digitization/berlin.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="img/rent-map.webp" width="800" height="500" alt=""></a>
-          <div class="body">
-            <div class="top"><h3><a href="https://ravidvr.github.io/mietspiegel-digitization/berlin.html" target="_blank" rel="noopener">Berlin Rent Map</a></h3><span class="yr">2025</span></div>
-            <p data-i18n="p1">Is your rent legal? Enter an apartment and see the official benchmark against the asking price — block-by-block data from Immoscout24, the Zensus, and the official Mietspiegel.</p>
-            <p class="stat" data-i18n="st1"><b>361 cells</b> · 12 districts · DE/EN</p>
-            <ul class="tags" aria-label="Built with"><li>Python</li><li>PDF extraction</li><li>Leaflet</li><li>Chart.js</li></ul>
-            <div class="acts">
-              <a class="go" href="https://ravidvr.github.io/mietspiegel-digitization/berlin.html" target="_blank" rel="noopener" data-i18n="open_map">Open map →</a>
-              <a class="code" href="https://github.com/ravidvr/mietspiegel-digitization" target="_blank" rel="noopener" data-i18n="code">Code ↗</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="card">
-          <a class="shot" href="https://ravidvr.github.io/mietspiegel-digitization/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="img/mietspiegel.webp" width="800" height="500" alt=""></a>
-          <div class="body">
-            <div class="top"><h3><a href="https://ravidvr.github.io/mietspiegel-digitization/" target="_blank" rel="noopener">Mietspiegel Digitization</a></h3><span class="yr">2024–25</span></div>
-            <p data-i18n="p2">Rent indexes from 23 German cities, pulled out of government PDFs into one structured, validated dataset.</p>
-            <p class="stat" data-i18n="st2"><b>163-row official table</b> · 4 editions verified</p>
-            <ul class="tags" aria-label="Built with"><li>Python</li><li>SQL</li><li>LookML</li><li>pytest</li></ul>
-            <div class="acts">
-              <a class="go" href="https://ravidvr.github.io/mietspiegel-digitization/" target="_blank" rel="noopener" data-i18n="open_dash">Open dashboard →</a>
-              <a class="code" href="https://github.com/ravidvr/mietspiegel-digitization" target="_blank" rel="noopener" data-i18n="code">Code ↗</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="card">
-          <a class="shot" href="https://ravidvr.github.io/mietspiegel-digitization/marktbericht.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="img/property-market.webp" width="800" height="500" alt="" loading="lazy"></a>
-          <div class="body">
-            <div class="top"><h3><a href="https://ravidvr.github.io/mietspiegel-digitization/marktbericht.html" target="_blank" rel="noopener">Berlin Property Market</a></h3><span class="yr">2026</span></div>
-            <p data-i18n="p7">What do flats really sell for? Prices from 20,789 notarised sales in 2024, district by district — no estimates, no asking prices.</p>
-            <p class="stat" data-i18n="st3"><b>20,789 sales</b> · 12 districts · 15 metrics</p>
-            <ul class="tags" aria-label="Built with"><li>Python</li><li>PDF extraction</li><li>Leaflet</li></ul>
-            <div class="acts">
-              <a class="go" href="https://ravidvr.github.io/mietspiegel-digitization/marktbericht.html" target="_blank" rel="noopener" data-i18n="open_dash">Open dashboard →</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="card">
-          <a class="shot" href="https://ravidvr.github.io/getlos/dashboard.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="img/getlos.webp" width="800" height="500" alt="" loading="lazy"></a>
-          <div class="body">
-            <div class="top"><h3><a href="https://ravidvr.github.io/getlos/dashboard.html" target="_blank" rel="noopener">getlos — Cinema Map</a></h3><span class="yr">2024</span></div>
-            <p data-i18n="p3">Where is that film still playing? Every Berlin screening on one map — distance, walk time, and language filters.</p>
-            <p class="stat" data-i18n="st4"><b>~90 venues</b> · RSS &amp; iCal · updated daily</p>
-            <ul class="tags" aria-label="Built with"><li>TypeScript</li><li>Python</li><li>Leaflet</li><li>GitHub Actions</li></ul>
-            <div class="acts">
-              <a class="go" href="https://ravidvr.github.io/getlos/dashboard.html" target="_blank" rel="noopener" data-i18n="open_map">Open map →</a>
-              <a class="code" href="https://github.com/ravidvr/getlos" target="_blank" rel="noopener" data-i18n="code">Code ↗</a>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
 
     <section id="experience" aria-labelledby="h-exp">
       <h2 id="h-exp" data-i18n="s_exp">Experience</h2>
@@ -278,38 +190,18 @@ footer{margin-top:72px;padding:28px 0 48px;border-top:1px solid var(--line);font
 var I18N = {
   en: {
     skip:'Skip to content',
-    nav_work:'Work', nav_exp:'Experience', nav_ct:'Contact',
+    nav_ai:'AI projects', nav_exp:'Experience', nav_ct:'Contact',
     btn_email:'Email me',
-    s_work:'Selected work', work_sub:'Open-data tools I build and run in my own time.',
     s_exp:'Experience', s_sk:'Skills', s_ct:'Contact',
     ct_line:'The quickest way to reach me is email.',
-    open_map:'Open map →', open_dash:'Open dashboard →', code:'Code ↗',
-    p1:'Is your rent legal? Enter an apartment and see the official benchmark against the asking price — block-by-block data from Immoscout24, the Zensus, and the official Mietspiegel.',
-    p2:'Rent indexes from 23 German cities, pulled out of government PDFs into one structured, validated dataset.',
-    p3:'Where is that film still playing? Every Berlin screening on one map — distance, walk time, and language filters.',
-    p7:'What do flats really sell for? Prices from 20,789 notarised sales in 2024, district by district — no estimates, no asking prices.',
-    st1:'<b>361 cells</b> · 12 districts · DE/EN',
-    st2:'<b>163-row official table</b> · 4 editions verified',
-    st3:'<b>20,789 sales</b> · 12 districts · 15 metrics',
-    st4:'<b>~90 venues</b> · RSS &amp; iCal · updated daily',
     langs:'<b>English</b> C2 · <b>German</b> B1 · <b>Hindi</b> · <b>Telugu</b>'
   },
   de: {
     skip:'Zum Inhalt springen',
-    nav_work:'Arbeiten', nav_exp:'Werdegang', nav_ct:'Kontakt',
+    nav_ai:'KI-Projekte', nav_exp:'Werdegang', nav_ct:'Kontakt',
     btn_email:'E-Mail schreiben',
-    s_work:'Ausgewählte Arbeiten', work_sub:'Open-Data-Tools, die ich in meiner Freizeit baue und betreibe.',
     s_exp:'Werdegang', s_sk:'Kenntnisse', s_ct:'Kontakt',
     ct_line:'Am schnellsten erreichst du mich per E-Mail.',
-    open_map:'Karte öffnen →', open_dash:'Dashboard öffnen →', code:'Code ↗',
-    p1:'Ist deine Miete legal? Wohnung eingeben und die offizielle Vergleichsmiete gegen den Angebotspreis sehen — blockweise Daten aus Immoscout24, dem Zensus und dem offiziellen Mietspiegel.',
-    p2:'Mietspiegel aus 23 deutschen Städten, aus Behörden-PDFs in einen strukturierten, validierten Datensatz überführt.',
-    p3:'Wo läuft dieser Film noch? Jede Berliner Vorstellung auf einer Karte — Entfernung, Gehzeit und Sprachfilter.',
-    p7:'Was kosten Wohnungen wirklich? Preise aus 20.789 notariellen Verkäufen 2024, Bezirk für Bezirk — keine Schätzungen, keine Angebotspreise.',
-    st1:'<b>361 Rasterzellen</b> · 12 Bezirke · DE/EN',
-    st2:'<b>Offizielle Tabelle, 163 Zeilen</b> · 4 Ausgaben geprüft',
-    st3:'<b>20.789 Verkäufe</b> · 12 Bezirke · 15 Kennzahlen',
-    st4:'<b>~90 Kinos</b> · RSS &amp; iCal · täglich aktualisiert',
     langs:'<b>Englisch</b> C2 · <b>Deutsch</b> B1 · <b>Hindi</b> · <b>Telugu</b>'
   }
 };

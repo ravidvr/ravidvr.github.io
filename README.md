@@ -4,9 +4,10 @@ Personal site of Ravi Dronamraju — links to my Berlin open-data projects and L
 
 Live: https://ravidvr.github.io/
 
-Single self-contained `index.html`. No build step, no dependencies, no tracking.
+Two self-contained pages, `index.html` and `ai-projects/index.html`. No build step, no dependencies, no tracking.
 
 ## Repo layout
 
-- `index.html` — the personal site (EN/DE toggle, project cards)
+- `index.html` — the homepage: experience, skills, contact (EN/DE toggle)
+- `ai-projects/` — the "AI projects" page with the project cards (EN/DE toggle)
 - `robots.txt` / `sitemap.xml` — crawler discovery
