@@ -12,5 +12,4 @@ Single self-contained `index.html`. No build step, no dependencies, no tracking.
 
 - `index.html` — the personal site (EN/DE toggle, project cards)
 - `deals/` — public copy of the Berlin Deals map (synced Tue+Fri by a cron on a home Mac; the GitHub Actions badge above watches its freshness)
-- `coops/` — public copy of the German Worker Co-ops map
 - `robots.txt` / `sitemap.xml` — crawler discovery
