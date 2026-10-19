@@ -12,7 +12,7 @@
   "entries": [
     {
       "name": "about blank",
-      "url": "https://aboutblank.berlin",
+      "url": "https://aboutblank.li/",
       "description": "Club in Berlin",
       "governance": "worker_majority",
       "legal_form": "",
@@ -198,7 +198,7 @@
     },
     {
       "name": "Finkhof",
-      "url": "https://www.finkhof.de/start/",
+      "url": "https://finkhof.de/",
       "description": "Wollartikel, Lebensmittel und Pflegeprodukte",
       "governance": "worker_majority",
       "legal_form": "",
@@ -747,7 +747,7 @@
     },
     {
       "name": "Syndicats",
-      "url": "https://www.syndicats.co/",
+      "url": "https://syndicats.de/",
       "description": "[Remote-first, no public office address]",
       "governance": "worker_majority",
       "legal_form": "",
