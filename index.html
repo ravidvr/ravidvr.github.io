@@ -63,6 +63,8 @@ img{display:block;max-width:100%;height:auto}
 .intro{padding:72px 0 64px;max-width:680px}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
 h1{margin-top:14px;font-family:var(--display);font-weight:700;font-size:clamp(38px,6vw,52px);line-height:1.04;letter-spacing:-.03em;color:var(--ink)}
+.lead{margin-top:18px;font-size:18px;line-height:1.65;color:var(--text)}
+.nowrap{white-space:nowrap}
 .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
 .btn{display:inline-flex;align-items:center;min-height:42px;padding:0 16px;border-radius:8px;font-size:14px;font-weight:500;border:1px solid var(--line);color:var(--ink);background:#fff;transition:border-color .15s,background .15s}
 .btn:hover{border-color:#c9c9d1}
@@ -98,6 +100,7 @@ footer{margin-top:72px;padding:28px 0 48px;border-top:1px solid var(--line);font
   .wrap{padding:0 20px}
   .nav .links a:not(.nav-ai){display:none}
   .intro{padding:44px 0 48px}
+  .lead{font-size:17px}
   section{padding-top:48px}
   .jobs li{grid-template-columns:1fr auto;gap:2px 16px}
   .where{grid-column:1;grid-row:2}
@@ -135,6 +138,7 @@ footer{margin-top:72px;padding:28px 0 48px;border-top:1px solid var(--line);font
     <div class="intro" id="top">
       <p class="eyebrow">Senior Data Analyst · Berlin</p>
       <h1>Ravi Dronamraju</h1>
+      <p class="lead" data-i18n="lead">Analytics Professional with over 12 years of experience in Retail and <span class="nowrap">E-commerce</span>. I like to make sense of data.</p>
       <div class="btns">
         <a class="btn primary email" href="https://www.linkedin.com/in/ravidvr/" data-i18n="btn_email">Email me</a>
         <a class="btn" href="https://www.linkedin.com/in/ravidvr/" target="_blank" rel="noopener">LinkedIn ↗</a>
@@ -191,6 +195,7 @@ var I18N = {
   en: {
     skip:'Skip to content',
     nav_ai:'AI projects', nav_exp:'Experience', nav_ct:'Contact',
+    lead:'Analytics Professional with over 12 years of experience in Retail and <span class="nowrap">E-commerce</span>. I like to make sense of data.',
     btn_email:'Email me',
     s_exp:'Experience', s_sk:'Skills', s_ct:'Contact',
     ct_line:'The quickest way to reach me is email.',
@@ -199,6 +204,7 @@ var I18N = {
   de: {
     skip:'Zum Inhalt springen',
     nav_ai:'KI-Projekte', nav_exp:'Werdegang', nav_ct:'Kontakt',
+    lead:'Analytics-Profi mit über 12 Jahren Erfahrung in Einzelhandel und <span class="nowrap">E-Commerce</span>. Ich gehe Daten gern auf den Grund.',
     btn_email:'E-Mail schreiben',
     s_exp:'Werdegang', s_sk:'Kenntnisse', s_ct:'Kontakt',
     ct_line:'Am schnellsten erreichst du mich per E-Mail.',
