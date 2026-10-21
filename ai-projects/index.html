@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI projects — Ravi Dronamraju</title>
+<meta name="description" content="AI projects by Ravi Dronamraju: open-data tools for Berlin and Germany — a rent map, rent indexes from 23 cities, flat sale prices and every Berlin cinema screening.">
+<link rel="canonical" href="https://ravidvr.github.io/ai-projects/">
+<meta property="og:title" content="AI projects — Ravi Dronamraju">
+<meta property="og:description" content="Open-data tools for Berlin: official rents, property prices and every cinema screening.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ravidvr.github.io/ai-projects/">
+<meta property="og:site_name" content="Ravi Dronamraju">
+<meta property="og:image" content="https://ravidvr.github.io/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232b3fd4'/><text x='50' y='69' font-size='56' font-weight='700' text-anchor='middle' fill='%23ffffff' font-family='Helvetica,Arial,sans-serif'>R</text></svg>">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff;
+  --ink:#0b0b0c;
+  --text:#3f3f46;
+  --muted:#6b6b72;
+  --line:#ececf0;
+  --soft:#f4f5f8;
+  --accent:#2b3fd4;
+  --display:'Inter Tight','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+img{display:block;max-width:100%;height:auto}
+::selection{background:var(--accent);color:#fff}
+
+.wrap{max-width:1040px;margin:0 auto;padding:0 32px}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:#fff;padding:8px 12px;font-size:14px;border-radius:6px;z-index:10}
+.skip:focus{left:8px}
+
+/* ─── Nav ─── */
+.nav{display:flex;justify-content:space-between;align-items:center;min-height:72px;border-bottom:1px solid var(--line)}
+.brand{font-family:var(--display);font-weight:700;font-size:16px;color:var(--ink);letter-spacing:-.01em}
+.nav .right{display:flex;align-items:center;gap:6px}
+.nav .links{display:flex;gap:26px;margin-right:18px;font-size:14px;color:var(--muted)}
+.nav .links a:hover{color:var(--ink)}
+.nav .links a[aria-current="page"]{color:var(--ink);font-weight:500}
+.lang{display:flex;align-items:center}
+.lang button{background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:12px;color:var(--muted);min-width:40px;min-height:44px}
+.lang button.active{color:var(--ink);font-weight:500}
+.lang button:not(.active):hover{color:var(--accent)}
+.lang .sep{color:var(--line)}
+
+/* ─── Page head ─── */
+.head{padding:64px 0 0}
+h1{margin-top:14px;font-family:var(--display);font-weight:700;font-size:clamp(38px,6vw,52px);line-height:1.04;letter-spacing:-.03em;color:var(--ink)}
+.head h1{margin-top:0}
+.sub{margin-top:6px;font-size:15px;color:var(--muted)}
+
+/* ─── Work ─── */
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:28px}
+.card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;transition:border-color .2s,box-shadow .2s,transform .2s}
+.card:hover{border-color:#d6d6de;box-shadow:0 10px 30px rgba(11,11,12,.07);transform:translateY(-2px)}
+.card .shot{display:block;border-bottom:1px solid var(--line);background:var(--soft)}
+.card .shot img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.card .body{display:flex;flex-direction:column;flex:1;padding:18px 20px 20px}
+.card .top{display:flex;justify-content:space-between;align-items:baseline;gap:14px}
+h3{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.01em;color:var(--ink);line-height:1.3}
+.yr{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.card p{margin-top:6px;font-size:14.5px;line-height:1.55;color:var(--text)}
+.card .stat{margin-top:10px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.card .stat b{font-weight:500;color:var(--ink)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;list-style:none}
+.tags li{font-family:var(--mono);font-size:11.5px;padding:3px 8px;border-radius:6px;background:var(--soft);color:#3a3f5c}
+.acts{display:flex;gap:18px;margin-top:auto;padding-top:16px;font-size:14px;font-weight:500}
+.acts .go{color:var(--accent)}
+.acts .go:hover{text-decoration:underline;text-underline-offset:3px}
+.acts .code{color:var(--muted)}
+.acts .code:hover{color:var(--ink)}
+
+footer{margin-top:72px;padding:28px 0 48px;border-top:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--muted);line-height:2}
+
+@media(max-width:760px){
+  .grid{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .wrap{padding:0 20px}
+  .nav .links a:not(.nav-ai){display:none}
+  .head{padding-top:44px}
+}
+@media print{
+  .nav,.skip,.shot{display:none}
+  .card{break-inside:avoid;border-color:#ddd}
+  .grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<div class="wrap">
+
+  <header class="nav">
+    <a class="brand" href="/" aria-label="Ravi Dronamraju, homepage">Ravi Dronamraju</a>
+    <div class="right">
+      <nav class="links" aria-label="Site">
+        <a class="nav-ai" href="/ai-projects/" aria-current="page" data-i18n="nav_ai">AI projects</a>
+        <a href="/#experience" data-i18n="nav_exp">Experience</a>
+        <a href="/#contact" data-i18n="nav_ct">Contact</a>
+      </nav>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" onclick="setLang('en')" id="lang-en" lang="en">EN</button>
+        <span class="sep" aria-hidden="true">/</span>
+        <button type="button" onclick="setLang('de')" id="lang-de" lang="de">DE</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <div class="head">
+      <h1 data-i18n="s_ai">AI projects</h1>
+      <p class="sub" data-i18n="work_sub">Open-data tools I build and run in my own time.</p>
+    </div>
+
+    <div class="grid">
+      <article class="card">
+        <a class="shot" href="https://ravidvr.github.io/mietspiegel-digitization/berlin.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="/img/rent-map.webp" width="800" height="500" alt=""></a>
+        <div class="body">
+          <div class="top"><h3><a href="https://ravidvr.github.io/mietspiegel-digitization/berlin.html" target="_blank" rel="noopener">Berlin Rent Map</a></h3><span class="yr">2025</span></div>
+          <p data-i18n="p1">Is your rent legal? Enter an apartment and see the official benchmark against the asking price — block-by-block data from Immoscout24, the Zensus, and the official Mietspiegel.</p>
+          <p class="stat" data-i18n="st1"><b>361 cells</b> · 12 districts · DE/EN</p>
+          <ul class="tags" aria-label="Built with"><li>Python</li><li>PDF extraction</li><li>Leaflet</li><li>Chart.js</li></ul>
+          <div class="acts">
+            <a class="go" href="https://ravidvr.github.io/mietspiegel-digitization/berlin.html" target="_blank" rel="noopener" data-i18n="open_map">Open map →</a>
+            <a class="code" href="https://github.com/ravidvr/mietspiegel-digitization" target="_blank" rel="noopener" data-i18n="code">Code ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="shot" href="https://ravidvr.github.io/mietspiegel-digitization/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="/img/mietspiegel.webp" width="800" height="500" alt=""></a>
+        <div class="body">
+          <div class="top"><h3><a href="https://ravidvr.github.io/mietspiegel-digitization/" target="_blank" rel="noopener">Mietspiegel Digitization</a></h3><span class="yr">2024–25</span></div>
+          <p data-i18n="p2">Rent indexes from 23 German cities, pulled out of government PDFs into one structured, validated dataset.</p>
+          <p class="stat" data-i18n="st2"><b>163-row official table</b> · 4 editions verified</p>
+          <ul class="tags" aria-label="Built with"><li>Python</li><li>SQL</li><li>LookML</li><li>pytest</li></ul>
+          <div class="acts">
+            <a class="go" href="https://ravidvr.github.io/mietspiegel-digitization/" target="_blank" rel="noopener" data-i18n="open_dash">Open dashboard →</a>
+            <a class="code" href="https://github.com/ravidvr/mietspiegel-digitization" target="_blank" rel="noopener" data-i18n="code">Code ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="shot" href="https://ravidvr.github.io/mietspiegel-digitization/marktbericht.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="/img/property-market.webp" width="800" height="500" alt="" loading="lazy"></a>
+        <div class="body">
+          <div class="top"><h3><a href="https://ravidvr.github.io/mietspiegel-digitization/marktbericht.html" target="_blank" rel="noopener">Berlin Property Market</a></h3><span class="yr">2026</span></div>
+          <p data-i18n="p7">What do flats really sell for? Prices from 20,789 notarised sales in 2024, district by district — no estimates, no asking prices.</p>
+          <p class="stat" data-i18n="st3"><b>20,789 sales</b> · 12 districts · 15 metrics</p>
+          <ul class="tags" aria-label="Built with"><li>Python</li><li>PDF extraction</li><li>Leaflet</li></ul>
+          <div class="acts">
+            <a class="go" href="https://ravidvr.github.io/mietspiegel-digitization/marktbericht.html" target="_blank" rel="noopener" data-i18n="open_dash">Open dashboard →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="shot" href="https://ravidvr.github.io/getlos/dashboard.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="/img/getlos.webp" width="800" height="500" alt="" loading="lazy"></a>
+        <div class="body">
+          <div class="top"><h3><a href="https://ravidvr.github.io/getlos/dashboard.html" target="_blank" rel="noopener">getlos — Cinema Map</a></h3><span class="yr">2024</span></div>
+          <p data-i18n="p3">Where is that film still playing? Every Berlin screening on one map — distance, walk time, and language filters.</p>
+          <p class="stat" data-i18n="st4"><b>~90 venues</b> · RSS &amp; iCal · updated daily</p>
+          <ul class="tags" aria-label="Built with"><li>TypeScript</li><li>Python</li><li>Leaflet</li><li>GitHub Actions</li></ul>
+          <div class="acts">
+            <a class="go" href="https://ravidvr.github.io/getlos/dashboard.html" target="_blank" rel="noopener" data-i18n="open_map">Open map →</a>
+            <a class="code" href="https://github.com/ravidvr/getlos" target="_blank" rel="noopener" data-i18n="code">Code ↗</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+  </main>
+
+  <footer>
+    <div>© 2026 Ravi Dronamraju · Berlin</div>
+    <div>Kiefholzstrasse 9, 12435 Berlin</div>
+  </footer>
+
+</div>
+
+<script>
+var I18N = {
+  en: {
+    skip:'Skip to content',
+    nav_ai:'AI projects',
+    s_ai:'AI projects',
+    nav_exp:'Experience',
+    nav_ct:'Contact',
+    work_sub:'Open-data tools I build and run in my own time.',
+    open_map:'Open map →',
+    open_dash:'Open dashboard →',
+    code:'Code ↗',
+    p1:'Is your rent legal? Enter an apartment and see the official benchmark against the asking price — block-by-block data from Immoscout24, the Zensus, and the official Mietspiegel.',
+    p2:'Rent indexes from 23 German cities, pulled out of government PDFs into one structured, validated dataset.',
+    p3:'Where is that film still playing? Every Berlin screening on one map — distance, walk time, and language filters.',
+    p7:'What do flats really sell for? Prices from 20,789 notarised sales in 2024, district by district — no estimates, no asking prices.',
+    st1:'<b>361 cells</b> · 12 districts · DE/EN',
+    st2:'<b>163-row official table</b> · 4 editions verified',
+    st3:'<b>20,789 sales</b> · 12 districts · 15 metrics',
+    st4:'<b>~90 venues</b> · RSS &amp; iCal · updated daily'
+  },
+  de: {
+    skip:'Zum Inhalt springen',
+    nav_ai:'KI-Projekte',
+    s_ai:'KI-Projekte',
+    nav_exp:'Werdegang',
+    nav_ct:'Kontakt',
+    work_sub:'Open-Data-Tools, die ich in meiner Freizeit baue und betreibe.',
+    open_map:'Karte öffnen →',
+    open_dash:'Dashboard öffnen →',
+    code:'Code ↗',
+    p1:'Ist deine Miete legal? Wohnung eingeben und die offizielle Vergleichsmiete gegen den Angebotspreis sehen — blockweise Daten aus Immoscout24, dem Zensus und dem offiziellen Mietspiegel.',
+    p2:'Mietspiegel aus 23 deutschen Städten, aus Behörden-PDFs in einen strukturierten, validierten Datensatz überführt.',
+    p3:'Wo läuft dieser Film noch? Jede Berliner Vorstellung auf einer Karte — Entfernung, Gehzeit und Sprachfilter.',
+    p7:'Was kosten Wohnungen wirklich? Preise aus 20.789 notariellen Verkäufen 2024, Bezirk für Bezirk — keine Schätzungen, keine Angebotspreise.',
+    st1:'<b>361 Rasterzellen</b> · 12 Bezirke · DE/EN',
+    st2:'<b>Offizielle Tabelle, 163 Zeilen</b> · 4 Ausgaben geprüft',
+    st3:'<b>20.789 Verkäufe</b> · 12 Bezirke · 15 Kennzahlen',
+    st4:'<b>~90 Kinos</b> · RSS &amp; iCal · täglich aktualisiert'
+  }
+};
+var cur='en';
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var t=I18N[cur]&&I18N[cur][el.getAttribute('data-i18n')];
+    if(t) el.innerHTML=t;
+  });
+  document.documentElement.lang=cur;
+  var en=document.getElementById('lang-en'), de=document.getElementById('lang-de');
+  if(en){ en.classList.toggle('active', cur==='en'); en.setAttribute('aria-pressed', cur==='en'); }
+  if(de){ de.classList.toggle('active', cur==='de'); de.setAttribute('aria-pressed', cur==='de'); }
+  try{ localStorage.setItem('lang',cur); }catch(e){}
+}
+function setLang(l){ cur=l; applyLang(); }
+try{ var s=localStorage.getItem('lang'); if(s==='en'||s==='de') cur=s; }catch(e){}
+if(document.readyState!=='loading') applyLang(); else document.addEventListener('DOMContentLoaded',applyLang);
+</script>
+</body>
+</html>
